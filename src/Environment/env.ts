@@ -1,1 +1,1 @@
-export const baseAPI = "https://shusha.minya.gov.eg:93/api" 
+export const baseAPI = "/api";

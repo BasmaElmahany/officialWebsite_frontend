@@ -1,8 +1,0 @@
-{
-  "/api": {
-    "target": "https://shusha.minya.gov.eg:93",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  }
-}

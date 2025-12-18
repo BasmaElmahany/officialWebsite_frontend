@@ -1,1 +1,67 @@
-<p>dashboard-layout works!</p>
+<div class="dashboard-wrapper"
+     [class.rtl]="i18n.isRTL"
+     [class.collapsed]="isCollapsed">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">M</div>
+      <span class="logo-text">
+        {{ 'APP.TITLE' | translate | async }}
+      </span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active">
+        <i class="fas fa-chart-pie"></i>
+        <span>{{ 'MENU.DASHBOARD' | translate | async }}</span>
+      </a>
+
+      <a class="nav-item">
+        <i class="fas fa-users"></i>
+        <span>{{ 'MENU.USERS' | translate | async }}</span>
+      </a>
+
+      <a class="nav-item">
+        <i class="fas fa-sliders-h"></i>
+        <span>{{ 'MENU.SETTINGS' | translate | async }}</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" (click)="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1>{{ 'PAGE.DASHBOARD' | translate | async }}</h1>
+      </div>
+
+      <div class="topbar-right">
+        <button class="lang-switch" (click)="toggleLang()">
+          {{ i18n.currentLang === 'en' ? 'AR' : 'EN' }}
+        </button>
+
+        <div class="avatar">A</div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="content-card fade-slide-up">
+        <h2>{{ 'DASHBOARD.WELCOME' | translate | async }}</h2>
+        <p>{{ 'DASHBOARD.DESCRIPTION' | translate | async }}</p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      © {{ 'FOOTER.RIGHTS' | translate | async }}
+    </footer>
+
+  </div>
+</div>

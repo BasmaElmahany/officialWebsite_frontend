@@ -1,0 +1,376 @@
+/* =====================================================
+   THEME VARIABLES
+===================================================== */
+$primary-color: #002D62;
+$accent-color: #D4AF37;
+$light-bg: #F0F4F8;
+$text-color: #333;
+$sidebar-expanded: 260px;
+$sidebar-collapsed: 80px;
+$transition: 0.3s ease;
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* =====================================================
+   ROOT WRAPPER
+===================================================== */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: $light-bg;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: $transition;
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+.sidebar {
+  width: $sidebar-expanded;
+  background: linear-gradient(180deg, $primary-color, darken($primary-color, 10%));
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: width $transition, transform $transition;
+  animation: slideIn 0.4s ease;
+}
+
+/* Collapsed Sidebar */
+.dashboard-wrapper.collapsed {
+
+  .sidebar {
+    width: $sidebar-collapsed;
+    padding: 20px 10px;
+    align-items: center;
+  }
+
+  .sidebar-logo {
+    justify-content: center;
+    margin-bottom: 30px;
+
+    .logo-text {
+      display: none;
+    }
+  }
+
+  .sidebar-nav {
+    width: 100%;
+    align-items: center;
+  }
+
+  .nav-item {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 14px;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 10px;
+
+    span {
+      display: none;
+    }
+
+    i {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    /* REMOVE desktop active styles */
+    &.active {
+      background: rgba($accent-color, 0.25);
+      box-shadow: none;
+    }
+
+    &:hover {
+      background: rgba($accent-color, 0.18);
+      transform: scale(1.08);
+    }
+  }
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.logo-circle {
+  width: 42px;
+  height: 42px;
+  background: $accent-color;
+  color: $primary-color;
+  border-radius: 50%;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: $transition;
+  position: relative;
+
+  i {
+    font-size: 16px;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+  }
+
+  &.active {
+    background: rgba($accent-color, 0.25);
+    box-shadow: inset 4px 0 0 $accent-color;
+  }
+}
+
+/* =====================================================
+   MAIN AREA
+===================================================== */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+.topbar {
+  height: 72px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+}
+
+.topbar-left,
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba($primary-color, 0.08);
+  }
+}
+
+
+.lang-switch {
+  border: 2px solid $accent-color;
+  background: transparent;
+  color: $primary-color;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: $accent-color;
+    color: #fff;
+  }
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: $accent-color;
+  color: $primary-color;
+  border-radius: 50%;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================================================
+   CONTENT
+===================================================== */
+.content {
+  flex: 1;
+  padding: 32px;
+}
+
+.content-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  animation: fadeSlideUp 0.6s ease both;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #666;
+  }
+}
+
+.fade-slide-up {
+  animation: fadeSlideUp 0.6s ease both;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+.footer {
+  height: 48px;
+  background: #fff;
+  text-align: center;
+  line-height: 48px;
+  font-size: 14px;
+  color: #777;
+  border-top: 1px solid #eee;
+}
+
+/* =====================================================
+   RTL SUPPORT (TRUE RTL)
+===================================================== */
+.dashboard-wrapper.rtl {
+  direction: rtl;
+
+  .nav-item:hover {
+    transform: translateX(-4px);
+  }
+
+  .nav-item.active {
+    background: rgba($accent-color, 0.25);
+    box-shadow: inset 4px 0 0 $accent-color;
+  }
+
+  .topbar-left {
+    flex-direction: row-reverse;
+  }
+
+  .content {
+    text-align: right;
+  }
+}
+.dashboard-wrapper.rtl.collapsed {
+
+  .nav-item.active {
+    box-shadow: none;
+  }
+
+  .nav-item:hover {
+    transform: scale(1.08);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE – TABLETS
+===================================================== */
+@media (max-width: 992px) {
+  .sidebar {
+    width: $sidebar-collapsed;
+  }
+
+  .logo-text,
+  .nav-item span {
+    display: none;
+  }
+
+  .content {
+    padding: 24px;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE – MOBILE
+===================================================== */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .content-card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+}
+
+/* =====================================================
+   LARGE SCREENS / 4K
+===================================================== */
+@media (min-width: 1600px) {
+  .content {
+    padding: 48px;
+  }
+
+  .content-card {
+    max-width: 1200px;
+  }
+}
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

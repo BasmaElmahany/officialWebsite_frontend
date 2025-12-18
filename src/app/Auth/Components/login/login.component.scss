@@ -11,9 +11,17 @@ $form-background: white;
 // --- Keyframes for Creative Animation ---
 
 @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 @keyframes fadeInUp {
@@ -21,6 +29,7 @@ $form-background: white;
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -93,6 +102,7 @@ $form-background: white;
         margin-bottom: 5px;
         font-weight: 700;
     }
+
     p {
         color: $secondary-text-color;
         font-size: 16px;
@@ -101,8 +111,98 @@ $form-background: white;
 }
 
 @keyframes logoSpin {
-    from { transform: rotate(0deg) scale(1); }
-    to { transform: rotate(3deg) scale(1.02); }
+    from {
+        transform: rotate(0deg) scale(1);
+    }
+
+    to {
+        transform: rotate(3deg) scale(1.02);
+    }
+}
+
+@keyframes floatY {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    50% {
+        transform: translateY(-30px) translateX(10px);
+    }
+
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}
+
+@keyframes floatSlow {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(40px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.floating-shapes {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-shapes .shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(1px);
+}
+
+/* Shape 1 – Gold Circle */
+.shape-1 {
+    width: 120px;
+    height: 120px;
+    background: $accent-color;
+    top: 10%;
+    left: 5%;
+    animation: floatY 12s ease-in-out infinite;
+}
+
+/* Shape 2 – Navy Circle */
+.shape-2 {
+    width: 180px;
+    height: 180px;
+    background: $primary-color;
+    bottom: 15%;
+    right: 10%;
+    animation: floatSlow 18s ease-in-out infinite;
+}
+
+/* Shape 3 – Gradient Orb */
+.shape-3 {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg,
+            $accent-color,
+            lighten($primary-color, 15%));
+    top: 50%;
+    right: 25%;
+    animation: floatY 14s ease-in-out infinite;
+}
+
+/* Shape 4 – Soft Light Accent */
+.shape-4 {
+    width: 60px;
+    height: 60px;
+    background: lighten($accent-color, 15%);
+    bottom: 40%;
+    left: 20%;
+    animation: floatSlow 20s ease-in-out infinite;
 }
 
 // --- Form Elements ---
@@ -111,9 +211,15 @@ $form-background: white;
     margin-bottom: 25px;
     opacity: 0; // Initial state for sequential animation
     animation: fadeInUp 0.6s ease-out forwards;
+
     // Sequential form field animation
-    &:nth-child(2) { animation-delay: 0.1s; }
-    &:nth-child(3) { animation-delay: 0.2s; }
+    &:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    &:nth-child(3) {
+        animation-delay: 0.2s;
+    }
 
     label {
         display: block;
@@ -172,6 +278,7 @@ $form-background: white;
         background-color: darken($primary-color, 5%);
         box-shadow: 0 4px 15px rgba($primary-color, 0.4);
     }
+
     &:active {
         transform: scale(0.98);
     }
@@ -228,16 +335,56 @@ $form-background: white;
 
 // --- Responsive Design Media Queries ---
 
-@media (max-width: 600px) {
-    .login-form {
-        margin: 20px; // Padding around the form on small screens
-        padding: 30px 20px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+@media (max-width: 480px) {
+    .login-page-wrapper {
+        padding: 10px;
+        align-items: flex-start;
     }
 
-    .logo-header .nefertiti-logo {
-        width: 60px;
-        height: 60px;
+    .login-container {
+        padding: 10px;
+    }
+
+    .login-form {
+        padding: 25px 16px;
+        border-radius: 12px;
+    }
+
+    .logo-header {
+        margin-bottom: 20px;
+
+        h2 {
+            font-size: 20px;
+        }
+
+        p {
+            font-size: 13px;
+        }
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group input {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .submit-button {
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    .register-section {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .login-form {
+        padding: 32px;
+        border-radius: 14px;
     }
 
     .logo-header h2 {
@@ -245,7 +392,63 @@ $form-background: white;
     }
 
     .submit-button {
-        padding: 14px;
         font-size: 16px;
+    }
+
+    .shape-1 {
+        width: 70px;
+        height: 70px;
+    }
+
+    .shape-2 {
+        width: 100px;
+        height: 100px;
+    }
+
+    .shape-3,
+    .shape-4 {
+        display: none; // تخفيف الحمل البصري
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .floating-shapes .shape {
+        animation: none;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .login-container {
+        max-width: 420px;
+    }
+
+    .login-form {
+        padding: 38px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .login-container {
+        max-width: 520px;
+    }
+
+    .login-form {
+        padding: 48px;
+    }
+
+    .logo-header h2 {
+        font-size: 32px;
+    }
+
+    .submit-button {
+        font-size: 20px;
+    }
+}
+
+@media (hover: none) {
+
+    .submit-button,
+    .register-button {
+        min-height: 48px;
     }
 }

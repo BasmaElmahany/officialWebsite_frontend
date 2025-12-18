@@ -1,1 +1,39 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="fullName">Full Name:</label>
+    <input id="fullName" formControlName="fullName" type="text" />
+    <div *ngIf="submitted && f['fullName'].errors" class="error">
+      <span *ngIf="f['fullName'].errors?.['required']">Full Name is required.</span>
+      <span *ngIf="f['fullName'].errors?.['minlength']">Full Name must be at least 3 characters.</span>
+    </div>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" />
+    <div *ngIf="submitted && f['email'].errors" class="error">
+      <span *ngIf="f['email'].errors?.['required']">Email is required.</span>
+      <span *ngIf="f['email'].errors?.['email']">Invalid email format.</span>
+    </div>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" formControlName="password" type="password" />
+    <div *ngIf="submitted && f['password'].errors" class="error">
+      <span *ngIf="f['password'].errors?.['required']">Password is required.</span>
+      <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters.</span>
+    </div>
+  </div>
+  <div>
+    <label for="role">Role:</label>
+    <select id="role" formControlName="role">
+      <option value="" disabled selected>Select a role</option>
+      <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+    </select>
+    <div *ngIf="submitted && f['role'].errors" class="error">
+      <span *ngIf="f['role'].errors?.['required']">Role is required.</span>
+    </div>
+  </div>
+  <button type="submit">Register</button>
+  <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</form>

@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
   {
-    path: 'login',
+    path: 'auth',
     loadChildren: () =>
       import('./Auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'register',
+    path: 'dashboard',
     loadChildren: () =>
-      import('./Auth/auth.module').then(m => m.AuthModule)
+      import('./Layout/layout.module').then(m => m.LayoutModule)
   }
 ];
+

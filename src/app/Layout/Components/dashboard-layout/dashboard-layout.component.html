@@ -1,6 +1,4 @@
-<div class="dashboard-wrapper"
-     [class.rtl]="i18n.isRTL"
-     [class.collapsed]="isCollapsed">
+<div class="dashboard-wrapper" [class.rtl]="i18n.isRTL" [class.collapsed]="isCollapsed">
 
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -52,10 +50,7 @@
 
     <!-- Content -->
     <main class="content">
-      <div class="content-card fade-slide-up">
-        <h2>{{ 'DASHBOARD.WELCOME' | translate | async }}</h2>
-        <p>{{ 'DASHBOARD.DESCRIPTION' | translate | async }}</p>
-      </div>
+      <router-outlet></router-outlet>
     </main>
 
     <!-- Footer -->

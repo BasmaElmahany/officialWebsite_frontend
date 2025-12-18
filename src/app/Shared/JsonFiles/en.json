@@ -6,5 +6,13 @@
   "PAGE.DASHBOARD": "Dashboard",
   "DASHBOARD.WELCOME": "Welcome Back",
   "DASHBOARD.DESCRIPTION": "Here is an overview of your system",
-  "FOOTER.RIGHTS": "All rights reserved"
+  "FOOTER.RIGHTS": "All rights reserved",
+  "MENU.CENTERS": "Centers",
+  "CENTERS.CREATE_TITLE": "Create New Center",
+  "CENTERS.NAME_AR": "Center Name (Arabic)",
+  "CENTERS.NAME_EN": "Center Name (English)",
+  "COMMON.CREATE": "Create",
+  "COMMON.SAVING": "Saving...",
+  "VALIDATION.REQUIRED": "This field is required",
+   "COMMON.CANCEL": "Cancel"
 }

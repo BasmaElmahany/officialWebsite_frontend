@@ -6,5 +6,15 @@
   "PAGE.DASHBOARD": "لوحة التحكم",
   "DASHBOARD.WELCOME": "مرحباً بعودتك",
   "DASHBOARD.DESCRIPTION": "نظرة عامة على النظام",
-  "FOOTER.RIGHTS": "جميع الحقوق محفوظة"
+  "FOOTER.RIGHTS": "جميع الحقوق محفوظة",
+  "MENU.CENTERS" : "المراكز",
+  "CENTERS.CREATE_TITLE": "إضافة مركز جديد",
+  "CENTERS.NAME_AR": "اسم المركز (عربي)",
+  "CENTERS.NAME_EN": "اسم المركز (إنجليزي)",
+
+  "COMMON.CREATE": "حفظ",
+  "COMMON.SAVING": "جاري الحفظ...",
+
+  "VALIDATION.REQUIRED": "هذا الحقل مطلوب",
+   "COMMON.CANCEL": "إلغاء"
 }

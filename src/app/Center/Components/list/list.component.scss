@@ -1,0 +1,210 @@
+/* =====================================================
+   THEME VARIABLES
+===================================================== */
+$primary-color: #002D62;
+$accent-color: #D4AF37;
+$text-color: #333;
+
+$radius-lg: 18px;
+$radius-md: 14px;
+$transition-base: 0.3s ease;
+
+/* =====================================================
+   ROOT
+===================================================== */
+.center-table-wrapper {
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+/* =====================================================
+   HEADER (RTL SAFE)
+===================================================== */
+.table-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: $primary-color;
+  letter-spacing: 0.3px;
+  text-align: start; // 🔥 automatically left/right
+}
+
+/* =====================================================
+   SEARCH FIELD (LOGICAL MARGIN)
+===================================================== */
+.search-field {
+  width: 280px;
+  margin-inline-start: auto; // 🔥 works in LTR + RTL
+  background: #fff;
+  border-radius: $radius-md;
+
+  .mat-mdc-form-field-flex {
+    border-radius: $radius-md;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    padding: 0 12px;
+  }
+
+  mat-icon {
+    color: $accent-color;
+    font-size: 20px;
+  }
+
+  input {
+    font-size: 14px;
+    text-align: start;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 3px rgba($accent-color, 0.25);
+    transition: $transition-base;
+  }
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+.center-table {
+  width: 100%;
+  background: #fff;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.mat-header-row {
+  height: 56px;
+  background: linear-gradient(
+    90deg,
+    $primary-color,
+    darken($primary-color, 10%)
+  );
+}
+
+.mat-header-cell {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: start; // 🔥 RTL aware
+}
+
+/* =====================================================
+   ROWS
+===================================================== */
+.clickable-row {
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    background: rgba($accent-color, 0.08);
+  }
+}
+
+.mat-cell {
+  font-size: 14px;
+  color: $text-color;
+  text-align: start;
+}
+
+.location-icon {
+  color: $accent-color;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* Add Button */
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0 16px;
+  height: 40px;
+
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
+/* RTL */
+.table-header.rtl {
+  .header-actions {
+    margin-left: 0;
+    margin-right: auto;
+    flex-direction: row-reverse;
+  }
+
+  .add-btn {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.actions-cell {
+  display: flex;
+  gap: 6px;
+
+  button {
+    transition: transform .2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+
+/* =====================================================
+   PAGINATOR
+===================================================== */
+.mat-paginator {
+  background: #fff;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 0 0 $radius-lg $radius-lg;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-field {
+    width: 100%;
+    margin-inline-start: 0;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+}

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/auth/register']);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get f() { return this.loginForm.controls; }
 
@@ -35,16 +35,21 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.errorMessage = '';
     this.successMessage = '';
+
     if (this.loginForm.invalid) {
       return;
     }
-    console.log('Login Data:', this.loginForm.value);
+
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        if (res && res.message) {
+        // لو الـ API بيرجع رسالة خطأ
+        if (res && res.message && res.message !== 'Login successful') {
           this.errorMessage = res.message;
         } else {
           this.successMessage = 'Login successful!';
+
+          // ✅ redirect to dashboard
+          this.router.navigate(['/dashboard']);
         }
       },
       error: (err) => {
@@ -52,4 +57,5 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
 }

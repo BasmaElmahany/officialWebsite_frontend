@@ -6,6 +6,11 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('./Auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./Layout/layout.module').then(m => m.LayoutModule)
   }
 ];
 

@@ -1,0 +1,82 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+  <!-- ===== Header ===== -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">add_location_alt</mat-icon>
+      <h2>
+        {{ 'DIRECTORATE.CREATE_TITLE' | translate | async }}
+      </h2>
+    </div>
+
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- ===== Content ===== -->
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="dialog-content">
+
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>language</mat-icon>
+      <mat-label>
+        {{ 'DIRECTORATE.NAME_AR' | translate | async }}
+      </mat-label>
+      <input matInput formControlName="nameAr">
+      <mat-error *ngIf="form.get('nameAr')?.invalid">
+        {{ 'VALIDATION.REQUIRED' | translate | async }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>public</mat-icon>
+      <mat-label>
+        {{ 'DIRECTORATE.NAME_EN' | translate | async }}
+      </mat-label>
+      <input matInput formControlName="nameEn">
+      <mat-error *ngIf="form.get('nameEn')?.invalid">
+        {{ 'VALIDATION.REQUIRED' | translate | async }}
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <!-- ===== Actions ===== -->
+  <div class="dialog-actions">
+
+    <button
+      mat-stroked-button
+      color="primary"
+      type="button"
+      (click)="close()">
+
+      {{ 'COMMON.CANCEL' | translate | async }}
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="submit()"
+      [disabled]="loading">
+
+      <mat-icon *ngIf="!loading">check</mat-icon>
+      <mat-progress-spinner
+        *ngIf="loading"
+        diameter="20"
+        mode="indeterminate">
+      </mat-progress-spinner>
+
+      <span>
+        {{ loading
+          ? ('COMMON.SAVING' | translate | async)
+          : ('COMMON.CREATE' | translate | async)
+        }}
+      </span>
+
+    </button>
+
+  </div>
+</div>

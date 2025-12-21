@@ -5,13 +5,14 @@ import { DashboardLayoutComponent } from './Components/dashboard-layout/dashboar
 import { CenterModule } from '../Center/center.module';
 import {  RouterModule } from '@angular/router';
 import { A11yModule } from "@angular/cdk/a11y";
+import { DirectorateModule } from '../Directorate/directorate.module';
 
 
 
 @NgModule({
   declarations: [DashboardLayoutComponent],
   imports: [
-    CommonModule, SharedTranslationsModule, CenterModule, RouterModule,
+    CommonModule, SharedTranslationsModule, CenterModule, RouterModule,DirectorateModule,
     A11yModule
 ],
   exports: [DashboardLayoutComponent]

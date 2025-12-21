@@ -19,6 +19,16 @@ export const routes: Routes = [
         path: 'centers',
         loadChildren: () =>
           import('./Center/center.module').then(m => m.CenterModule)
+      },
+       {
+        path: 'agencies',
+        loadChildren: () =>
+          import('./Agency/agency.module').then(m => m.AgencyModule)
+      },
+       {
+        path: 'directorates',
+        loadChildren: () =>
+          import('./Directorate/directorate.module').then(m => m.DirectorateModule)
       }
     ]
   }

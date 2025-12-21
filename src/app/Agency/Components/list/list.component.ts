@@ -1,16 +1,17 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Center } from '../../Models/center';
-import { CenterService } from '../../Services/center.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { Agency } from '../../Models/agency';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { AgncyService } from '../../Services/agncy.service';
 import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
+import { I18nService } from '../../../Shared/Services/i18n.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateComponent } from '../create/create.component';
+import { Center } from '../../../Center/Models/center';
 import { EditComponent } from '../edit/edit.component';
-import { DeleteComponent } from '../delete/delete.component';
 import { DetailsComponent } from '../details/details.component';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-list',
@@ -21,20 +22,20 @@ import { DetailsComponent } from '../details/details.component';
 export class ListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['icon', 'name', 'actions'];
-  dataSource = new MatTableDataSource<Center>();
+  dataSource = new MatTableDataSource<Agency>();
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private centerService: CenterService,
+    private agncyService: AgncyService,
     private router: Router,
     public i18n: I18nService, private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.centerService.getAllCenters().subscribe({
+    this.agncyService.getAllAgencies().subscribe({
       next: data => {
         this.dataSource.data = data;
         this.loading = false;
@@ -71,10 +72,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  getCenterName(center: Center): string {
+  getAgncyName(agency: Agency): string {
     return this.i18n.currentLang === 'ar'
-      ? center.nameAr
-      : center.nameEn;
+      ? agency.nameAr
+      : agency.nameEn;
   }
 
 
@@ -95,7 +96,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   reloadCenters(): void {
     this.loading = true;
-    this.centerService.getAllCenters().subscribe({
+    this.agncyService.getAllAgencies().subscribe({
       next: data => {
         this.dataSource.data = data;
         this.loading = false;
@@ -104,10 +105,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openEdit(center: Center): void {
+  openEdit(agency: Agency): void {
     const ref = this.dialog.open(EditComponent, {
       width: '420px',
-      data: center,
+      data: agency  ,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
@@ -115,19 +116,19 @@ export class ListComponent implements OnInit, AfterViewInit {
       if (ok) this.reloadCenters();
     });
   }
-  openDetails(center: Center): void {
+  openDetails(agency: Agency): void {
     this.dialog.open(DetailsComponent, {
       width: '520px',
-      data: { id: center.id } as any,
+      data: { id: agency.id } as any,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr',
       autoFocus: false
     });
   }
 
-  openDelete(center: Center): void {
+  openDelete(agency: Agency): void {
     const ref = this.dialog.open(DeleteComponent, {
       width: '380px',
-      data: center,
+      data: agency,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
@@ -135,5 +136,4 @@ export class ListComponent implements OnInit, AfterViewInit {
       if (ok) this.reloadCenters();
     });
   }
-
 }

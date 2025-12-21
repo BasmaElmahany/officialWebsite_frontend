@@ -7,16 +7,24 @@
   "DASHBOARD.WELCOME": "مرحباً بعودتك",
   "DASHBOARD.DESCRIPTION": "نظرة عامة على النظام",
   "FOOTER.RIGHTS": "جميع الحقوق محفوظة",
-  "MENU.CENTERS" : "المراكز",
+  "MENU.CENTERS": "المراكز",
   "CENTERS.CREATE_TITLE": "إضافة مركز جديد",
   "CENTERS.NAME_AR": "اسم المركز (عربي)",
   "CENTERS.NAME_EN": "اسم المركز (إنجليزي)",
-
   "COMMON.CREATE": "حفظ",
   "COMMON.SAVING": "جاري الحفظ...",
-
   "VALIDATION.REQUIRED": "هذا الحقل مطلوب",
-   "COMMON.CANCEL": "إلغاء",
-    "COMMON.SAVE" : "حفظ",
-     "CENTERS.EDIT_TITLE": "تعديل المركز"
+  "COMMON.CANCEL": "إلغاء",
+  "COMMON.SAVE": "حفظ",
+  "CENTERS.EDIT_TITLE": "تعديل المركز",
+  "MENU.DIRECTORATES": "المديريات",
+  "MENU.AGENCIES": "الهيئات الحكومية",
+  "DIRECTORATE.CREATE_TITLE": "إضافة مديريه جديدة",
+  "DIRECTORATE.NAME_EN": "اسم المديرية (إنجليزي)",
+  "DIRECTORATE.NAME_AR": "اسم المديرية (عربي)",
+  "DIRECTORATE.EDIT_TITLE": "تعديل المديرية",
+  "AGENCIES.CREATE_TITLE": "إضافة هيئة حكومية جديدة",
+  "AGENCIES.NAME_AR": "اسم الهيئة (عربي)",
+  "AGENCIES.NAME_EN": "اسم الهيئة (إنجليزي)",
+  "AGENCIES.EDIT_TITLE": "تعديل الهيئة الحكومية"
 }

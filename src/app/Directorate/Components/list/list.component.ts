@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Center } from '../../Models/center';
-import { CenterService } from '../../Services/center.service';
+import { Directorate } from '../../Models/directorate';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
+import { I18nService } from '../../../Shared/Services/i18n.service';
 import { MatDialog } from '@angular/material/dialog';
+import { DirectorateService } from '../../Services/directorate.service';
+import { Router } from '@angular/router';
 import { CreateComponent } from '../create/create.component';
 import { EditComponent } from '../edit/edit.component';
-import { DeleteComponent } from '../delete/delete.component';
 import { DetailsComponent } from '../details/details.component';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-list',
@@ -21,20 +21,20 @@ import { DetailsComponent } from '../details/details.component';
 export class ListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['icon', 'name', 'actions'];
-  dataSource = new MatTableDataSource<Center>();
+  dataSource = new MatTableDataSource<Directorate>();
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private centerService: CenterService,
+    private directorateService: DirectorateService,
     private router: Router,
     public i18n: I18nService, private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.centerService.getAllCenters().subscribe({
+    this.directorateService.getAllDirectorates().subscribe({
       next: data => {
         this.dataSource.data = data;
         this.loading = false;
@@ -53,10 +53,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     };
 
     // 🔎 Filtering based on language
-    this.dataSource.filterPredicate = (center, filter) => {
+    this.dataSource.filterPredicate = ( directorate, filter) => {
       const value = this.i18n.currentLang === 'ar'
-        ? center.nameAr
-        : center.nameEn;
+        ? directorate.nameAr
+        : directorate.nameEn;
       return value.toLowerCase().includes(filter);
     };
   }
@@ -71,7 +71,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  getCenterName(center: Center): string {
+  getCenterName(center: Directorate): string {
     return this.i18n.currentLang === 'ar'
       ? center.nameAr
       : center.nameEn;
@@ -95,7 +95,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   reloadCenters(): void {
     this.loading = true;
-    this.centerService.getAllCenters().subscribe({
+    this.directorateService.getAllDirectorates().subscribe({
       next: data => {
         this.dataSource.data = data;
         this.loading = false;
@@ -104,10 +104,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openEdit(center: Center): void {
+  openEdit(directorate: Directorate): void {
     const ref = this.dialog.open(EditComponent, {
       width: '420px',
-      data: center,
+      data: directorate,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
@@ -115,25 +115,24 @@ export class ListComponent implements OnInit, AfterViewInit {
       if (ok) this.reloadCenters();
     });
   }
-  openDetails(center: Center): void {
+  openDetails(directorate: Directorate): void {
     this.dialog.open(DetailsComponent, {
       width: '520px',
-      data: { id: center.id } as any,
+      data: { id: directorate.id } as any,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr',
       autoFocus: false
     });
   }
 
-  openDelete(center: Center): void {
+  openDelete(directorate: Directorate): void {
     const ref = this.dialog.open(DeleteComponent, {
       width: '380px',
-      data: center,
+      data: directorate,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
     ref.afterClosed().subscribe(ok => {
       if (ok) this.reloadCenters();
     });
-  }
-
+  } 
 }

@@ -16,7 +16,7 @@ export const routes: Routes = [
     component: DashboardLayoutComponent, 
     children: [
       {
-        path: '',
+        path: 'centers',
         loadChildren: () =>
           import('./Center/center.module').then(m => m.CenterModule)
       }

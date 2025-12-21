@@ -14,5 +14,8 @@
   "COMMON.CREATE": "Create",
   "COMMON.SAVING": "Saving...",
   "VALIDATION.REQUIRED": "This field is required",
-   "COMMON.CANCEL": "Cancel"
+   "COMMON.CANCEL": "Cancel",
+   "COMMON.SAVE" : "Save",
+   "CENTERS.EDIT_TITLE": "Edit Center"
+
 }

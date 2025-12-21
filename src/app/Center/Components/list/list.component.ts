@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateComponent } from '../create/create.component';
 import { EditComponent } from '../edit/edit.component';
 import { DeleteComponent } from '../delete/delete.component';
+import { DetailsComponent } from '../details/details.component';
 
 @Component({
   selector: 'app-list',
@@ -76,9 +77,6 @@ displayedColumns: string[] = ['icon', 'name', 'actions'];
       : center.nameEn;
   }
 
-  goToDetails(center: Center): void {
-    this.router.navigate(['/dashboard/centers', center.id]);
-  }
 
  goToCreate(): void {
   const dialogRef = this.dialog.open(CreateComponent, {
@@ -117,6 +115,19 @@ openEdit(center: Center): void {
     if (ok) this.reloadCenters();
   });
 }
+
+openDetails(center: Center): void {
+  const ref = this.dialog.open(DetailsComponent, {
+    width: '420px',
+    data: center,
+    direction: this.i18n.isRTL ? 'rtl' : 'ltr'
+  });
+
+  ref.afterClosed().subscribe(ok => {
+    if (ok) this.reloadCenters();
+  });
+}
+
 
 openDelete(center: Center): void {
   const ref = this.dialog.open(DeleteComponent, {

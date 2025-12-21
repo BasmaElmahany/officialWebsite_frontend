@@ -17,10 +17,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { DetailsComponent } from './Components/details/details.component';
 
 @NgModule({
-  declarations: [ListComponent,EditComponent,CreateComponent,DeleteComponent],
+  declarations: [ListComponent,EditComponent,CreateComponent,DeleteComponent,DetailsComponent],
   imports: [
     CommonModule , SharedTranslationsModule, HttpClientModule,CenterRouteModule,
      MatTableModule,
@@ -28,7 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatProgressSpinnerModule,
      MatSortModule,
     MatInputModule,
-    MatFormFieldModule,MatPaginatorModule, ReactiveFormsModule,MatDialogModule
+    MatFormFieldModule,MatPaginatorModule, ReactiveFormsModule,MatDialogModule,MatTooltipModule,
+    MatMenuModule
 
   ],
   exports : [ListComponent] 

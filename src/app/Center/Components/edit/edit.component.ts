@@ -11,8 +11,7 @@ import { Center, CreateCenter } from '../../Models/center';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
-export class EditComponent {
-  loading = false;
+export class EditComponent { loading = false;
 
   form = this.fb.group({
     nameAr: ['', Validators.required],
@@ -26,30 +25,30 @@ export class EditComponent {
     @Inject(MAT_DIALOG_DATA) public center: Center,
     public i18n: I18nService
   ) {
-    this.form.patchValue(center);
+    this.form.patchValue({
+      nameAr: center.nameAr ?? '',
+      nameEn: center.nameEn ?? ''
+    });
   }
 
-submit(): void {
-  if (this.form.invalid) return;
+  submit(): void {
+    if (this.form.invalid || this.loading) return;
 
-  this.loading = true;
+    this.loading = true;
 
-  const payload: CreateCenter = {
-    nameAr: this.form.get('nameAr')!.value!,
-    nameEn: this.form.get('nameEn')!.value!
-  };
+    const payload: CreateCenter = {
+      nameAr: this.form.get('nameAr')!.value!,
+      nameEn: this.form.get('nameEn')!.value!
+    };
 
-  this.centerService
-    .updateCenter(this.center.id, payload)
-    .subscribe({
+    this.centerService.updateCenter(this.center.id, payload).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);
       },
       error: () => (this.loading = false)
     });
-}
-
+  }
 
   close(): void {
     this.dialogRef.close(false);

@@ -8,9 +8,9 @@ import { baseAPI } from '../../../Environment/env';
   providedIn: 'root'
 })
 export class CenterService {
- private readonly apiUrl = `${baseAPI}/Centers`;
+  private readonly apiUrl = `${baseAPI}/Centers`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllCenters(): Observable<Center[]> {
     return this.http
@@ -18,15 +18,15 @@ export class CenterService {
       .pipe(map(res => res.data));
   }
 
-  getbyId(id: number): Observable<Center> {
+  getbyId(id: string): Observable<Center> {
     return this.http
       .get<ApiResponse<Center>>(`${this.apiUrl}/${id}`)
       .pipe(map(res => res.data));
   }
-     
 
 
-   // 🔹 Create
+
+  // 🔹 Create
   createCenter(payload: CreateCenter): Observable<Center> {
     return this.http
       .post<ApiResponse<Center>>(this.apiUrl, payload)
@@ -57,4 +57,3 @@ export class CenterService {
       .pipe(map(res => res.data));
   }
 }
- 

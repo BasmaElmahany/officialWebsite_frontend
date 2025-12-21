@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>
+  {{ i18n.currentLang === 'ar' ? 'تعديل شركة' : 'Edit Company' }}
+</h2>
+<form [formGroup]="form" (ngSubmit)="submit()" class="company-edit-form">
+  <mat-form-field appearance="fill">
+    <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الشركة (عربي)' : 'Company Name (Arabic)' }}</mat-label>
+    <input matInput formControlName="nameAr" required />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الشركة (انجليزي)' : 'Company Name (English)' }}</mat-label>
+    <input matInput formControlName="nameEn" required />
+  </mat-form-field>
+  <div class="actions">
+    <button mat-button type="button" (click)="close()">
+      {{ i18n.currentLang === 'ar' ? 'إلغاء' : 'Cancel' }}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">
+      {{ i18n.currentLang === 'ar' ? 'حفظ' : 'Save' }}
+    </button>
+  </div>
+  <mat-progress-spinner *ngIf="loading" diameter="32" mode="indeterminate"></mat-progress-spinner>
+</form>

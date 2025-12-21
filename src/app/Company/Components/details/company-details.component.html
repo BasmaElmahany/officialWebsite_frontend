@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>
+  {{ i18n.currentLang === 'ar' ? 'تفاصيل الشركة' : 'Company Details' }}
+</h2>
+<div *ngIf="loading" class="loading">
+  <mat-progress-spinner diameter="32" mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+<div *ngIf="company && !loading">
+  <div class="detail-row">
+    <span class="label">ID:</span>
+    <span class="value">{{ company.id }}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{ i18n.currentLang === 'ar' ? 'الاسم (عربي)' : 'Name (Arabic)' }}:</span>
+    <span class="value">{{ company.nameAr }}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{ i18n.currentLang === 'ar' ? 'الاسم (انجليزي)' : 'Name (English)' }}:</span>
+    <span class="value">{{ company.nameEn }}</span>
+  </div>
+</div>
+<div class="actions">
+  <button mat-button (click)="close()">{{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}</button>
+</div>

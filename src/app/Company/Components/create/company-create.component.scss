@@ -1,0 +1,65 @@
+$primary: #002D62;
+$accent: #D4AF37;
+$bg: #f7f9fc;
+$radius: 18px;
+
+.create-dialog {
+	width: 100%;
+	max-width: 420px;
+	background: #fff;
+	border-radius: $radius;
+	overflow: hidden;
+	animation: fadeUp 0.35s ease both;
+
+	&.rtl {
+		direction: rtl;
+		text-align: right;
+	}
+}
+
+.dialog-header {
+	background: linear-gradient(
+		135deg,
+		$primary,
+		darken($primary, 10%)
+	);
+	color: #fff;
+	padding: 16px 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.title-wrap {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		h2 {
+			font-size: 18px;
+			font-weight: 700;
+			margin: 0;
+		}
+	}
+
+	.title-icon {
+		color: $accent;
+	}
+
+	.close-btn {
+		color: #fff;
+	}
+}
+
+.dialog-content {
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.dialog-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	padding: 16px 24px 24px;
+}

@@ -10,7 +10,12 @@
   "MENU.CENTERS" : "المراكز",
   "CENTERS.CREATE_TITLE": "إضافة مركز جديد",
   "CENTERS.NAME_AR": "اسم المركز (عربي)",
-  "CENTERS.NAME_EN": "اسم المركز (إنجليزي)",
+	"CENTERS.NAME_EN": "اسم المركز (إنجليزي)",
+
+  "MENU.COMPANIES": "الشركات",
+  "COMPANIES.CREATE_TITLE": "إضافة شركة جديدة",
+  "COMPANIES.NAME_AR": "اسم الشركة (عربي)",
+  "COMPANIES.NAME_EN": "اسم الشركة (إنجليزي)",
 
   "COMMON.CREATE": "حفظ",
   "COMMON.SAVING": "جاري الحفظ...",
@@ -19,4 +24,6 @@
    "COMMON.CANCEL": "إلغاء",
     "COMMON.SAVE" : "حفظ",
      "CENTERS.EDIT_TITLE": "تعديل المركز"
+    
+
 }

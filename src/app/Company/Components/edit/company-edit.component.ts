@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CompanyService } from '../../Services/company.service';
-import { Company } from '../../Models/company';
+import { Company, CreateCompany } from '../../Models/company';
 import { I18nService } from '../../../Shared/Services/i18n.service';
 
 @Component({
@@ -11,36 +11,45 @@ import { I18nService } from '../../../Shared/Services/i18n.service';
   styleUrls: ['./company-edit.component.scss']
 })
 export class CompanyEditComponent {
-  form: FormGroup;
-  loading = false;
-
-  constructor(
-    private fb: FormBuilder,
-    private companyService: CompanyService,
-    private dialogRef: MatDialogRef<CompanyEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Company,
-    public i18n: I18nService
-  ) {
-    this.form = this.fb.group({
-      nameAr: [data.nameAr, Validators.required],
-      nameEn: [data.nameEn, Validators.required]
+    loading = false;
+  form = this.fb.group({
+      nameAr: ['', Validators.required],
+      nameEn: ['', Validators.required]
     });
-  }
-
-  submit(): void {
-    if (this.form.invalid) return;
-    this.loading = true;
-    const payload: Company = { ...this.data, ...this.form.value };
-    this.companyService.updateCompany(payload).subscribe({
-      next: () => {
-        this.loading = false;
-        this.dialogRef.close(true);
-      },
-      error: () => this.loading = false
-    });
-  }
-
-  close(): void {
-    this.dialogRef.close(false);
-  }
+  
+    constructor(
+      private fb: FormBuilder,
+      private companyService: CompanyService,
+      private dialogRef: MatDialogRef<CompanyEditComponent>,
+      @Inject(MAT_DIALOG_DATA) public company: Company,
+      public i18n: I18nService
+    ) {
+      this.form.patchValue({
+        nameAr: company.nameAr ?? '',
+        nameEn: company.nameEn ?? ''
+      });
+    }
+  
+    submit(): void {
+      if (this.form.invalid || this.loading) return;
+  
+      this.loading = true;
+  
+      const payload: CreateCompany = {
+        nameAr: this.form.get('nameAr')!.value!,
+        nameEn: this.form.get('nameEn')!.value!
+      };
+  
+      this.companyService.updateCompany(this.company .id, payload).subscribe({
+        next: () => {
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        error: () => (this.loading = false)
+      });
+    }
+  
+    close(): void {
+      this.dialogRef.close(false);
+    }
 }

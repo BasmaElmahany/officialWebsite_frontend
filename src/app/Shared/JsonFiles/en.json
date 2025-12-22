@@ -16,6 +16,9 @@
   "VALIDATION.REQUIRED": "This field is required",
    "COMMON.CANCEL": "Cancel",
    "COMMON.SAVE" : "Save",
-   "CENTERS.EDIT_TITLE": "Edit Center"
+   "CENTERS.EDIT_TITLE": "Edit Center",
+   "COMPANY.EDIT_TITLE": "Edit Company",
+   "COMPANY.NAME_AR": "Company Name (Arabic)",
+   "COMPANY.NAME_EN": "Company Name (English)"
 
 }

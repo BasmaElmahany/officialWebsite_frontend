@@ -1,0 +1,23 @@
+<div class="details-dialog">
+  <h2>تفاصيل القيادة</h2>
+  <div *ngIf="loading" class="loading">جاري التحميل...</div>
+  <div *ngIf="error && !loading" class="error">{{ error }}</div>
+  <div *ngIf="leader && !loading">
+    <p><strong>الاسم بالعربي:</strong> <span *ngIf="leader?.nameAr; else noData">{{ leader?.nameAr }}</span></p>
+    <p><strong>الاسم بالإنجليزي:</strong> <span *ngIf="leader?.nameEn; else noData">{{ leader?.nameEn }}</span></p>
+    <p><strong>المنصب بالعربي:</strong> <span *ngIf="leader?.positionAr; else noData">{{ leader?.positionAr }}</span></p>
+    <p><strong>المنصب بالإنجليزي:</strong> <span *ngIf="leader?.positionEn; else noData">{{ leader?.positionEn }}</span></p>
+    <p><strong>من:</strong> <span *ngIf="leader?.startDate; else noData">{{ leader?.startDate }}</span></p>
+    <p><strong>إلى:</strong> <span *ngIf="leader?.endDate; else noData">{{ leader?.endDate }}</span></p>
+    <p><strong>انتهت:</strong> <span *ngIf="leader?.isEnded !== undefined">{{ leader?.isEnded ? 'نعم' : 'لا' }}</span></p>
+    <p><strong>السيرة الذاتية بالعربي:</strong> <span *ngIf="leader?.cvDataAr; else noData">{{ leader?.cvDataAr }}</span></p>
+    <p><strong>السيرة الذاتية بالإنجليزي:</strong> <span *ngIf="leader?.cvDataEn; else noData">{{ leader?.cvDataEn }}</span></p>
+    <div *ngIf="leader?.photoUrl">
+      <img [src]="getPhotoUrl(leader?.photoUrl)" alt="صورة القيادة" class="leader-photo" />
+    </div>
+    <ng-template #noData><span style="color:#888">لا يوجد بيانات</span></ng-template>
+  </div>
+  <div class="actions">
+    <button mat-button (click)="close()">إغلاق</button>
+  </div>
+</div>

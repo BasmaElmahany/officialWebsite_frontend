@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { baseAPI } from '../../../Environment/env';
-import { Company } from '../Models/company';
+import { ApiResponse, Company, CreateCompany } from '../Models/company';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,14 @@ export class CompanyService {
     return this.http.post<any>(this.baseUrl, company);
   }
 
-  updateCompany(company: Company): Observable<any> {
-    // Assumes company.id is present and required by backend
-    return this.http.put<any>(`${this.baseUrl}/${company.id}`, company);
-  }
+    updateCompany(
+      id: string,
+      payload: CreateCompany
+    ): Observable<Company> {
+      return this.http
+        .put<ApiResponse<Company>>(`${this.baseUrl}/${id}`, payload)
+        .pipe(map(res => res.data));
+    }
 
   getCompanyById(id: string): Observable<Company> {
     return this.http.get<Company>(`${this.baseUrl}/${id}`);

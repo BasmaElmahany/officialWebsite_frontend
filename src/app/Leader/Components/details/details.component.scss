@@ -1,0 +1,30 @@
+.details-dialog {
+  min-width: 350px;
+  max-width: 500px;
+  padding: 24px;
+}
+.details-dialog h2 {
+  margin-bottom: 16px;
+  text-align: center;
+}
+.loading {
+  text-align: center;
+  color: #888;
+}
+.error {
+  color: #c00;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.leader-photo {
+  display: block;
+  max-width: 120px;
+  max-height: 120px;
+  margin: 16px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0002;
+}
+.actions {
+  text-align: center;
+  margin-top: 24px;
+}

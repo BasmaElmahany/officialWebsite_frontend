@@ -3,3 +3,17 @@ export interface Company {
   nameAr: string;
   nameEn: string;
 }
+
+
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
+
+
+export interface CreateCompany {
+   nameAr : string ;
+    nameEn : string ;
+}

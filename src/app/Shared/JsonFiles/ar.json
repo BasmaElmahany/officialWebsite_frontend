@@ -23,7 +23,9 @@
   "VALIDATION.REQUIRED": "هذا الحقل مطلوب",
    "COMMON.CANCEL": "إلغاء",
     "COMMON.SAVE" : "حفظ",
-     "CENTERS.EDIT_TITLE": "تعديل المركز"
-    
+     "CENTERS.EDIT_TITLE": "تعديل المركز",
+      "COMPANY.EDIT_TITLE": "تعديل الشركة",
+        "COMPANY.NAME_AR": "اسم الشركة (عربي)",
+   "COMPANY.NAME_EN": "اسم الشركة (إنجليزي)"
 
 }

@@ -59,6 +59,7 @@
         <span class="nav-badge">3</span>
       </a>
 
+
       <a
         class="nav-item"
         [routerLink]="['/dashboard', 'companies']"
@@ -67,6 +68,16 @@
       >
         <span class="nav-icon"><i class="fas fa-building"></i></span>
         <span class="nav-text">{{ 'MENU.COMPANIES' | translate | async }}</span>
+      </a>
+
+      <a
+        class="nav-item"
+        [routerLink]="['/dashboard', 'leaders', 'list']"
+        routerLinkActive="active"
+        [attr.title]="( 'MENU.LEADERS' | translate | async )"
+      >
+        <span class="nav-icon"><i class="fas fa-user-tie"></i></span>
+        <span class="nav-text">{{ i18n.currentLang === 'ar' ? 'القيادة' : 'Leaders' }}</span>
       </a>
 
       <a

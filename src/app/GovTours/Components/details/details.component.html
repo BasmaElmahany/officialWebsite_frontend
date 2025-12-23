@@ -1,0 +1,95 @@
+<div class="details-dialog" [class.rtl]="i18n.isRTL">
+
+  <!-- ===== Header ===== -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">info</mat-icon>
+      <h2>
+        {{ 'GOV_TOURS.DETAILS_TITLE' | translate | async }}
+      </h2>
+    </div>
+
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- ===== Content ===== -->
+  <div class="dialog-content">
+
+    <!-- Loading -->
+    <div class="loading-box" *ngIf="loading">
+      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
+      <span>{{ 'GOV_TOURS.LOADING' | translate | async }}</span>
+    </div>
+
+    <!-- Content -->
+    <ng-container *ngIf="!loading && tour">
+
+      <!-- Date -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>event</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.DATE' | translate | async }}</mat-label>
+        <input matInput [value]="tour.date | date" readonly />
+      </mat-form-field>
+
+      <!-- Title AR -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>title</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.TITLE_AR' | translate | async }}</mat-label>
+        <input matInput [value]="tour.titleAr" readonly />
+      </mat-form-field>
+
+      <!-- Title EN -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>title</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.TITLE_EN' | translate | async }}</mat-label>
+        <input matInput [value]="tour.titleEn" readonly />
+      </mat-form-field>
+
+      <!-- Article AR -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.ARTICLE_AR' | translate | async }}</mat-label>
+        <textarea matInput rows="3" [value]="tour.articleAr" readonly></textarea>
+      </mat-form-field>
+
+      <!-- Article EN -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.ARTICLE_EN' | translate | async }}</mat-label>
+        <textarea matInput rows="3" [value]="tour.articleEn" readonly></textarea>
+      </mat-form-field>
+
+      <!-- Images -->
+      <div class="images-section" *ngIf="tour.photos?.length">
+        <h4 class="images-title">
+          {{ 'GOV_TOURS.IMAGES' | translate | async }}
+        </h4>
+
+        <div class="images-grid">
+          <img
+            *ngFor="let img of tour.photos"
+            [src]="'https://shusha.minya.gov.eg:93' + img.photoUrl"
+            alt="tour image">
+        </div>
+      </div>
+
+    </ng-container>
+
+    <!-- Error -->
+    <div class="error-box" *ngIf="!loading && !tour">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ 'GOV_TOURS.ERROR' | translate | async }}</span>
+    </div>
+
+  </div>
+
+  <!-- ===== Actions ===== -->
+  <div class="dialog-actions">
+    <button mat-stroked-button color="primary" type="button" (click)="close()">
+      {{ 'GOV_TOURS.CLOSE' | translate | async }}
+    </button>
+  </div>
+
+</div>

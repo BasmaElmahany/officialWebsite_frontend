@@ -30,6 +30,12 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./Directorate/directorate.module').then(m => m.DirectorateModule)
       }
+      ,
+       {
+        path: 'govtours',
+        loadChildren: () =>
+          import('./GovTours/govtours.module').then(m => m.GovtoursModule)
+      }
     ]
   }
 ];

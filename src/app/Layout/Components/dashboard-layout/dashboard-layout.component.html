@@ -63,6 +63,12 @@
           <span class="nav-badge">3</span>
         </a>
 
+          <a class="nav-item" [routerLink]="['/dashboard', 'govtours']" routerLinkActive="active"
+          [attr.title]="( 'MENU.GOVTOURS' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-person"></i></span>
+          <span class="nav-text">{{ 'MENU.GOVTOURS' | translate | async }}</span>
+          <span class="nav-badge">3</span>
+        </a>
         <a class="nav-item" [routerLink]="['/dashboard', 'settings']" routerLinkActive="active"
           [attr.title]="( 'MENU.SETTINGS' | translate | async )">
           <span class="nav-icon"><i class="fas fa-sliders-h"></i></span>

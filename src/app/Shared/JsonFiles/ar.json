@@ -26,5 +26,21 @@
   "AGENCIES.CREATE_TITLE": "إضافة هيئة حكومية جديدة",
   "AGENCIES.NAME_AR": "اسم الهيئة (عربي)",
   "AGENCIES.NAME_EN": "اسم الهيئة (إنجليزي)",
-  "AGENCIES.EDIT_TITLE": "تعديل الهيئة الحكومية"
+  "AGENCIES.EDIT_TITLE": "تعديل الهيئة الحكومية",
+  "MENU.GOVTOURS": " جولات  المحافظ",
+  "GOV_TOURS.DATE": "التاريخ",
+  "GOV_TOURS.TITLE_AR": "العنوان بالعربية",
+  "GOV_TOURS.TITLE_EN": "العنوان بالإنجليزية",
+  "GOV_TOURS.ARTICLE_AR": "المقال بالعربية",
+  "GOV_TOURS.ARTICLE_EN": "المقال بالإنجليزية",
+  "GOV_TOURS.UPLOAD_IMAGES": "إضافة صور",
+  "GOV_TOURS.CREATE": "حفظ",
+  "GOV_TOURS.CANCEL": "إلغاء",
+  "GOV_TOURS.SAVING": "جاري الحفظ...",
+  "GOV_TOURS.DETAILS_TITLE": "تفاصيل جولة المحافظ",
+  "GOV_TOURS.IMAGES": "الصور",
+  "GOV_TOURS.LOADING": "جاري التحميل...",
+  "GOV_TOURS.ERROR": "تعذر تحميل التفاصيل",
+  "GOV_TOURS.CLOSE": "إغلاق",
+  "GOV_TOURS.UPDATE": "تحديث"
 }

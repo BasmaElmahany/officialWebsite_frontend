@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
+import { GetGovTours } from '../../Models/govTours';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Directorate } from '../../Models/directorate';
-import { DirectorateService } from '../../Services/directorate.service';
+import { GovtoursService } from '../../Services/govtours.service';
 
 @Component({
   selector: 'app-details',
@@ -11,13 +11,13 @@ import { DirectorateService } from '../../Services/directorate.service';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent {
-  loading = true;
-  directorate?: Directorate;
+ loading = true;
+  tour?: GetGovTours;
 
   constructor(
-    private directorateService: DirectorateService,
+    private govToursService: GovtoursService,
     private dialogRef: MatDialogRef<DetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Directorate,
+    @Inject(MAT_DIALOG_DATA) public data: GetGovTours,
     public i18n: I18nService
   ) {
     // ✅ Always re-fetch by id to ensure you have the latest/full entity
@@ -25,18 +25,18 @@ export class DetailsComponent {
 
     if (!id) {
       this.loading = false;
-      this.directorate = data;
+      this.tour = data;
       return;
     }
 
-    this.directorateService.getbyId(id).subscribe({
+    this.govToursService.getById(id).subscribe({
       next: (c) => {
-        this.directorate = c;
+        this.tour = c.data;
         this.loading = false;
       },
       error: () => {
         // fallback to passed data if API fails
-        this.directorate = data;
+        this.tour = data;
         this.loading = false;
       }
     });

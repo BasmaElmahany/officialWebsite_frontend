@@ -1,3 +1,4 @@
+
 <div class="center-dialog" [class.rtl]="i18n?.isRTL">
   <!-- ===== Header ===== -->
   <div class="dialog-header">
@@ -11,89 +12,88 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <div class="dialog-content">
-    <!-- ===== Content ===== -->
-    <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content">
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>language</mat-icon>
-        <mat-label>{{ 'LEADER.NAME_AR' | translate | async }}</mat-label>
-        <input matInput formControlName="nameAr">
-        <mat-error *ngIf="form.get('nameAr')?.touched && form.get('nameAr')?.invalid">
-          {{ 'VALIDATION.REQUIRED' | translate | async }}
-        </mat-error>
-      </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>public</mat-icon>
-        <mat-label>{{ 'LEADER.NAME_EN' | translate | async }}</mat-label>
-        <input matInput formControlName="nameEn">
-        <mat-error *ngIf="form.get('nameEn')?.touched && form.get('nameEn')?.invalid">
-          {{ 'VALIDATION.REQUIRED' | translate | async }}
-        </mat-error>
-      </mat-form-field>
+  <!-- ===== Content ===== -->
+  <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content">
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>language</mat-icon>
+      <mat-label>{{ 'LEADER.NAME_AR' | translate | async }}</mat-label>
+      <input matInput formControlName="nameAr">
+      <mat-error *ngIf="form.get('nameAr')?.touched && form.get('nameAr')?.invalid">
+        {{ 'VALIDATION.REQUIRED' | translate | async }}
+      </mat-error>
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>work</mat-icon>
-        <mat-label>{{ 'LEADER.POSITION_AR' | translate | async }}</mat-label>
-        <input matInput formControlName="positionAr">
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>public</mat-icon>
+      <mat-label>{{ 'LEADER.NAME_EN' | translate | async }}</mat-label>
+      <input matInput formControlName="nameEn">
+      <mat-error *ngIf="form.get('nameEn')?.touched && form.get('nameEn')?.invalid">
+        {{ 'VALIDATION.REQUIRED' | translate | async }}
+      </mat-error>
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>work_outline</mat-icon>
-        <mat-label>{{ 'LEADER.POSITION_EN' | translate | async }}</mat-label>
-        <input matInput formControlName="positionEn">
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>work</mat-icon>
+      <mat-label>{{ 'LEADER.POSITION_AR' | translate | async }}</mat-label>
+      <input matInput formControlName="positionAr">
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>date_range</mat-icon>
-        <mat-label>{{ 'LEADER.START_DATE' | translate | async }}</mat-label>
-        <input matInput formControlName="startDate" type="date">
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>work_outline</mat-icon>
+      <mat-label>{{ 'LEADER.POSITION_EN' | translate | async }}</mat-label>
+      <input matInput formControlName="positionEn">
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>event</mat-icon>
-        <mat-label>{{ 'LEADER.END_DATE' | translate | async }}</mat-label>
-        <input matInput formControlName="endDate" type="date">
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>date_range</mat-icon>
+      <mat-label>{{ 'LEADER.START_DATE' | translate | async }}</mat-label>
+      <input matInput formControlName="startDate" type="date">
+    </mat-form-field>
 
-      <mat-checkbox formControlName="isEnded">{{ 'LEADER.IS_ENDED' | translate | async }}</mat-checkbox>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>event</mat-icon>
+      <mat-label>{{ 'LEADER.END_DATE' | translate | async }}</mat-label>
+      <input matInput formControlName="endDate" type="date">
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>description</mat-icon>
-        <mat-label>{{ 'LEADER.CV_AR' | translate | async }}</mat-label>
-        <textarea matInput formControlName="cvDataAr"></textarea>
-      </mat-form-field>
+    <mat-checkbox formControlName="isEnded">{{ 'LEADER.IS_ENDED' | translate | async }}</mat-checkbox>
 
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>description</mat-icon>
-        <mat-label>{{ 'LEADER.CV_EN' | translate | async }}</mat-label>
-        <textarea matInput formControlName="cvDataEn"></textarea>
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>description</mat-icon>
+      <mat-label>{{ 'LEADER.CV_AR' | translate | async }}</mat-label>
+      <textarea matInput formControlName="cvDataAr"></textarea>
+    </mat-form-field>
 
-      <div class="photo-upload-box">
-        <label class="photo-upload-label">
-          <mat-icon>image</mat-icon>
-          <span>{{ 'LEADER.PHOTO_URL' | translate | async }}</span>
-          <input type="file" accept="image/*" (change)="onPhotoSelected($event)" hidden>
-        </label>
-        <div class="photo-preview-wrapper" *ngIf="photoPreview">
-          <img [src]="photoPreview" alt="صورة القيادة" class="leader-photo" />
-        </div>
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>description</mat-icon>
+      <mat-label>{{ 'LEADER.CV_EN' | translate | async }}</mat-label>
+      <textarea matInput formControlName="cvDataEn"></textarea>
+    </mat-form-field>
+
+    <div class="photo-upload-box">
+      <label class="photo-upload-label">
+        <mat-icon>image</mat-icon>
+        <span>{{ 'LEADER.PHOTO_URL' | translate | async }}</span>
+        <input type="file" accept="image/*" (change)="onPhotoSelected($event)" hidden>
+      </label>
+      <div class="photo-preview-wrapper" *ngIf="photoPreview">
+        <img [src]="photoPreview" alt="صورة القيادة" class="leader-photo" />
       </div>
-    </form>
-
-    <!-- ===== Actions ===== -->
-    <div class="dialog-actions always-bottom">
-      <button mat-stroked-button color="primary" type="button" (click)="close()">
-        {{ 'COMMON.CANCEL' | translate | async }}
-      </button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading" (click)="submit()">
-        <mat-icon *ngIf="!loading">save</mat-icon>
-        <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
-        <span>
-          {{ loading ? ('COMMON.SAVING' | translate | async) : ('COMMON.SAVE' | translate | async) }}
-        </span>
-      </button>
     </div>
+  </form>
+
+  <!-- ===== Actions ===== -->
+  <div class="dialog-actions always-bottom">
+    <button mat-stroked-button color="primary" type="button" (click)="close()">
+      {{ 'COMMON.CANCEL' | translate | async }}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading" (click)="submit()">
+      <mat-icon *ngIf="!loading">save</mat-icon>
+      <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      <span>
+        {{ loading ? ('COMMON.SAVING' | translate | async) : ('COMMON.SAVE' | translate | async) }}
+      </span>
+    </button>
   </div>
 </div>

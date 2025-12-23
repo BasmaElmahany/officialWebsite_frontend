@@ -1,81 +1,103 @@
-<div class="create-dialog">
-  <!-- ===== Header ===== -->
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
   <div class="dialog-header">
     <div class="title-wrap">
       <mat-icon class="title-icon">person_add</mat-icon>
-      <h2>إضافة قيادة جديدة</h2>
+      <h2>
+        {{ i18n.currentLang === 'ar' ? 'إضافة قيادة جديدة' : 'Add New Leader' }}
+      </h2>
     </div>
     <button mat-icon-button class="close-btn" (click)="close()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
-  <!-- ===== Content ===== -->
   <form [formGroup]="leaderForm" (ngSubmit)="submit()" enctype="multipart/form-data" class="dialog-content">
+    
     <div *ngIf="error" class="error">{{ error }}</div>
     <div *ngIf="success" class="success">{{ success }}</div>
 
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>الاسم بالعربي</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ 'LEADER.NAME_AR' | translate | async }}</mat-label>
         <input matInput formControlName="nameAr" required>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
-        <mat-label>الاسم بالإنجليزي</mat-label>
+        <mat-icon matPrefix>public</mat-icon>
+        <mat-label>{{ 'LEADER.NAME_EN' | translate | async }}</mat-label>
         <input matInput formControlName="nameEn" required>
       </mat-form-field>
     </div>
 
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>السيرة الذاتية بالعربي</mat-label>
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ 'LEADER.CV_AR' | translate | async }}</mat-label>
         <textarea matInput formControlName="cvDataAr" required></textarea>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
-        <mat-label>السيرة الذاتية بالإنجليزي</mat-label>
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ 'LEADER.CV_EN' | translate | async }}</mat-label>
         <textarea matInput formControlName="cvDataEn" required></textarea>
       </mat-form-field>
     </div>
 
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>المنصب بالعربي</mat-label>
+        <mat-icon matPrefix>work_outline</mat-icon>
+        <mat-label>{{ 'LEADER.POSITION_AR' | translate | async }}</mat-label>
         <input matInput formControlName="positionAr" required>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
-        <mat-label>المنصب بالإنجليزي</mat-label>
+        <mat-icon matPrefix>work_outline</mat-icon>
+        <mat-label>{{ 'LEADER.POSITION_EN' | translate | async }}</mat-label>
         <input matInput formControlName="positionEn" required>
       </mat-form-field>
     </div>
 
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>تاريخ البداية</mat-label>
+        <mat-icon matPrefix>event_available</mat-icon>
+        <mat-label>{{ 'LEADER.START_DATE' | translate | async }}</mat-label>
         <input matInput type="date" formControlName="startDate" required>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
-        <mat-label>تاريخ النهاية</mat-label>
+        <mat-icon matPrefix>event_available</mat-icon>
+        <mat-label>{{ 'LEADER.END_DATE' | translate | async }}</mat-label>
         <input matInput type="date" formControlName="endDate" required>
       </mat-form-field>
     </div>
 
     <div class="row">
-      <div style="flex:1">
-        <label>الصورة الشخصية</label>
-        <input type="file" (change)="onFileChange($event)">
+      <div style="flex:1" class="upload-box" (click)="fileInput.click()">
+        <mat-icon>photo_camera</mat-icon>
+        <span>{{ 'LEADER.PHOTO_URL' | translate | async }}</span>
+        <input #fileInput type="file" hidden (change)="onFileChange($event)">
       </div>
-      <mat-checkbox formControlName="isEnded" style="align-self:center;">منتهي؟</mat-checkbox>
+      
+      <mat-checkbox formControlName="isEnded" style="align-self:center;">
+        {{ 'LEADER.IS_ENDED' | translate | async }}
+      </mat-checkbox>
     </div>
   </form>
 
-  <!-- ===== Actions ===== -->
   <div class="dialog-actions">
     <button mat-stroked-button color="primary" type="button" (click)="close()">
-      إلغاء
+      {{ 'COMMON.CANCEL' | translate | async }}
     </button>
+
     <button mat-raised-button color="primary" type="submit" [disabled]="leaderForm.invalid || loading" (click)="submit()">
-      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-      <span *ngIf="!loading">حفظ</span>
+      <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      
+      <span *ngIf="!loading">
+        {{ 'COMMON.SAVE' | translate | async }}
+      </span>
     </button>
   </div>
+
 </div>

@@ -93,3 +93,43 @@ mat-form-field, .dialog-content > div, mat-checkbox {
 .success {
   color: #388e3c;
 }
+mat-icon {
+      font-size: 20px;
+    }
+     mat-form-field {
+    width: 100%;
+    mat-icon {
+      color: $accent;
+    }
+  }
+   .title-icon {
+    color: $accent;
+  }
+ mat-icon {
+      color: $accent;
+    }
+    .upload-box {
+  border: 2px dashed $accent;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.25s ease;
+  color: $primary;
+
+  mat-icon {
+    font-size: 32px;
+    margin-bottom: 6px;
+    color: $accent;
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  &:hover {
+    background: rgba(212, 175, 55, 0.08);
+    transform: translateY(-1px);
+  }
+}

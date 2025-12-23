@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LeaderService } from '../../Services/leader.service';
 import { LeaderCreateRequest } from '../../Services/leader-create-request.model';
+import { I18nService } from '../../../Shared/Services/i18n.service';
 
 @Component({
   selector: 'app-leader-create',
@@ -16,6 +17,7 @@ export class CreateComponent {
   success = '';
 
   constructor(
+    public i18n: I18nService,
     private fb: FormBuilder,
     private leaderService: LeaderService,
     private dialogRef: MatDialogRef<CreateComponent>

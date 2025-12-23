@@ -52,6 +52,7 @@ $transition-base: 0.3s ease;
   color: $primary-color;
   letter-spacing: 0.3px;
   text-align: start; // 🔥 automatically left/right
+  margin-right: 20px;
 }
 
 /* =====================================================
@@ -319,9 +320,7 @@ $transition-base: 0.3s ease;
     margin-inline-start: 0;
   }
 
-  .page-title {
-    font-size: 18px;
-  }
+
   .center-table {
     min-width: 520px; // خليها أقل لو تحب
   }

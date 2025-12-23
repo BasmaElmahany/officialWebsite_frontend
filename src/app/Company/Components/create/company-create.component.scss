@@ -63,3 +63,14 @@ $radius: 18px;
 	gap: 12px;
 	padding: 16px 24px 24px;
 }
+.title-icon {
+    color: $accent;
+  }
+    mat-icon { color: #d32f2f; }
+  span { font-weight: 800; color: rgba(211, 47, 47, 0.9); }
+ mat-form-field {
+    width: 100%;
+    mat-icon {
+      color: $accent;
+    }
+  }

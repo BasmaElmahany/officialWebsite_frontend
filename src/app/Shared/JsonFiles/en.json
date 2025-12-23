@@ -57,5 +57,6 @@
   "GOV_TOURS.LOADING": "Loading...",
   "GOV_TOURS.ERROR": "Failed to load details",
   "GOV_TOURS.CLOSE": "Close",
-  "GOV_TOURS.UPDATE": "Update"
+  "GOV_TOURS.UPDATE": "Update",
+   "COMPANIES.CREATE_TITLE":"add new Company"
 }

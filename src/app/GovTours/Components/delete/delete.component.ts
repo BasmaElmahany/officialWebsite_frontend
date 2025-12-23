@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { CenterService } from '../../Services/center.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GovtoursService } from '../../Services/govtours.service';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Center } from '../../Models/center';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { GetGovTours } from '../../Models/govTours';
 
 @Component({
   selector: 'app-delete',
@@ -11,19 +11,20 @@ import { Center } from '../../Models/center';
   styleUrl: '../create/create.component.scss'
 })
 export class DeleteComponent {
+
   loading = false;
 
   constructor(
-    private centerService: CenterService,
+    private govToursService: GovtoursService,
+    public i18n: I18nService,
     private dialogRef: MatDialogRef<DeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public center: Center,
-    public i18n: I18nService
+    @Inject(MAT_DIALOG_DATA) public tour: GetGovTours,
   ) { }
 
   confirm(): void {
     this.loading = true;
 
-    this.centerService.deleteCenter(this.center.id).subscribe({
+    this.govToursService.delete(this.tour.id).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);

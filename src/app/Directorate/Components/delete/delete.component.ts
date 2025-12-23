@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { CenterService } from '../../Services/center.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DirectorateService } from '../../Services/directorate.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Directorate } from '../../Models/directorate';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Center } from '../../Models/center';
 
 @Component({
   selector: 'app-delete',
@@ -11,19 +11,20 @@ import { Center } from '../../Models/center';
   styleUrl: '../create/create.component.scss'
 })
 export class DeleteComponent {
-  loading = false;
+
+loading = false;
 
   constructor(
-    private centerService: CenterService,
+    private DirectorateService: DirectorateService,
     private dialogRef: MatDialogRef<DeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public center: Center,
+    @Inject(MAT_DIALOG_DATA) public directorate: Directorate,
     public i18n: I18nService
-  ) { }
+  ) {}
 
   confirm(): void {
     this.loading = true;
 
-    this.centerService.deleteCenter(this.center.id).subscribe({
+    this.DirectorateService.deleteDirectorate(this.directorate.id).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);

@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { CenterService } from '../../Services/center.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AgncyService } from '../../Services/agncy.service';
+import { Agency } from '../../Models/agency';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Center } from '../../Models/center';
 
 @Component({
   selector: 'app-delete',
@@ -14,16 +14,16 @@ export class DeleteComponent {
   loading = false;
 
   constructor(
-    private centerService: CenterService,
+    private agencyService: AgncyService,
     private dialogRef: MatDialogRef<DeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public center: Center,
+    @Inject(MAT_DIALOG_DATA) public agency: Agency,
     public i18n: I18nService
   ) { }
 
   confirm(): void {
     this.loading = true;
 
-    this.centerService.deleteCenter(this.center.id).subscribe({
+    this.agencyService.deleteAgency(this.agency.id).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);

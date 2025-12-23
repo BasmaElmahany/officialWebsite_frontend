@@ -1,10 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
-import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Center } from '../../Models/center';
-import { CenterService } from '../../Services/center.service';
+import { AgncyService } from '../../Services/agncy.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { I18nService } from '../../../Shared/Services/i18n.service';
+import { Agency } from '../../Models/agency';
 
 @Component({
   selector: 'app-details',
@@ -13,13 +11,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent {
-  loading = true;
-  center?: Center;
+loading = true;
+  agency?: Agency;
 
   constructor(
-    private centerService: CenterService,
+    private agencyService: AgncyService,
     private dialogRef: MatDialogRef<DetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Center,
+    @Inject(MAT_DIALOG_DATA) public data: Agency ,
     public i18n: I18nService
   ) {
     // ✅ Always re-fetch by id to ensure you have the latest/full entity
@@ -27,18 +25,18 @@ export class DetailsComponent {
 
     if (!id) {
       this.loading = false;
-      this.center = data;
+      this.agency = data;
       return;
     }
 
-    this.centerService.getbyId(id).subscribe({
+    this.agencyService.getbyId(id).subscribe({
       next: (c) => {
-        this.center = c;
+        this.agency = c;
         this.loading = false;
       },
       error: () => {
         // fallback to passed data if API fails
-        this.center = data;
+        this.agency = data;
         this.loading = false;
       }
     });
@@ -47,5 +45,4 @@ export class DetailsComponent {
   close(): void {
     this.dialogRef.close(false);
   }
-
 }

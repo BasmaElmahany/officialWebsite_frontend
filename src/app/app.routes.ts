@@ -29,6 +29,21 @@ export const routes: Routes = [
         path: 'leaders',
         loadChildren: () =>
           import('../app/Leader/Services/leader.module').then(m => m.LeaderModule)
+       {
+        path: 'agencies',
+        loadChildren: () =>
+          import('./Agency/agency.module').then(m => m.AgencyModule)
+      },
+       {
+        path: 'directorates',
+        loadChildren: () =>
+          import('./Directorate/directorate.module').then(m => m.DirectorateModule)
+      }
+      ,
+       {
+        path: 'govtours',
+        loadChildren: () =>
+          import('./GovTours/govtours.module').then(m => m.GovtoursModule)
       }
     ]
   }

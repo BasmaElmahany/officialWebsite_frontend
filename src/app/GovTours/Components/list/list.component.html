@@ -1,0 +1,118 @@
+<div class="center-table-wrapper">
+
+  <!-- Header -->
+  <div class="table-header" [class.rtl]="i18n.isRTL">
+
+    <h2 class="page-title">
+      {{ i18n.currentLang === 'ar' ? 'جولات المحافظ' : 'Governor Tours' }}
+    </h2>
+
+    <div class="header-actions">
+      <mat-form-field appearance="fill" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput
+               type="text"
+               (keyup)="applyFilter($event)"
+               [placeholder]="i18n.currentLang === 'ar'
+                 ? 'بحث عن جولة'
+                 : 'Search Tour'">
+      </mat-form-field>
+
+      <!-- Add Center Button -->
+      <button mat-raised-button color="primary" class="add-btn" (click)="openCreate()">
+
+        <mat-icon>add</mat-icon>
+        <span>
+          {{ i18n.currentLang === 'ar'
+          ? 'إضافة جولة'
+          : 'Add Tour' }}
+        
+        </span>
+
+      </button>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div class="skeleton" *ngIf="loading">
+    <div class="row" *ngFor="let _ of [1,2,3,4]"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-scroll" *ngIf="!loading">
+    <table mat-table matSort [dataSource]="dataSource" class="center-table">
+
+      <!-- Image -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let tour">
+          <img
+            [src]="getCoverImage(tour)"
+            class="tour-image"
+            alt="tour image">
+        </td>
+      </ng-container>
+
+      <!-- Title -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ i18n.currentLang === 'ar' ? 'العنوان' : 'Title' }}
+        </th>
+        <td mat-cell *matCellDef="let tour">
+          {{ getTitle(tour) }}
+        </td>
+      </ng-container>
+
+      <!-- Date -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ i18n.currentLang === 'ar' ? 'التاريخ' : 'Date' }}
+        </th>
+        <td mat-cell *matCellDef="let tour">
+          {{ tour.date | date }}
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ i18n.currentLang === 'ar' ? 'إجراءات' : 'Actions' }}
+        </th>
+        <td mat-cell *matCellDef="let tour" class="actions-cell">
+          <div class="actions-wrapper">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu" class="actions-menu">
+              <button mat-menu-item (click)="openEdit(tour)">
+                <mat-icon class="edit-icon">edit</mat-icon>
+                <span>{{ i18n.currentLang === 'ar' ? 'تعديل' : 'Edit' }}</span>
+              </button>
+
+              <button mat-menu-item (click)="openDetails(tour)">
+                <mat-icon>info</mat-icon>
+                <span>{{ i18n.currentLang === 'ar' ? 'تفاصيل' : 'Details' }}</span>
+              </button>
+
+              <button mat-menu-item (click)="openDelete(tour)">
+                <mat-icon class="delete-icon">delete</mat-icon>
+                <span>{{ i18n.currentLang === 'ar' ? 'حذف' : 'Delete' }}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    </table>
+  </div>
+
+  <mat-paginator [pageSize]="5"
+                 [pageSizeOptions]="[5,10,20]"
+                 showFirstLastButtons>
+  </mat-paginator>
+
+</div>

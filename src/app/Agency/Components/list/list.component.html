@@ -1,0 +1,107 @@
+<div class="center-table-wrapper">
+
+    <!-- ================= Header ================= -->
+    <div class="table-header" [class.rtl]="i18n.isRTL">
+
+        <h2 class="page-title">
+            {{ 'MENU.AGENCIES' | translate | async }}
+        </h2>
+
+        <div class="header-actions">
+
+            <!-- Search -->
+            <mat-form-field appearance="fill" class="search-field">
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput type="text" (keyup)="applyFilter($event)" [placeholder]="i18n.currentLang === 'ar'
+            ? 'بحث عن هيئة'
+            : 'Search agency'">
+            </mat-form-field>
+
+            <!-- Add Agency Button -->
+            <button mat-raised-button color="primary" class="add-btn" (click)="goToCreate()">
+
+                <mat-icon>add</mat-icon>
+                <span>
+                    {{ i18n.currentLang === 'ar'
+                    ? 'إضافة هيئة'
+                    : 'Add Agency' }}
+                </span>
+
+            </button>
+
+        </div>
+    </div>
+
+    <!-- ================= Skeleton Loader ================= -->
+    <div class="skeleton" *ngIf="loading">
+        <div class="row" *ngFor="let _ of [1,2,3,4]"></div>
+    </div>
+
+    <!-- ================= Table ================= -->
+    <!-- ================= Table ================= -->
+<div class="table-scroll" *ngIf="!loading">
+  <table mat-table matSort [dataSource]="dataSource" class="center-table">
+
+    <!-- Icon Column -->
+    <ng-container matColumnDef="icon">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let center">
+        <mat-icon class="location-icon">account_balance</mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ i18n.currentLang === 'ar' ? 'اسم الهيئة' : 'Agency Name' }}
+      </th>
+      <td mat-cell *matCellDef="let center" class="name-cell">
+        <span class="name-text">{{ getAgncyName(center) }}</span>
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ i18n.currentLang === 'ar' ? 'إجراءات' : 'Actions' }}
+      </th>
+      <td mat-cell *matCellDef="let center" class="actions-cell">
+        <div class="actions-wrapper">
+          <button
+            mat-icon-button
+            class="more-btn"
+            [matMenuTriggerFor]="actionsMenu"
+            (click)="$event.stopPropagation()">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #actionsMenu="matMenu" class="actions-menu">
+            <button mat-menu-item (click)="openEdit(center); $event.stopPropagation()">
+              <mat-icon class="edit-icon">edit</mat-icon>
+              <span>{{ i18n.currentLang === 'ar' ? 'تعديل' : 'Edit' }}</span>
+            </button>
+             <button mat-menu-item (click)="openDetails(center); $event.stopPropagation()">
+              <mat-icon class="details-icon">info</mat-icon>
+              <span>{{ i18n.currentLang === 'ar' ? 'تفاصيل' : 'Details' }}</span>
+            </button>
+
+            <button mat-menu-item (click)="openDelete(center); $event.stopPropagation()">
+              <mat-icon class="delete-icon">delete</mat-icon>
+              <span>{{ i18n.currentLang === 'ar' ? 'حذف' : 'Delete' }}</span>
+            </button>
+          </mat-menu>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row" ></tr>
+  </table>
+</div>
+
+
+    <!-- ================= Footer ================= -->
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

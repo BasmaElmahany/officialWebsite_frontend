@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { CenterService } from '../../Services/center.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Agency, CreateAgency } from '../../Models/agency';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AgncyService } from '../../Services/agncy.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Center, CreateCenter } from '../../Models/center';
 
 @Component({
   selector: 'app-edit',
@@ -12,7 +12,7 @@ import { Center, CreateCenter } from '../../Models/center';
   styleUrl: './edit.component.scss'
 })
 export class EditComponent {
-    loading = false;
+ loading = false;
 
   form = this.fb.group({
     nameAr: ['', Validators.required],
@@ -21,14 +21,14 @@ export class EditComponent {
 
   constructor(
     private fb: FormBuilder,
-    private centerService: CenterService,
+    private agncyService: AgncyService,
     private dialogRef: MatDialogRef<EditComponent>,
-    @Inject(MAT_DIALOG_DATA) public center: Center,
+    @Inject(MAT_DIALOG_DATA) public agency: Agency,
     public i18n: I18nService
   ) {
     this.form.patchValue({
-      nameAr: center.nameAr ?? '',
-      nameEn: center.nameEn ?? ''
+      nameAr: agency.nameAr ?? '',
+      nameEn: agency.nameEn ?? ''
     });
   }
 
@@ -37,12 +37,12 @@ export class EditComponent {
 
     this.loading = true;
 
-    const payload: CreateCenter = {
+    const payload: CreateAgency = {
       nameAr: this.form.get('nameAr')!.value!,
       nameEn: this.form.get('nameEn')!.value!
     };
 
-    this.centerService.updateCenter(this.center.id, payload).subscribe({
+    this.agncyService.updateAgency(this.agency.id, payload).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);
@@ -54,5 +54,4 @@ export class EditComponent {
   close(): void {
     this.dialogRef.close(false);
   }
-
 }

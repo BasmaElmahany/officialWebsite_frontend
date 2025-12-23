@@ -1,41 +1,81 @@
 <div class="dashboard-wrapper" [class.rtl]="i18n.isRTL" [class.collapsed]="isCollapsed">
 
- <!-- Sidebar (White / Pro UI) -->
-<aside class="sidebar">
-  <!-- Header -->
-  <div class="sidebar-header">
-    <div class="brand">
-      <div class="brand-mark">M</div>
-      <div class="brand-text">
-        <div class="brand-title">{{ 'APP.TITLE' | translate | async }}</div>
-        <div class="brand-subtitle">
-          {{ i18n.currentLang === 'ar' ? 'لوحة التحكم' : 'Admin Dashboard' }}
+  <!-- Sidebar (White / Pro UI) -->
+  <aside class="sidebar">
+    <!-- Header -->
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-mark">M</div>
+        <div class="brand-text">
+          <div class="brand-title">{{ 'APP.TITLE' | translate | async }}</div>
+          <div class="brand-subtitle">
+            {{ i18n.currentLang === 'ar' ? 'لوحة التحكم' : 'Admin Dashboard' }}
+          </div>
         </div>
       </div>
+
+      <!-- Optional collapse button (if you want it here) -->
+      <button class="collapse-btn" type="button" (click)="toggleSidebar()">
+        <i class="fas fa-angle-left"></i>
+      </button>
     </div>
 
-    <!-- Optional collapse button (if you want it here) -->
-    <button class="collapse-btn" type="button" (click)="toggleSidebar()">
-      <i class="fas fa-angle-left"></i>
-    </button>
-  </div>
+    <!-- Search (optional but matches the reference style) -->
+    <div class="sidebar-search">
+      <i class="fas fa-search"></i>
+      <input type="text" [placeholder]="i18n.currentLang === 'ar' ? 'بحث...' : 'Search...'" />
+      <span class="kbd">⌘K</span>
+    </div>
 
-  <!-- Search (optional but matches the reference style) -->
-  <div class="sidebar-search">
-    <i class="fas fa-search"></i>
-    <input
-      type="text"
-      [placeholder]="i18n.currentLang === 'ar' ? 'بحث...' : 'Search...'"
-    />
-    <span class="kbd">⌘K</span>
-  </div>
+    <!-- Nav -->
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">
+          {{ i18n.currentLang === 'ar' ? 'عام' : 'General' }}
+        </div>
 
-  <!-- Nav -->
-  <nav class="sidebar-nav">
-    <div class="nav-section">
-      <div class="nav-section-title">
-        {{ i18n.currentLang === 'ar' ? 'عام' : 'General' }}
+        <a class="nav-item" [routerLink]="['/dashboard']" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" [attr.title]="( 'MENU.DASHBOARD' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
+          <span class="nav-text">{{ 'MENU.DASHBOARD' | translate | async }}</span>
+        </a>
+
+        <a class="nav-item" [routerLink]="['/dashboard', 'centers']" routerLinkActive="active"
+          [attr.title]="( 'MENU.CENTERS' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-users"></i></span>
+          <span class="nav-text">{{ 'MENU.CENTERS' | translate | async }}</span>
+          <span class="nav-badge">3</span>
+        </a>
+
+        
+        <a class="nav-item" [routerLink]="['/dashboard', 'agencies']" routerLinkActive="active"
+          [attr.title]="( 'MENU.AGENCIES' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-landmark"></i></span>
+          <span class="nav-text">{{ 'MENU.AGENCIES' | translate | async }}</span>
+          <span class="nav-badge">3</span>
+        </a>
+
+
+        <a class="nav-item" [routerLink]="['/dashboard', 'directorates']" routerLinkActive="active"
+          [attr.title]="( 'MENU.DIRECTORATES' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-sitemap"></i></span>
+          <span class="nav-text">{{ 'MENU.DIRECTORATES' | translate | async }}</span>
+          <span class="nav-badge">3</span>
+        </a>
+
+          <a class="nav-item" [routerLink]="['/dashboard', 'govtours']" routerLinkActive="active"
+          [attr.title]="( 'MENU.GOVTOURS' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-person"></i></span>
+          <span class="nav-text">{{ 'MENU.GOVTOURS' | translate | async }}</span>
+          <span class="nav-badge">3</span>
+        </a>
+        <a class="nav-item" [routerLink]="['/dashboard', 'settings']" routerLinkActive="active"
+          [attr.title]="( 'MENU.SETTINGS' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-sliders-h"></i></span>
+          <span class="nav-text">{{ 'MENU.SETTINGS' | translate | async }}</span>
+        </a>
       </div>
+    </nav>
 
       <a
         class="nav-item"
@@ -99,15 +139,22 @@
       <div class="profile-meta">
         <div class="profile-name">{{ i18n.currentLang === 'ar' ? 'المستخدم' : 'User' }}</div>
         <div class="profile-role">{{ i18n.currentLang === 'ar' ? 'مدير' : 'Admin' }}</div>
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div class="profile">
+        <div class="profile-avatar">A</div>
+        <div class="profile-meta">
+          <div class="profile-name">{{ i18n.currentLang === 'ar' ? 'المستخدم' : 'User' }}</div>
+          <div class="profile-role">{{ i18n.currentLang === 'ar' ? 'مدير' : 'Admin' }}</div>
+        </div>
       </div>
-    </div>
 
-    <button class="help-btn" type="button">
-      <i class="fas fa-life-ring"></i>
-      <span>{{ i18n.currentLang === 'ar' ? 'المساعدة' : 'Help center' }}</span>
-    </button>
-  </div>
-</aside>
+      <button class="help-btn" type="button">
+        <i class="fas fa-life-ring"></i>
+        <span>{{ i18n.currentLang === 'ar' ? 'المساعدة' : 'Help center' }}</span>
+      </button>
+    </div>
+  </aside>
 
   <!-- Main Area -->
   <div class="main-area">

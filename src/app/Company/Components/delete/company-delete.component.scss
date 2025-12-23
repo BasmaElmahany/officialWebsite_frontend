@@ -1,0 +1,14 @@
+.company-name {
+  margin: 12px 0;
+  font-size: 1.1em;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+}
+.error {
+  color: #d9534f;
+  margin: 1em 0;
+}

@@ -1,0 +1,15 @@
+<div class="delete-dialog">
+  <h2>{{ i18n.currentLang === 'ar' ? 'تأكيد حذف القيادة' : 'Delete Leader Confirmation' }}</h2>
+  <div *ngIf="loading" class="loading">جاري الحذف...</div>
+  <div *ngIf="!loading">
+    <p>
+      {{ i18n.currentLang === 'ar' ? 'هل أنت متأكد أنك تريد حذف القائد' : 'Are you sure you want to delete leader' }}
+      <strong>{{ i18n.currentLang === 'ar' ? leader.nameAr : leader.nameEn }}</strong>؟
+      <span *ngIf="i18n.currentLang !== 'ar'">?</span>
+    </p>
+    <div class="actions">
+      <button mat-button (click)="close()">{{ i18n.currentLang === 'ar' ? 'إلغاء' : 'Cancel' }}</button>
+      <button mat-raised-button color="warn" (click)="confirm()" [disabled]="loading">{{ i18n.currentLang === 'ar' ? 'حذف' : 'Delete' }}</button>
+    </div>
+  </div>
+</div>

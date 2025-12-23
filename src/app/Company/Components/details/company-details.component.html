@@ -1,0 +1,49 @@
+
+<div class="details-dialog" [class.rtl]="i18n.isRTL">
+  <!-- ===== Header ===== -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">info</mat-icon>
+      <h2>
+        {{ i18n.currentLang === 'ar' ? 'تفاصيل الشركة' : 'Company Details' }}
+      </h2>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- ===== Content ===== -->
+  <div class="dialog-content">
+    <div class="loading-box" *ngIf="loading">
+      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
+      <span>{{ i18n.currentLang === 'ar' ? 'جاري التحميل...' : 'Loading...' }}</span>
+    </div>
+
+    <ng-container *ngIf="!loading && company">
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>language</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الشركة (عربي)' : 'Name (Arabic)' }}</mat-label>
+        <input matInput [value]="company.nameAr" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>public</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الشركة (إنجليزي)' : 'Name (English)' }}</mat-label>
+        <input matInput [value]="company.nameEn" readonly />
+      </mat-form-field>
+    </ng-container>
+
+    <div class="error-box" *ngIf="!loading && !company">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ i18n.currentLang === 'ar' ? 'تعذر تحميل التفاصيل' : 'Unable to load details' }}</span>
+    </div>
+  </div>
+
+  <!-- ===== Actions ===== -->
+  <div class="dialog-actions">
+    <button mat-stroked-button color="primary" type="button" (click)="close()">
+      {{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}
+    </button>
+  </div>
+</div>

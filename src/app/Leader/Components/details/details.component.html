@@ -1,0 +1,94 @@
+<div class="details-dialog" [class.rtl]="i18n.isRTL">
+  <!-- ===== Header ===== -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">info</mat-icon>
+      <h2>
+        {{ i18n.currentLang === 'ar' ? 'تفاصيل القيادة' : 'Leader Details' }}
+      </h2>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- ===== Content ===== -->
+  <div class="dialog-content">
+    <div class="loading-box" *ngIf="loading">
+      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
+      <span>{{ i18n.currentLang === 'ar' ? 'جاري التحميل...' : 'Loading...' }}</span>
+    </div>
+
+    <ng-container *ngIf="!loading && leader">
+      <div class="photo-box" *ngIf="leader.photoUrl">
+        <img [src]="getPhotoUrl(leader.photoUrl)" alt="صورة القيادة" />
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'الاسم (عربي)' : 'Name (Arabic)' }}</mat-label>
+        <input matInput [value]="leader.nameAr" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>public</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'الاسم (إنجليزي)' : 'Name (English)' }}</mat-label>
+        <input matInput [value]="leader.nameEn" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>work</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'المنصب (عربي)' : 'Position (Arabic)' }}</mat-label>
+        <input matInput [value]="leader.positionAr" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>work_outline</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'المنصب (إنجليزي)' : 'Position (English)' }}</mat-label>
+        <input matInput [value]="leader.positionEn" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>event</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'من' : 'From' }}</mat-label>
+        <input matInput [value]="leader.startDate" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>event_available</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'إلى' : 'To' }}</mat-label>
+        <input matInput [value]="leader.endDate" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>check_circle</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'انتهت' : 'Ended' }}</mat-label>
+        <input matInput [value]="leader.isEnded !== undefined ? (leader.isEnded ? (i18n.currentLang === 'ar' ? 'نعم' : 'Yes') : (i18n.currentLang === 'ar' ? 'لا' : 'No')) : ''" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'السيرة الذاتية (عربي)' : 'CV (Arabic)' }}</mat-label>
+        <textarea matInput [value]="leader.cvDataAr" readonly></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ i18n.currentLang === 'ar' ? 'السيرة الذاتية (إنجليزي)' : 'CV (English)' }}</mat-label>
+        <textarea matInput [value]="leader.cvDataEn" readonly></textarea>
+      </mat-form-field>
+    </ng-container>
+
+    <div class="error-box" *ngIf="!loading && !leader">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ i18n.currentLang === 'ar' ? 'تعذر تحميل التفاصيل' : 'Unable to load details' }}</span>
+    </div>
+  </div>
+
+  <!-- ===== Actions ===== -->
+  <div class="dialog-actions">
+    <button mat-stroked-button color="primary" type="button" (click)="close()">
+      {{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}
+    </button>
+  </div>
+</div>

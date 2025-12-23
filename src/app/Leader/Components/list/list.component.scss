@@ -1,0 +1,344 @@
+/* عكس اتجاه عناصر المينيو في العربي */
+.rtl-menu .mat-mdc-menu-item {
+  flex-direction: row-reverse !important;
+  text-align: right !important;
+}
+/* =====================================================
+   THEME VARIABLES
+===================================================== */
+$primary-color: #002D62;
+$accent-color: #D4AF37;
+$text-color: #333;
+
+$radius-lg: 18px;
+
+/* صورة القيادة المصغرة في الجدول */
+.leader-photo-thumb {
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 30%;
+  border: 2px solid $accent-color;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,45,98,0.08);
+  display: block;
+  margin: 5 auto;
+  
+  margin-top: 5px;
+}
+$radius-md: 14px;
+$transition-base: 0.3s ease;
+
+/* =====================================================
+   ROOT
+===================================================== */
+.center-table-wrapper {
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+/* =====================================================
+   HEADER (RTL SAFE)
+===================================================== */
+.table-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: $primary-color;
+  letter-spacing: 0.3px;
+  text-align: start; // 🔥 automatically left/right
+}
+
+/* =====================================================
+   SEARCH FIELD (LOGICAL MARGIN)
+===================================================== */
+.search-field {
+  width: 280px;
+  margin-inline-start: auto; // 🔥 works in LTR + RTL
+  background: #fff;
+  border-radius: $radius-md;
+
+  .mat-mdc-form-field-flex {
+    border-radius: $radius-md;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    padding: 0 12px;
+  }
+
+  mat-icon {
+    color: $accent-color;
+    font-size: 20px;
+  }
+
+  input {
+    font-size: 14px;
+    text-align: start;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 3px rgba($accent-color, 0.25);
+    transition: $transition-base;
+  }
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+.center-table {
+  width: 100%;
+  min-width: 560px;   // يمنع تكسير الأعمدة على الشاشات الضيقة
+  table-layout: fixed; // يحافظ على alignment ويمنع تمدد غير متوقع
+  background: #fff;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.mat-header-row {
+  height: 56px;
+  background: linear-gradient(90deg,
+      $primary-color,
+      darken($primary-color, 10%));
+}
+
+.mat-header-cell {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: start; // 🔥 RTL aware
+}
+
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;  // سلاسة على الموبايل
+  border-radius: $radius-lg;
+
+  /* شريط سكرول بسيط */
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($primary-color, 0.18);
+    border-radius: 999px;
+  }
+}
+
+/* =====================================================
+   ROWS
+===================================================== */
+.clickable-row {
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    background: rgba($accent-color, 0.08);
+  }
+}
+
+.mat-cell {
+  font-size: 14px;
+  color: $text-color;
+  text-align: start;
+}
+
+.location-icon {
+  color: $accent-color;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* Add Button */
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0 16px;
+  height: 40px;
+
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
+/* RTL */
+.table-header.rtl {
+  .header-actions {
+    margin-left: 0;
+    margin-right: auto;
+    flex-direction: row-reverse;
+  }
+
+  .add-btn {
+    flex-direction: row-reverse;
+  }
+}
+
+
+.actions-cell {
+  display: flex;
+  gap: 6px;
+
+  button {
+    transition: transform .2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+
+/* =====================================================
+   Actions Design
+===================================================== */
+/* خَلّي عمود Actions ثابت ومحاذاته صحيحة */
+.mat-column-actions,
+.mat-column-actions.mat-mdc-header-cell,
+.mat-column-actions.mat-mdc-cell {
+  width: 90px;
+  /* عدّلها حسب ما تحب */
+  text-align: center;
+  vertical-align: middle;
+  padding-inline: 0 !important;
+}
+
+/* نفس الفكرة لعمود الأيقونة لو حابب */
+.mat-column-icon,
+.mat-column-icon.mat-mdc-header-cell,
+.mat-column-icon.mat-mdc-cell {
+  width: 56px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mat-column-actions,
+.mat-column-actions.mat-mdc-header-cell,
+.mat-column-actions.mat-mdc-cell {
+  width: 96px;
+  text-align: center;
+  vertical-align: middle;
+  padding-inline: 0 !important;
+}
+
+
+/* خَلّي td ترجع Table-Cell (حتى لو في ستايل قديم) */
+.actions-cell {
+  display: table-cell !important;
+  vertical-align: middle;
+}
+
+/* خلي المحتوى يتوسّط فعلاً داخل الخلية */
+.actions-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* ✅ يحل مشكلة أن الزر كان فوق */
+  justify-content: center;
+}
+
+
+/* لأن mat-menu Overlay خارج component */
+:host ::ng-deep .mat-mdc-menu-panel.actions-menu {
+  border-radius: 14px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18) !important;
+  overflow: hidden;
+}
+
+/* اضبط محاذاة عناصر المينيو + امنع تباعد الأيقونة */
+:host ::ng-deep .mat-mdc-menu-panel.actions-menu .mat-mdc-menu-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px;
+}
+
+/* اجعل النص لا يدفع الأيقونة بعيد */
+:host ::ng-deep .mat-mdc-menu-panel.actions-menu .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  flex: 0 0 auto !important;
+}
+
+/* ✅ الألوان المطلوبة */
+:host ::ng-deep .mat-mdc-menu-panel.actions-menu .edit-icon {
+  color: #D4AF37 !important;
+  /* Yellow/Gold */
+}
+
+:host ::ng-deep .mat-mdc-menu-panel.actions-menu .delete-icon {
+  color: #D32F2F !important;
+  /* Red */
+}
+
+/* RTL ترتيب (لو تريد الأيقونة يمين النص في العربي) */
+:host-context([dir="rtl"]) :host ::ng-deep .mat-mdc-menu-panel.actions-menu .mat-mdc-menu-item {
+  flex-direction: row-reverse !important;
+}
+
+
+
+/* =====================================================
+   PAGINATOR
+===================================================== */
+.mat-paginator {
+  background: #fff;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 0 0 $radius-lg $radius-lg;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-field {
+    width: 100%;
+    margin-inline-start: 0;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+  .center-table {
+    min-width: 520px; // خليها أقل لو تحب
+  }
+
+  .mat-header-cell,
+  .mat-cell {
+    font-size: 13px;
+    padding-inline: 10px;
+  }
+
+  .mat-header-row {
+    height: 52px;
+  }
+
+  .more-btn {
+    width: 34px;
+    height: 34px;
+  }
+  
+}

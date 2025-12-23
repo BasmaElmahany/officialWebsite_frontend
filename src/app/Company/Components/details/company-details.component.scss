@@ -1,0 +1,148 @@
+
+$primary: #002D62;
+$accent: #D4AF37;
+$bg: #f7f9fc;
+$radius: 18px;
+
+.details-dialog {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: $radius;
+  overflow: hidden;
+  animation: fadeUp 0.35s ease both;
+
+  &.rtl {
+    direction: rtl;
+    text-align: right;
+  }
+}
+
+/* ===== Header ===== */
+.dialog-header {
+  background: linear-gradient(135deg, $primary, darken($primary, 10%));
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    h2 {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0;
+    }
+  }
+
+  .title-icon {
+    color: $accent;
+  }
+
+  .close-btn {
+    color: #fff;
+  }
+}
+
+/* ===== Content ===== */
+.dialog-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  mat-form-field {
+    width: 100%;
+    mat-icon {
+      color: $accent;
+    }
+  }
+
+  /* Readonly look */
+  :host ::ng-deep .mat-mdc-input-element[readonly] {
+    color: rgba(17, 24, 39, 0.85);
+    caret-color: transparent;
+  }
+}
+
+.loading-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  border: 1px solid #e5e7eb;
+  background: #fbfcfe;
+  border-radius: 14px;
+
+  span {
+    font-weight: 800;
+    color: rgba(17, 24, 39, 0.65);
+  }
+}
+
+.error-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 12px;
+  border: 1px solid rgba(211, 47, 47, 0.25);
+  background: rgba(211, 47, 47, 0.06);
+  border-radius: 14px;
+
+  mat-icon { color: #d32f2f; }
+  span { font-weight: 800; color: rgba(211, 47, 47, 0.9); }
+}
+
+/* ===== Actions (same create premium) ===== */
+.dialog-actions {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(247, 249, 252, 0.85), $bg);
+  backdrop-filter: blur(6px);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 $radius $radius;
+
+  button {
+    min-width: 130px;
+    height: 42px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+/* RTL */
+.details-dialog.rtl {
+  .dialog-actions {
+    justify-content: flex-start;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .dialog-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}

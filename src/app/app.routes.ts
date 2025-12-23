@@ -20,6 +20,15 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./Center/center.module').then(m => m.CenterModule)
       },
+      {
+        path: 'companies',
+        loadChildren: () =>
+          import('./Company/company.module').then(m => m.CompanyModule)
+      },
+      {
+        path: 'leaders',
+        loadChildren: () =>
+          import('../app/Leader/Services/leader.module').then(m => m.LeaderModule)
        {
         path: 'agencies',
         loadChildren: () =>

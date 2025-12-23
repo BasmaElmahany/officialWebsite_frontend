@@ -10,25 +10,20 @@
   "MENU.CENTERS": "المراكز",
   "CENTERS.CREATE_TITLE": "إضافة مركز جديد",
   "CENTERS.NAME_AR": "اسم المركز (عربي)",
-	"CENTERS.NAME_EN": "اسم المركز (إنجليزي)",
-
+  "CENTERS.NAME_EN": "اسم المركز (إنجليزي)",
   "MENU.COMPANIES": "الشركات",
   "COMPANIES.CREATE_TITLE": "إضافة شركة جديدة",
   "COMPANIES.NAME_AR": "اسم الشركة (عربي)",
   "COMPANIES.NAME_EN": "اسم الشركة (إنجليزي)",
-
-  "CENTERS.NAME_EN": "اسم المركز (إنجليزي)",
   "COMMON.CREATE": "حفظ",
   "COMMON.SAVING": "جاري الحفظ...",
   "VALIDATION.REQUIRED": "هذا الحقل مطلوب",
-   "COMMON.CANCEL": "إلغاء",
-    "COMMON.SAVE" : "حفظ",
-     "CENTERS.EDIT_TITLE": "تعديل المركز",
-      "COMPANY.EDIT_TITLE": "تعديل الشركة",
-        "COMPANY.NAME_AR": "اسم الشركة (عربي)",
-   "COMPANY.NAME_EN": "اسم الشركة (إنجليزي)"
-
-  ,
+  "COMMON.CANCEL": "إلغاء",
+  "COMMON.SAVE": "حفظ",
+  "CENTERS.EDIT_TITLE": "تعديل المركز",
+  "COMPANY.EDIT_TITLE": "تعديل الشركة",
+  "COMPANY.NAME_AR": "اسم الشركة (عربي)",
+  "COMPANY.NAME_EN": "اسم الشركة (إنجليزي)",
   "LEADER.EDIT_TITLE": "تعديل القيادة",
   "LEADER.NAME_AR": "اسم القيادة (عربي)",
   "LEADER.NAME_EN": "اسم القيادة (إنجليزي)",
@@ -39,11 +34,8 @@
   "LEADER.IS_ENDED": "انتهت",
   "LEADER.CV_AR": "السيرة الذاتية (عربي)",
   "LEADER.CV_EN": "السيرة الذاتية (إنجليزي)",
-  "LEADER.PHOTO_URL": "رابط الصورة"
-}
-  "COMMON.CANCEL": "إلغاء",
-  "COMMON.SAVE": "حفظ",
-  "CENTERS.EDIT_TITLE": "تعديل المركز",
+  "LEADER.PHOTO_URL": "رابط الصورة",
+
   "MENU.DIRECTORATES": "المديريات",
   "MENU.AGENCIES": "الهيئات الحكومية",
   "DIRECTORATE.CREATE_TITLE": "إضافة مديريه جديدة",

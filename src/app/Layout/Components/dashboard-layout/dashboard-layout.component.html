@@ -74,30 +74,9 @@
           <span class="nav-icon"><i class="fas fa-sliders-h"></i></span>
           <span class="nav-text">{{ 'MENU.SETTINGS' | translate | async }}</span>
         </a>
-      </div>
-    </nav>
+  
 
-      <a
-        class="nav-item"
-        [routerLink]="['/dashboard']"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        [attr.title]="( 'MENU.DASHBOARD' | translate | async )"
-      >
-        <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
-        <span class="nav-text">{{ 'MENU.DASHBOARD' | translate | async }}</span>
-      </a>
 
-      <a
-        class="nav-item"
-        [routerLink]="['/dashboard', 'centers']"
-        routerLinkActive="active"
-        [attr.title]="( 'MENU.CENTERS' | translate | async )"
-      >
-        <span class="nav-icon"><i class="fas fa-users"></i></span>
-        <span class="nav-text">{{ 'MENU.CENTERS' | translate | async }}</span>
-        <span class="nav-badge">3</span>
-      </a>
 
 
       <a
@@ -120,25 +99,10 @@
         <span class="nav-text">{{ i18n.currentLang === 'ar' ? 'القيادة' : 'Leaders' }}</span>
       </a>
 
-      <a
-        class="nav-item"
-        [routerLink]="['/dashboard', 'settings']"
-        routerLinkActive="active"
-        [attr.title]="( 'MENU.SETTINGS' | translate | async )"
-      >
-        <span class="nav-icon"><i class="fas fa-sliders-h"></i></span>
-        <span class="nav-text">{{ 'MENU.SETTINGS' | translate | async }}</span>
-      </a>
     </div>
   </nav>
 
   <!-- Footer -->
-  <div class="sidebar-footer">
-    <div class="profile">
-      <div class="profile-avatar">A</div>
-      <div class="profile-meta">
-        <div class="profile-name">{{ i18n.currentLang === 'ar' ? 'المستخدم' : 'User' }}</div>
-        <div class="profile-role">{{ i18n.currentLang === 'ar' ? 'مدير' : 'Admin' }}</div>
     <!-- Footer -->
     <div class="sidebar-footer">
       <div class="profile">

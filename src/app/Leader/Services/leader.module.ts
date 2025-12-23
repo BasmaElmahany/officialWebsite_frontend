@@ -9,14 +9,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ListComponent } from '../Components/list/list.component';
 import { CreateComponent } from '../Components/create/create.component';
 import { DetailsComponent } from '../Components/details/details.component';
+import { EditComponent } from '../Components/edit/edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DeleteComponent } from '../Components/delete/delete.component';
+import { SharedTranslationsModule } from '../../Shared/shared-translations.module';
+
+
 
 @NgModule({
-  declarations: [ListComponent, CreateComponent, DetailsComponent],
+  declarations: [ListComponent, CreateComponent, DetailsComponent, EditComponent, DeleteComponent],
   imports: [
     CommonModule,
     LeaderRoutingModule,
@@ -29,7 +35,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatMenuModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+    SharedTranslationsModule
   ]
 })
 export class LeaderModule { }

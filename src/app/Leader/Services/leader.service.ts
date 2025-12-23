@@ -9,6 +9,9 @@ import { LeaderCreateRequest } from './leader-create-request.model';
   providedIn: 'root'
 })
 export class LeaderService {
+    deleteLeader(id: string): Observable<any> {
+      return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    }
   private apiUrl = 'https://shusha.minya.gov.eg:93/api/Leaders';
 
   constructor(private http: HttpClient) {}
@@ -36,5 +39,21 @@ export class LeaderService {
     formData.append('IsEnded', String(data.isEnded));
 
     return this.http.post<any>(this.apiUrl, formData);
+  }
+
+  updateLeader(id: string, data: LeaderCreateRequest): Observable<any> {
+    const formData = new FormData();
+    formData.append('Id', id);
+    formData.append('NameAr', data.nameAr);
+    formData.append('NameEn', data.nameEn);
+    formData.append('CvDataAr', data.cvDataAr);
+    formData.append('CvDataEn', data.cvDataEn);
+    formData.append('PositionAr', data.positionAr);
+    formData.append('PositionEn', data.positionEn);
+    formData.append('StartDate', data.startDate);
+    formData.append('EndDate', data.endDate);
+    if (data.photoUrl) formData.append('photoUrl', data.photoUrl);
+    formData.append('IsEnded', String(data.isEnded));
+    return this.http.put<any>(`${this.apiUrl}/${id}`, formData);
   }
 }

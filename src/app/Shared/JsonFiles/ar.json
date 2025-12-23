@@ -28,4 +28,16 @@
         "COMPANY.NAME_AR": "اسم الشركة (عربي)",
    "COMPANY.NAME_EN": "اسم الشركة (إنجليزي)"
 
+  ,
+  "LEADER.EDIT_TITLE": "تعديل القيادة",
+  "LEADER.NAME_AR": "اسم القيادة (عربي)",
+  "LEADER.NAME_EN": "اسم القيادة (إنجليزي)",
+  "LEADER.POSITION_AR": "المنصب (عربي)",
+  "LEADER.POSITION_EN": "المنصب (إنجليزي)",
+  "LEADER.START_DATE": "من تاريخ",
+  "LEADER.END_DATE": "إلى تاريخ",
+  "LEADER.IS_ENDED": "انتهت",
+  "LEADER.CV_AR": "السيرة الذاتية (عربي)",
+  "LEADER.CV_EN": "السيرة الذاتية (إنجليزي)",
+  "LEADER.PHOTO_URL": "رابط الصورة"
 }

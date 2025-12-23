@@ -18,7 +18,7 @@ import { CompanyDeleteComponent } from '../delete/company-delete.component';
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['icon', 'name', 'actions'];
+  displayedColumns: string[] = ['name', 'actions'];
   dataSource = new MatTableDataSource<Company>();
   loading = true;
   error = '';

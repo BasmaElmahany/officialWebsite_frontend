@@ -1,0 +1,19 @@
+.delete-dialog {
+  min-width: 320px;
+  max-width: 400px;
+  padding: 24px;
+  text-align: center;
+}
+.delete-dialog h2 {
+  margin-bottom: 16px;
+}
+.loading {
+  color: #888;
+  margin-bottom: 16px;
+}
+.actions {
+  margin-top: 24px;
+}
+button[mat-button], button[mat-raised-button] {
+  margin: 0 8px;
+}

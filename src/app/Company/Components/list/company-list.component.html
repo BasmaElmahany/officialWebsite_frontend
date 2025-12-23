@@ -26,25 +26,19 @@
   <!-- ================= Table ================= -->
   <div class="table-scroll" *ngIf="!loading">
     <table mat-table matSort [dataSource]="dataSource" class="company-table">
-      <!-- Icon Column -->
-      <ng-container matColumnDef="icon">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let company">
-          <mat-icon class="business-icon">business</mat-icon>
-        </td>
-      </ng-container>
 
-      <!-- Name Column -->
+      <!-- Name Column (First after icon) -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ i18n.currentLang === 'ar' ? 'اسم الشركة' : 'Company Name' }}
+          <mat-icon class="business-icon">business</mat-icon>
+          <span>{{ i18n.currentLang === 'ar' ? 'اسم الشركة' : 'Company Name' }}</span>
         </th>
         <td mat-cell *matCellDef="let company" class="name-cell">
           <span class="name-text">{{ getCompanyName(company) }}</span>
         </td>
       </ng-container>
 
-      <!-- Actions Column -->
+      <!-- Actions Column (Last, under 3 dots) -->
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>
           {{ i18n.currentLang === 'ar' ? 'إجراءات' : 'Actions' }}
@@ -71,6 +65,8 @@
           </div>
         </td>
       </ng-container>
+
+      <!-- Remove icon column, name now includes icon -->
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"></tr>

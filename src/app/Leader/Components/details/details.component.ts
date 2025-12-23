@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { I18nService } from '../../../Shared/Services/i18n.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LeaderService } from '../../Services/leader.service';
 import { Leader } from '../../Models/leader';
@@ -18,7 +19,8 @@ export class DetailsComponent implements OnInit {
   constructor(
     private leaderService: LeaderService,
     private dialogRef: MatDialogRef<DetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string }
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    public i18n: I18nService
   ) {}
 
   ngOnInit(): void {

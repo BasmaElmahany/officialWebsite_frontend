@@ -1,4 +1,4 @@
-
+import { I18nService } from '../../../Shared/Services/i18n.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { LeaderService } from '../../Services/leader.service';
 import { Leader } from '../../Models/leader';
@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateComponent } from '../create/create.component';
 import { DetailsComponent } from '../details/details.component';
+import { EditComponent } from '../edit/edit.component';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-leader-list',
@@ -16,14 +18,18 @@ import { DetailsComponent } from '../details/details.component';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['icon', 'name', 'actions'];
+  constructor(
+    private leaderService: LeaderService,
+    private router: Router,
+    private dialog: MatDialog,
+    public i18n: I18nService
+  ) {}
+  displayedColumns: string[] = ['name', 'photo', 'position', 'isEnded', 'actions'];
   dataSource = new MatTableDataSource<Leader>();
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private leaderService: LeaderService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadLeaders();
@@ -69,8 +75,13 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   openEdit(leader: Leader): void {
-    // TODO: Open edit dialog
-    alert('Edit Leader not implemented');
+    const ref = this.dialog.open(EditComponent, {
+      width: '420px',
+      data: leader
+    });
+    ref.afterClosed().subscribe(ok => {
+      if (ok) this.loadLeaders();
+    });
   }
 
   openDetails(leader: Leader): void {
@@ -84,7 +95,12 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   openDelete(leader: Leader): void {
-    // TODO: Open delete dialog
-    alert('Delete Leader not implemented');
+    const ref = this.dialog.open(DeleteComponent, {
+      width: '400px',
+      data: leader
+    });
+    ref.afterClosed().subscribe(ok => {
+      if (ok) this.loadLeaders();
+    });
   }
 }

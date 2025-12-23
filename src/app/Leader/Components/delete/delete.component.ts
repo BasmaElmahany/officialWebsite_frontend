@@ -7,7 +7,7 @@ import { Leader } from '../../Models/leader';
 @Component({
   selector: 'app-leader-delete',
   templateUrl: './delete.component.html',
-  styleUrls: ['./delete.component.scss']
+  styleUrls: ['../../../Center/Components/create/create.component.scss']
 })
 export class DeleteComponent {
   loading = false;

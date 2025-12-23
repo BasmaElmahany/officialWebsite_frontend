@@ -10,13 +10,14 @@ $radius: 18px;
   justify-content: center;
   margin: 18px 0 8px 0;
 }
+
 .leader-photo {
   width: 110px;
   height: 110px;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid $primary;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   background: #f7f9fc;
 }
 
@@ -37,7 +38,11 @@ $radius: 18px;
   border-radius: $radius;
   overflow: hidden;
   animation: fadeUp 0.35s ease both;
+  
 
+  max-height: 90vh;      // ✅ لازم
+  display: flex;         // ✅ لازم
+  flex-direction: column;
   &.rtl {
     direction: rtl;
     text-align: right;
@@ -88,6 +93,21 @@ $radius: 18px;
       color: $accent;
     }
   }
+
+  overflow-y: auto; // 👈 التمرير هنا
+  padding: 24px;
+  flex: 1; // 👈 يملأ المساحة المتبقية
+
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+  }
 }
 
 // ...existing code...
@@ -118,6 +138,7 @@ $radius: 18px;
 
   button[mat-stroked-button] {
     background: transparent;
+
     &:hover {
       background: rgba(0, 45, 98, 0.05);
       transform: translateY(-1px);
@@ -126,14 +147,17 @@ $radius: 18px;
 
   button[mat-raised-button] {
     box-shadow: 0 10px 25px rgba(0, 45, 98, 0.25);
+
     &:hover {
       box-shadow: 0 14px 35px rgba(0, 45, 98, 0.35);
       transform: translateY(-2px);
     }
+
     &:active {
       transform: translateY(0);
       box-shadow: 0 8px 18px rgba(0, 45, 98, 0.2);
     }
+
     mat-icon {
       font-size: 20px;
     }
@@ -142,6 +166,7 @@ $radius: 18px;
   mat-progress-spinner {
     width: 20px !important;
     height: 20px !important;
+
     circle {
       stroke: #fff;
     }
@@ -160,6 +185,7 @@ $radius: 18px;
   .dialog-actions {
     flex-direction: column-reverse;
     align-items: stretch;
+
     button {
       width: 100%;
     }
@@ -172,6 +198,7 @@ $radius: 18px;
     opacity: 0;
     transform: translateY(20px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);

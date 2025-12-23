@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { I18nService } from '../../../Shared/Services/i18n.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LeaderService } from '../../Services/leader.service';
@@ -11,7 +10,6 @@ import { Leader } from '../../Models/leader';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent {
-  photoPreview: string | null = null;
   loading = false;
   error: string | null = null;
 
@@ -24,7 +22,7 @@ export class EditComponent {
     positionEn: [''],
     startDate: [''],
     endDate: [''],
-    photoUrl: [null as string | File | null],
+    photoUrl: [''],
     isEnded: [false]
   });
 
@@ -32,8 +30,7 @@ export class EditComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditComponent>,
     @Inject(MAT_DIALOG_DATA) public leader: Leader,
-    private leaderService: LeaderService,
-    public i18n: I18nService
+    private leaderService: LeaderService
   ) {
     this.form.patchValue({
       nameAr: leader.nameAr ?? '',
@@ -44,27 +41,9 @@ export class EditComponent {
       positionEn: leader.positionEn ?? '',
       startDate: leader.startDate ?? '',
       endDate: leader.endDate ?? '',
-      photoUrl: null,
+      photoUrl: leader.photoUrl ?? '',
       isEnded: leader.isEnded ?? false
     });
-    // معاينة الصورة الحالية
-    if (leader.photoUrl) {
-      this.photoPreview = leader.photoUrl.startsWith('http') ? leader.photoUrl : 'https://shusha.minya.gov.eg:93' + leader.photoUrl;
-    }
-  }
-
-  onPhotoSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.form.patchValue({ photoUrl: file });
-      this.form.get('photoUrl')!.markAsDirty();
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.photoPreview = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
   }
 
   submit(): void {

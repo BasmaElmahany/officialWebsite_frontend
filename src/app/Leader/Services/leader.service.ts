@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Leader } from '../Models/leader';
 import { LeaderCreateRequest } from './leader-create-request.model';
+import { baseAPI } from '../../../Environment/env';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class LeaderService {
     deleteLeader(id: string): Observable<any> {
       return this.http.delete<any>(`${this.apiUrl}/${id}`);
     }
-  private apiUrl = 'https://shusha.minya.gov.eg:93/api/Leaders';
+  private apiUrl = `${baseAPI}/Leaders`;
 
   constructor(private http: HttpClient) {}
 

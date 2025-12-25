@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Directorate } from '../../Models/directorate';
+import { Directorate, DirectorateRead } from '../../Models/directorate';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,7 +21,7 @@ import { DeleteComponent } from '../delete/delete.component';
 export class ListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['icon', 'name', 'actions'];
-  dataSource = new MatTableDataSource<Directorate>();
+ dataSource = new MatTableDataSource<DirectorateRead>();
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

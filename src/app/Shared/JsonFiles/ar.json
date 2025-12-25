@@ -61,6 +61,20 @@
   "GOV_TOURS.LOADING": "جاري التحميل...",
   "GOV_TOURS.ERROR": "تعذر تحميل التفاصيل",
   "GOV_TOURS.CLOSE": "إغلاق",
-  "GOV_TOURS.UPDATE": "تحديث"
-  
+  "GOV_TOURS.UPDATE": "تحديث",
+  "DIRECTORATE.BASIC_INFO":"المعلومات الأساسية",
+   "DIRECTORATE.DIR_NAME_AR":"اسم المدير (عربي)",
+   "DIRECTORATE.DIR_NAME_EN":"اسم المدير (إنجليزي)",
+   "DIRECTORATE.IMAGES":"الصور",
+   "DIRECTORATE.LOGO":"الشعار",
+   "DIRECTORATE.DIR_PHOTO_URL":"رابط صورة المدير",
+   "DIRECTORATE.ACTIVITIES":"الأنشطة",
+    "DIRECTORATE.ADD_ACTIVITY":"إضافة نشاط",
+    "DIRECTORATE.ACTIVITY_NAME_AR":"اسم النشاط (عربي)",
+    "DIRECTORATE.ACTIVITY_NAME_EN":"اسم النشاط (إنجليزي)",
+    "DIRECTORATE.SERVICES":"الخدمات",
+    "DIRECTORATE.SERVICES_AR":"اسم الخدمة (عربي)",
+    "DIRECTORATE.SERVICES_EN":"اسم الخدمة (إنجليزي)",
+    "COMMON.ADD":"إضافة"
+
 }

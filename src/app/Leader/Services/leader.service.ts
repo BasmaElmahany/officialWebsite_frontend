@@ -10,9 +10,7 @@ import { baseAPI } from '../../../Environment/env';
   providedIn: 'root'
 })
 export class LeaderService {
-    deleteLeader(id: string): Observable<any> {
-      return this.http.delete<any>(`${this.apiUrl}/${id}`);
-    }
+
   private apiUrl = `${baseAPI}/Leaders`;
 
   constructor(private http: HttpClient) {}
@@ -57,4 +55,11 @@ export class LeaderService {
     formData.append('IsEnded', String(data.isEnded));
     return this.http.put<any>(`${this.apiUrl}/${id}`, formData);
   }
+
+
+  
+  
+    deleteLeader(id: string): Observable<any> {
+      return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    }
 }

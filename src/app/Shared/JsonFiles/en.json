@@ -58,5 +58,20 @@
   "GOV_TOURS.ERROR": "Failed to load details",
   "GOV_TOURS.CLOSE": "Close",
   "GOV_TOURS.UPDATE": "Update",
-   "COMPANIES.CREATE_TITLE":"add new Company"
+   "COMPANIES.CREATE_TITLE":"add new Company",
+   "DIRECTORATE.BASIC_INFO":"Basic Information",
+   "DIRECTORATE.DIR_NAME_AR":"Directorator Name (Arabic)",
+   "DIRECTORATE.DIR_NAME_EN":"Directorator Name (English)",
+   "DIRECTORATE.IMAGES":"Directorate Images",
+   "DIRECTORATE.LOGO":"Logo",
+   "DIRECTORATE.DIR_PHOTO_URL":"Directorator Photo URL",
+   "DIRECTORATE.ACTIVITIES":"Activities",
+    "DIRECTORATE.ADD_ACTIVITY":"Add Activity",
+    "DIRECTORATE.ACTIVITY_NAME_AR":"Activity Name (Arabic)",
+    "DIRECTORATE.ACTIVITY_NAME_EN":"Activity Name (English)",
+    "DIRECTORATE.SERVICES":"Services",
+    "DIRECTORATE.SERVICES_AR":"Service Name (Arabic)",
+    "DIRECTORATE.SERVICES_EN":"Service Name (English)",
+    "COMMON.ADD":"Add"
+
 }

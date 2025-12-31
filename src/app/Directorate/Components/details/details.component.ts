@@ -59,10 +59,10 @@ export class DetailsComponent {
     if (!photoData) return '';
     if (typeof photoData === 'string') {
       if (photoData.startsWith('http')) return photoData;
-      return 'https://shusha.minya.gov.eg:93' + photoData;
+      return 'https://shusha.minya.gov.eg:93'+ photoData;
     }
     // Construct URL using fileName
-    return `https://shusha.minya.gov.eg:93/uploads/${photoData.fileName}`;
+    return `https://shusha.minya.gov.eg:93${photoData.fileName}`;
   }
 
   getDirPhotoUrl(dirPhotoData?: string | { fileName: string }): string {
@@ -72,6 +72,6 @@ export class DetailsComponent {
       return 'https://shusha.minya.gov.eg:93' + dirPhotoData; // Prepend base URL
     }
     // Construct URL using fileName
-    return `https://shusha.minya.gov.eg:93/uploads/${dirPhotoData.fileName}`;
+    return `https://shusha.minya.gov.eg:93${dirPhotoData.fileName}`;
   }
 }

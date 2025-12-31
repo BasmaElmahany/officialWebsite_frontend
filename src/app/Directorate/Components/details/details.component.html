@@ -88,12 +88,16 @@
         <div class="file-row">
           <label>
             {{ 'DIRECTORATE.LOGO' | translate | async }}
-            <img *ngIf="directorate?.photoUrl" [src]="directorate?.photoUrl" alt="Logo">
+            <div class="photo-box" *ngIf="directorate?.photoUrl">
+              <img [src]="getPhotoUrl(directorate?.photoUrl)" alt="صورة الشعار" />
+            </div>
           </label>
 
           <label>
             {{ 'DIRECTORATE.DIR_PHOTO_URL' | translate | async }}
-            <img *ngIf="directorate?.dirPhotoUrl" [src]="directorate?.dirPhotoUrl" alt="Director Photo">
+            <div class="photo-box" *ngIf="directorate?.dirPhotoUrl">
+              <img [src]="getDirPhotoUrl(directorate?.dirPhotoUrl)" alt="صورة المدير" />
+            </div>
           </label>
         </div>
       </div>

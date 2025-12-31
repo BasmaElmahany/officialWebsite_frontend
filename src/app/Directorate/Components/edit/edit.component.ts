@@ -97,8 +97,8 @@ export class EditComponent implements OnInit {
       ? `https://shusha.minya.gov.eg:93${d.photoUrl}`
       : undefined;
 
-    this.dirPhotoUrl = d.dirphotoUrl
-      ? `https://shusha.minya.gov.eg:93${d.dirphotoUrl}`
+    this.dirPhotoUrl = d.dirPhotoUrl
+      ? `https://shusha.minya.gov.eg:93${d.dirPhotoUrl}`
       : undefined;
 
     // activities

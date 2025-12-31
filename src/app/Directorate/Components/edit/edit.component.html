@@ -14,7 +14,7 @@
     </button>
   </div>
 
- 
+
   <!-- ===== Scrollable Content ===== -->
   <div class="dialog-body">
     <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content scroll-area">
@@ -71,7 +71,7 @@
           <mat-label>{{ 'DIRECTORATE.FAX_NUMBER' | translate | async }}</mat-label>
           <input matInput formControlName="faxNumber">
         </mat-form-field>
-         <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline">
           <mat-label>{{ 'DIRECTORATE.LINK' | translate | async }}</mat-label>
           <input matInput formControlName="link">
         </mat-form-field>
@@ -86,11 +86,19 @@
         <div class="file-row">
           <label>
             {{ 'DIRECTORATE.LOGO' | translate | async }}
+            <img *ngIf="photoUrl" [src]="photoUrl" class="preview-img" />
+
             <input type="file" (change)="onPhotoChange($event)">
           </label>
 
+         
+        </div>
+        <div class="file-row">
+         
+
           <label>
             {{ 'DIRECTORATE.DIR_PHOTO_URL' | translate | async }}
+            <img *ngIf="dirPhotoUrl" [src]="dirPhotoUrl" class="preview-img" />
             <input type="file" (change)="onDirPhotoChange($event)">
           </label>
         </div>
@@ -149,7 +157,7 @@
           <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
 
             <mat-form-field appearance="outline">
-              <mat-label>{{ 'DIRECTORATE.SERVICES' | translate | async }}</mat-label>
+              <mat-label>{{ 'DIRECTORATE.SERVICES_AR' | translate | async }}</mat-label>
               <input matInput formControlName="serviceAr">
             </mat-form-field>
 
@@ -157,6 +165,10 @@
               <mat-label>{{ 'DIRECTORATE.SERVICES_EN' | translate | async }}</mat-label>
               <input matInput formControlName="serviceEn">
             </mat-form-field>
+
+            <a *ngIf="serviceFileUrls[i]" [href]="serviceFileUrls[i]" target="_blank" class="pdf-link">
+              📄 عرض الملف الحالي
+            </a>
 
             <input type="file" accept="application/pdf" (change)="onServiceFileChange($event, i)">
 

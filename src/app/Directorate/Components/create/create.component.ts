@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DirectorateService } from '../../Services/directorate.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
+import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-create',
@@ -23,7 +24,7 @@ export class CreateComponent {
     private fb: FormBuilder,
     private directorateService: DirectorateService,
     private dialogRef: MatDialogRef<CreateComponent>,
-    public i18n: I18nService
+    public i18n: I18nService, private toast: ToastService
   ) {
     this.form = this.fb.group({
       nameAr: ['', Validators.required],
@@ -36,7 +37,7 @@ export class CreateComponent {
       phoneNumber2: [''],
       email: ['', Validators.email],
       faxNumber: [''],
-      link : [''],
+      link: [''],
       activities: this.fb.array([]),
       services: this.fb.array([])
     });
@@ -181,9 +182,11 @@ export class CreateComponent {
     this.directorateService.createDirectorate(formData).subscribe({
       next: () => {
         this.loading = false;
+        this.toast.success('TOAST.CREATE_SUCCESS');
         this.dialogRef.close(true);
       },
       error: () => {
+        this.toast.error('TOAST.OPERATION_FAILED');
         this.loading = false;
       }
     });

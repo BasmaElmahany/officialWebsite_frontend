@@ -26,7 +26,7 @@ export interface DirectorateRead {
   nameAr: string;
   nameEn: string;
   photoUrl?: string;
-  dirphotoUrl?: string;
+  dirPhotoUrl?: string;
   dirNameAr: string;
   dirNameEn: string;
   addressAr: string;

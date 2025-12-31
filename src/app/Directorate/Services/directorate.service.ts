@@ -35,10 +35,10 @@ export class DirectorateService {
   ============================== */
   updateDirectorate(
     id: string,
-    payload: CreateDirectorate
+    formData: FormData
   ): Observable<Directorate> {
     return this.http
-      .put<ApiResponse<Directorate>>(`${this.apiUrl}/${id}`, payload)
+      .put<ApiResponse<Directorate>>(`${this.apiUrl}/${id}`, formData)
       .pipe(map(res => res.data));
   }
 

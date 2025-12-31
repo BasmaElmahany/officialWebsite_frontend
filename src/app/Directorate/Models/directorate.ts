@@ -11,6 +11,7 @@ export interface Directorate {
   phoneNumber2?: string;
   email?: string;
   faxNumber?: string;
+  link?: string;
   photoUrl?: string;
   dirPhotoUrl?: string;
   activities: DirectorateActivity[];
@@ -31,7 +32,7 @@ export interface DirectorateRead {
   phoneNumber2?: string;
   email?: string;
   faxNumber?: string;
-
+  link?: string;
   activities: DirectorateActivity[];
   services: DirectorateService[];
 }
@@ -55,6 +56,6 @@ export interface ApiResponse<T> {
 
 
 export interface CreateDirectorate {
-   nameAr : string ;
-    nameEn : string ;
+  nameAr: string;
+  nameEn: string;
 }

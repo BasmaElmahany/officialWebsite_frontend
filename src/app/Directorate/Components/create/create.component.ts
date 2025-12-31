@@ -30,6 +30,13 @@ export class CreateComponent {
       nameEn: ['', Validators.required],
       dirNameAr: [''],
       dirNameEn: [''],
+      addressAr: [''],
+      addressEn: [''],
+      phoneNumber1: [''],
+      phoneNumber2: [''],
+      email: ['', Validators.email],
+      faxNumber: [''],
+      link : [''],
       activities: this.fb.array([]),
       services: this.fb.array([])
     });

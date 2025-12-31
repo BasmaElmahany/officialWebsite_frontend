@@ -11,6 +11,10 @@ $radius: 18px;
   border-radius: $radius;
   overflow: hidden;
   animation: fadeUp 0.35s ease both;
+  max-height: 90vh;
+  flex: 1;
+  /* 🔥 يسمح بالتمدد */
+  overflow-y: auto;
 
   &.rtl {
     direction: rtl;
@@ -23,6 +27,7 @@ $radius: 18px;
   background: linear-gradient(135deg,
       $primary,
       darken($primary, 10%));
+  position: sticky;
   color: #fff;
   padding: 16px 20px;
   display: flex;
@@ -127,12 +132,14 @@ $radius: 18px;
 .repeat-card button mat-icon {
   color: #b91c1c;
 }
-.section > button[mat-stroked-button] {
+
+.section>button[mat-stroked-button] {
   align-self: flex-start;
   border-radius: 12px;
   font-weight: 600;
   padding: 6px 14px;
 }
+
 .repeat-card input[type="file"] {
   font-size: 12px;
   padding: 6px;
@@ -234,7 +241,8 @@ $radius: 18px;
       width: 100%;
     }
   }
-   .section .file-row {
+
+  .section .file-row {
     grid-template-columns: 1fr;
   }
 }

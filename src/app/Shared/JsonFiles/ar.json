@@ -75,6 +75,13 @@
     "DIRECTORATE.SERVICES":"الخدمات",
     "DIRECTORATE.SERVICES_AR":"اسم الخدمة (عربي)",
     "DIRECTORATE.SERVICES_EN":"اسم الخدمة (إنجليزي)",
-    "COMMON.ADD":"إضافة"
+    "COMMON.ADD":"إضافة",
+    "DIRECTORATE.ADDRESS_AR":"العنوان (عربي)",
+    "DIRECTORATE.ADDRESS_EN":"العنوان (إنجليزي)",
+    "DIRECTORATE.PHONE_NUMBER_1":"رقم الهاتف 1",
+    "DIRECTORATE.PHONE_NUMBER_2":"رقم الهاتف 2",
+    "DIRECTORATE.EMAIL":"البريد الإلكتروني",
+    "DIRECTORATE.FAX_NUMBER":"رقم الفاكس",
+    "DIRECTORATE.LINK":"رابط الموقع الإلكتروني"
 
 }

@@ -14,8 +14,7 @@
 
   <!-- ===== Scrollable Content ===== -->
   <div class="dialog-body">
-    <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content">
-
+    <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content scroll-area">
       <!-- ===== Basic Info ===== -->
       <div class="section">
         <h3 class="section-title">
@@ -40,6 +39,38 @@
         <mat-form-field appearance="outline">
           <mat-label>{{ 'DIRECTORATE.DIR_NAME_EN' | translate | async }}</mat-label>
           <input matInput formControlName="dirNameEn">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="addressAr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="addressEn">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.EMAIL' | translate | async }}</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput formControlName="phoneNumber1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput formControlName="phoneNumber2">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput formControlName="faxNumber">
+        </mat-form-field>
+         <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.LINK' | translate | async }}</mat-label>
+          <input matInput formControlName="link">
         </mat-form-field>
       </div>
 

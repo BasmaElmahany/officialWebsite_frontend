@@ -72,6 +72,12 @@
     "DIRECTORATE.SERVICES":"Services",
     "DIRECTORATE.SERVICES_AR":"Service Name (Arabic)",
     "DIRECTORATE.SERVICES_EN":"Service Name (English)",
-    "COMMON.ADD":"Add"
-
+    "COMMON.ADD":"Add",
+    "DIRECTORATE.ADDRESS_AR":"Address (Arabic)",
+    "DIRECTORATE.ADDRESS_EN":"Address (English)",
+    "DIRECTORATE.PHONE_NUMBER_1":"Phone Number 1",
+    "DIRECTORATE.PHONE_NUMBER_2":"Phone Number 2",
+    "DIRECTORATE.EMAIL":"Email",
+    "DIRECTORATE.FAX_NUMBER":"Fax Number",
+    "DIRECTORATE.LINK":"Website Link"
 }

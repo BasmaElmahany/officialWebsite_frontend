@@ -22,9 +22,8 @@ import { ToastService } from '../../../Shared/Services/toast/toast.service';
 export class ListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['icon', 'name', 'managerName', 'phoneNumber', 'actions'];
- dataSource = new MatTableDataSource<DirectorateRead>();
-  displayedColumns: string[] = ['icon', 'name', 'actions'];
   dataSource = new MatTableDataSource<DirectorateRead>();
+
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -47,10 +46,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 
     // 🔥 Sorting based on language
     this.dataSource.sortingDataAccessor = (item, property) => {
-      if (property === 'name') {
+      if (property === 'name' || property === 'managerName' || property === 'phoneNumber') {
         return this.i18n.currentLang === 'ar'
           ? item.nameAr
-          : item.nameEn;
+          : item.nameEn || item.dirNameAr || item.dirNameEn || item.phoneNumber1 || '';
       }
       return '';
     };
@@ -59,7 +58,8 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.filterPredicate = (directorate, filter) => {
       const value = this.i18n.currentLang === 'ar'
         ? directorate.nameAr
-        : directorate.nameEn;
+        : directorate.nameEn || directorate.dirNameEn || directorate.dirNameAr || directorate.phoneNumber1 || ''  ;
+
       return value.toLowerCase().includes(filter);
     };
   }
@@ -74,11 +74,21 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  getCenterName(center: Directorate): string {
+  getDirectorateName(directorate: Directorate): string {
     return this.i18n.currentLang === 'ar'
-      ? center.nameAr
-      : center.nameEn;
+      ? directorate.nameAr
+      : directorate.nameEn;
   }
+   getManagerName(directorate: Directorate): string {
+    return this.i18n.currentLang === 'ar'
+      ? directorate.dirNameAr
+      : directorate.dirNameEn;
+  }
+     getPhoneNumber(directorate: Directorate): string {
+    return directorate.phoneNumber1 ? directorate.phoneNumber1 : 'N/A';
+      
+  }
+
 
 
   goToCreate(): void {

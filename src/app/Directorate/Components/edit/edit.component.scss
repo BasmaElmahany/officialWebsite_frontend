@@ -22,6 +22,7 @@ $radius: 18px;
   }
 }
 
+
 /* ===== Header ===== */
 .dialog-header {
   background: linear-gradient(135deg,
@@ -259,4 +260,16 @@ $radius: 18px;
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+.preview-img {
+  width: 100%;
+  max-width: 380px;        // ✔ أقل شوية من 420 للهوامش
+  max-height: 180px;       // ✔ ارتفاع مناسب داخل dialog
+  object-fit: contain;     // ✔ بدون قص أو تشويه
+  display: block;
+  margin: 0 auto 12px;     // ✔ توسيط + مسافة أسفل
+  border-radius: 14px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
 }

@@ -1,19 +1,24 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DirectorateService } from '../../Services/directorate.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Directorate } from '../../Models/directorate';
+import { Directorate, DirectorateRead } from '../../Models/directorate';
 import { I18nService } from '../../../Shared/Services/i18n.service';
+import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
-export class EditComponent {
+export class EditComponent implements OnInit {
   form: FormGroup;
   loading = false;
+  directorate!: DirectorateRead;
 
+  photoUrl?: string;
+  dirPhotoUrl?: string;
+  serviceFileUrls: string[] = [];
   // files
   mainPhoto?: File;
   dirPhoto?: File;
@@ -23,8 +28,8 @@ export class EditComponent {
     private fb: FormBuilder,
     private directorateService: DirectorateService,
     private dialogRef: MatDialogRef<EditComponent>,
-    @Inject(MAT_DIALOG_DATA) public directorate: Directorate,
-    public i18n: I18nService
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    public i18n: I18nService, private toast: ToastService
   ) {
     this.form = this.fb.group({
       nameAr: ['', Validators.required],
@@ -37,14 +42,31 @@ export class EditComponent {
       phoneNumber2: [''],
       email: ['', Validators.email],
       faxNumber: [''],
-      link : [''],                          
+      link: [''],
       activities: this.fb.array([]),
       services: this.fb.array([])
     });
 
-    this.patchData();
+   
   }
 
+  ngOnInit(): void {
+    this.loadDirectorate();
+  }
+
+
+  loadDirectorate(): void {
+    this.directorateService.getbyId(this.data.id).subscribe({
+      next: d => {
+        this.directorate = d;
+        this.patchData(d);
+      },
+      error: () => {
+        this.toast.error('TOAST.OPERATION_FAILED');
+        this.dialogRef.close(false);
+      }
+    });
+  }
   /* ================= GETTERS ================= */
   get activities(): FormArray {
     return this.form.get('activities') as FormArray;
@@ -55,23 +77,32 @@ export class EditComponent {
   }
 
   /* ================= PATCH OLD DATA ================= */
-  patchData(): void {
+  patchData(d: DirectorateRead): void {
     this.form.patchValue({
-      nameAr: this.directorate.nameAr,
-      nameEn: this.directorate.nameEn,
-      dirNameAr: this.directorate.dirNameAr,
-      dirNameEn: this.directorate.dirNameEn,
-      addressAr: this.directorate.addressAr,
-      addressEn: this.directorate.addressEn,
-      phoneNumber1: this.directorate.phoneNumber1,
-      phoneNumber2: this.directorate.phoneNumber2,
-      email: this.directorate.email,
-      faxNumber: this.directorate.faxNumber,
-      link: this.directorate.link
+      nameAr: d.nameAr,
+      nameEn: d.nameEn,
+      dirNameAr: d.dirNameAr,
+      dirNameEn: d.dirNameEn,
+      addressAr: d.addressAr,
+      addressEn: d.addressEn,
+      phoneNumber1: d.phoneNumber1,
+      phoneNumber2: d.phoneNumber2,
+      email: d.email,
+      faxNumber: d.faxNumber,
+      link: d.link
     });
 
+    // images URLs
+    this.photoUrl = d.photoUrl
+      ? `https://shusha.minya.gov.eg:93${d.photoUrl}`
+      : undefined;
+
+    this.dirPhotoUrl = d.dirphotoUrl
+      ? `https://shusha.minya.gov.eg:93${d.dirphotoUrl}`
+      : undefined;
+
     // activities
-    this.directorate.activities?.forEach(a => {
+    d.activities?.forEach(a => {
       this.activities.push(
         this.fb.group({
           activityAr: [a.activityAr, Validators.required],
@@ -81,12 +112,18 @@ export class EditComponent {
     });
 
     // services
-    this.directorate.services?.forEach(() => {
+    d.services?.forEach(s => {
       this.services.push(
         this.fb.group({
-          serviceAr: ['', Validators.required],
-          serviceEn: ['', Validators.required]
+          serviceAr: [s.serviceAr, Validators.required],
+          serviceEn: [s.serviceEn, Validators.required]
         })
+      );
+
+      this.serviceFileUrls.push(
+        s.file
+          ? `https://shusha.minya.gov.eg:93${s.file}`
+          : ''
       );
     });
   }
@@ -138,7 +175,7 @@ export class EditComponent {
   /* ================= SUBMIT ================= */
   submit(): void {
     if (this.form.invalid) {
-      this.form.markAllAsTouched();
+      // this.form.markAllAsTouched();
       return;
     }
 
@@ -178,10 +215,14 @@ export class EditComponent {
       .updateDirectorate(this.directorate.id, formData)
       .subscribe({
         next: () => {
-          this.loading = false;
+          this.loading = true;
+          this.toast.success('TOAST.UPDATE_SUCCESS');
           this.dialogRef.close(true);
         },
-        error: () => (this.loading = false)
+        error: () => {
+          this.loading = false;
+          this.toast.error('TOAST.UPDATE_FAIL');
+        }
       });
   }
 

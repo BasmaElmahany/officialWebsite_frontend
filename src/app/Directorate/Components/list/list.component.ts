@@ -11,6 +11,7 @@ import { CreateComponent } from '../create/create.component';
 import { EditComponent } from '../edit/edit.component';
 import { DetailsComponent } from '../details/details.component';
 import { DeleteComponent } from '../delete/delete.component';
+import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-list',
@@ -22,6 +23,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['icon', 'name', 'managerName', 'phoneNumber', 'actions'];
  dataSource = new MatTableDataSource<DirectorateRead>();
+  displayedColumns: string[] = ['icon', 'name', 'actions'];
+  dataSource = new MatTableDataSource<DirectorateRead>();
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -30,7 +33,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   constructor(
     private directorateService: DirectorateService,
     private router: Router,
-    public i18n: I18nService, private dialog: MatDialog
+    public i18n: I18nService, private dialog: MatDialog, private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +56,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     };
 
     // 🔎 Filtering based on language
-    this.dataSource.filterPredicate = ( directorate, filter) => {
+    this.dataSource.filterPredicate = (directorate, filter) => {
       const value = this.i18n.currentLang === 'ar'
         ? directorate.nameAr
         : directorate.nameEn;
@@ -87,13 +90,13 @@ export class ListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.reloadCenters();
+        this.reloadDirectorate();
       }
     });
   }
 
 
-  reloadCenters(): void {
+  reloadDirectorate(): void {
     this.loading = true;
     this.directorateService.getAllDirectorates().subscribe({
       next: data => {
@@ -107,12 +110,12 @@ export class ListComponent implements OnInit, AfterViewInit {
   openEdit(directorate: Directorate): void {
     const ref = this.dialog.open(EditComponent, {
       width: '420px',
-      data: directorate,
+      data: { id: directorate.id },
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadCenters();
+      if (ok) this.reloadDirectorate();
     });
   }
   openDetails(directorate: Directorate): void {
@@ -132,7 +135,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     });
 
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadCenters();
+      if (ok) this.reloadDirectorate();
     });
-  } 
+  }
 }

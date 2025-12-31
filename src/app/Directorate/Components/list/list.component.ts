@@ -20,7 +20,7 @@ import { DeleteComponent } from '../delete/delete.component';
 })
 export class ListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['icon', 'name', 'actions'];
+  displayedColumns: string[] = ['icon', 'name', 'managerName', 'phoneNumber', 'actions'];
  dataSource = new MatTableDataSource<DirectorateRead>();
   loading = true;
 

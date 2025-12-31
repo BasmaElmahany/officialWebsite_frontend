@@ -79,5 +79,7 @@
     "DIRECTORATE.PHONE_NUMBER_2":"Phone Number 2",
     "DIRECTORATE.EMAIL":"Email",
     "DIRECTORATE.FAX_NUMBER":"Fax Number",
-    "DIRECTORATE.LINK":"Website Link"
+    "DIRECTORATE.LINK":"Website Link",
+    "DIRECTORATE.DETAILS_TITLE":"Directorate Details",
+    "COMMON.CLOSE":"Close"
 }

@@ -1,4 +1,3 @@
-
 export interface Directorate {
   id: string;
   nameAr: string;
@@ -16,6 +15,10 @@ export interface Directorate {
   dirPhotoUrl?: string;
   activities: DirectorateActivity[];
   services: DirectorateService[];
+  managerName?: {
+    ar: string;
+    en: string;
+  };
 }
 
 export interface DirectorateRead {

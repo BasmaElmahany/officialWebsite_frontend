@@ -82,6 +82,8 @@
     "DIRECTORATE.PHONE_NUMBER_2":"رقم الهاتف 2",
     "DIRECTORATE.EMAIL":"البريد الإلكتروني",
     "DIRECTORATE.FAX_NUMBER":"رقم الفاكس",
-    "DIRECTORATE.LINK":"رابط الموقع الإلكتروني"
+    "DIRECTORATE.LINK":"رابط الموقع الإلكتروني",
+    "DIRECTORATE.DETAILS_TITLE":"تفاصيل المديريه",
+    "COMMON.CLOSE":"إغلاق"
 
 }

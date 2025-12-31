@@ -58,6 +58,7 @@
   "GOV_TOURS.ERROR": "Failed to load details",
   "GOV_TOURS.CLOSE": "Close",
   "GOV_TOURS.UPDATE": "Update",
+
   "COMPANIES.CREATE_TITLE": "add new Company",
   "DIRECTORATE.BASIC_INFO": "Basic Information",
   "DIRECTORATE.DIR_NAME_AR": "Directorator Name (Arabic)",
@@ -80,9 +81,11 @@
   "DIRECTORATE.EMAIL": "Email",
   "DIRECTORATE.FAX_NUMBER": "Fax Number",
   "DIRECTORATE.LINK": "Website Link",
+   "DIRECTORATE.DETAILS_TITLE":"Directorate Details",
   "TOAST.CREATE_SUCCESS": "Directorate created successfully",
   "TOAST.UPDATE_SUCCESS": "Directorate updated successfully",
   "TOAST.DELETE_SUCCESS": "Directorate deleted successfully",
   "TOAST.OPERATION_FAILED": "Something went wrong, please try again",
   "COMMON.CLOSE": "Close"
+
 }

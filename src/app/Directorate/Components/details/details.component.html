@@ -1,11 +1,11 @@
-<div class="details-dialog" [class.rtl]="i18n.isRTL">
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
 
   <!-- ===== Header ===== -->
   <div class="dialog-header">
     <div class="title-wrap">
       <mat-icon class="title-icon">info</mat-icon>
       <h2>
-        {{ i18n.currentLang === 'ar' ? 'تفاصيل المديرية' : 'Directorate Details' }}
+        {{ 'DIRECTORATE.DETAILS_TITLE' | translate | async }}
       </h2>
     </div>
 
@@ -14,43 +14,122 @@
     </button>
   </div>
 
-  <!-- ===== Content ===== -->
-  <div class="dialog-content">
+  <!-- ===== Scrollable Content ===== -->
+  <div class="dialog-body">
+    <div class="dialog-content scroll-area">
+      <!-- ===== Basic Info ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'DIRECTORATE.BASIC_INFO' | translate | async }}
+        </h3>
 
-    <div class="loading-box" *ngIf="loading">
-      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
-      <span>{{ i18n.currentLang === 'ar' ? 'جاري التحميل...' : 'Loading...' }}</span>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.nameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.nameEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.DIR_NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.dirNameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.DIR_NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.dirNameEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.addressAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.addressEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.EMAIL' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.email" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.phoneNumber1" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.phoneNumber2" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.faxNumber" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DIRECTORATE.LINK' | translate | async }}</mat-label>
+          <input matInput [value]="directorate?.link" readonly>
+        </mat-form-field>
+      </div>
+
+      <!-- ===== Images ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'DIRECTORATE.IMAGES' | translate | async }}
+        </h3>
+
+        <div class="file-row">
+          <label>
+            {{ 'DIRECTORATE.LOGO' | translate | async }}
+            <img *ngIf="directorate?.photoUrl" [src]="directorate?.photoUrl" alt="Logo">
+          </label>
+
+          <label>
+            {{ 'DIRECTORATE.DIR_PHOTO_URL' | translate | async }}
+            <img *ngIf="directorate?.dirPhotoUrl" [src]="directorate?.dirPhotoUrl" alt="Director Photo">
+          </label>
+        </div>
+      </div>
+
+      <!-- ===== Activities ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'DIRECTORATE.ACTIVITIES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let activity of directorate?.activities">
+            {{ i18n.currentLang === 'ar' ? activity.activityAr : activity.activityEn }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- ===== Services ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'DIRECTORATE.SERVICES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let service of directorate?.services">
+            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <ng-container *ngIf="!loading && directorate">
-
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>language</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم المديرية (عربي)' : 'Name (Arabic)' }}</mat-label>
-        <input matInput [value]="directorate.nameAr" readonly />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>public</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم المديرية (إنجليزي)' : 'Name (English)' }}</mat-label>
-        <input matInput [value]="directorate.nameEn" readonly />
-      </mat-form-field>
-
-
-
-    </ng-container>
-
-    <div class="error-box" *ngIf="!loading && !directorate">
-      <mat-icon>error_outline</mat-icon>
-      <span>{{ i18n.currentLang === 'ar' ? 'تعذر تحميل التفاصيل' : 'Unable to load details' }}</span>
-    </div>
-
   </div>
 
   <!-- ===== Actions ===== -->
   <div class="dialog-actions">
     <button mat-stroked-button color="primary" type="button" (click)="close()">
-      {{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}
+      {{ 'COMMON.CLOSE' | translate | async }}
     </button>
   </div>
 

@@ -21,6 +21,8 @@ import { ToastService } from '../../../Shared/Services/toast/toast.service';
 })
 export class ListComponent implements OnInit, AfterViewInit {
 
+  displayedColumns: string[] = ['icon', 'name', 'managerName', 'phoneNumber', 'actions'];
+ dataSource = new MatTableDataSource<DirectorateRead>();
   displayedColumns: string[] = ['icon', 'name', 'actions'];
   dataSource = new MatTableDataSource<DirectorateRead>();
   loading = true;

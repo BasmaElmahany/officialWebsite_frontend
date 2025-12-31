@@ -61,6 +61,7 @@
   "GOV_TOURS.ERROR": "تعذر تحميل التفاصيل",
   "GOV_TOURS.CLOSE": "إغلاق",
   "GOV_TOURS.UPDATE": "تحديث",
+
   "DIRECTORATE.BASIC_INFO": "المعلومات الأساسية",
   "DIRECTORATE.DIR_NAME_AR": "اسم المدير (عربي)",
   "DIRECTORATE.DIR_NAME_EN": "اسم المدير (إنجليزي)",
@@ -82,6 +83,7 @@
   "DIRECTORATE.EMAIL": "البريد الإلكتروني",
   "DIRECTORATE.FAX_NUMBER": "رقم الفاكس",
   "DIRECTORATE.LINK": "رابط الموقع الإلكتروني",
+ "DIRECTORATE.DETAILS_TITLE":"تفاصيل المديريه",
   "TOAST.CREATE_SUCCESS": "تم إنشاء الجهة بنجاح",
   "TOAST.UPDATE_SUCCESS": "تم تحديث الجهة بنجاح",
   "TOAST.DELETE_SUCCESS": "تم حذف الجهة بنجاح",

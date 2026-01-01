@@ -32,7 +32,12 @@ export class DetailsComponent {
     this.directorateService.getbyId(id).subscribe({
       next: (c) => {
         console.log('API Response:', c); // Log the API response
-        this.directorate = c; // Assign the API response to the `directorate` property
+        this.directorate = c;
+        const raw = c as any;
+
+        c.dirPhotoUrl = this.getDirPhotoUrl(
+          raw.dirPhotoUrl ?? raw.dirphotoUrl
+        );// Assign the API response to the `directorate` property
         console.log('Directorate Data:', this.directorate); // Verify the assignment
         console.log('Directorate DirPhotoUrl:', this.directorate?.dirPhotoUrl); // Verify the `dirPhotoUrl`
         this.loading = false;
@@ -59,19 +64,19 @@ export class DetailsComponent {
     if (!photoData) return '';
     if (typeof photoData === 'string') {
       if (photoData.startsWith('http')) return photoData;
-      return 'https://shusha.minya.gov.eg:93'+ photoData;
+      return 'https://shusha.minya.gov.eg:93' + photoData;
     }
     // Construct URL using fileName
     return `https://shusha.minya.gov.eg:93${photoData.fileName}`;
   }
 
-  getDirPhotoUrl(dirPhotoData?: string | { fileName: string }): string {
-    if (!dirPhotoData) return '';
-    if (typeof dirPhotoData === 'string') {
-      if (dirPhotoData.startsWith('http')) return dirPhotoData;
-      return 'https://shusha.minya.gov.eg:93' + dirPhotoData; // Prepend base URL
+  getDirPhotoUrl(dirphotoUrl?: string | { fileName: string }): string {
+    if (!dirphotoUrl) return '';
+    if (typeof dirphotoUrl === 'string') {
+      if (dirphotoUrl.startsWith('http')) return dirphotoUrl;
+      return 'https://shusha.minya.gov.eg:93' + dirphotoUrl; // Prepend base URL
     }
     // Construct URL using fileName
-    return `https://shusha.minya.gov.eg:93${dirPhotoData.fileName}`;
+    return `https://shusha.minya.gov.eg:93${dirphotoUrl.fileName}`;
   }
 }

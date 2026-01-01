@@ -47,7 +47,7 @@ export class EditComponent implements OnInit {
       services: this.fb.array([])
     });
 
-   
+
   }
 
   ngOnInit(): void {
@@ -60,6 +60,8 @@ export class EditComponent implements OnInit {
       next: d => {
         this.directorate = d;
         this.patchData(d);
+        console.log('Directorate API response:', d);
+        console.log('dirPhotoUrl value:', d.dirPhotoUrl);
       },
       error: () => {
         this.toast.error('TOAST.OPERATION_FAILED');
@@ -96,9 +98,9 @@ export class EditComponent implements OnInit {
     this.photoUrl = d.photoUrl
       ? `https://shusha.minya.gov.eg:93${d.photoUrl}`
       : undefined;
-
-    this.dirPhotoUrl = d.dirPhotoUrl
-      ? `https://shusha.minya.gov.eg:93${d.dirPhotoUrl}`
+    console.log(this.photoUrl);
+    this.dirPhotoUrl = (d as any).dirphotoUrl
+      ? `https://shusha.minya.gov.eg:93${(d as any).dirphotoUrl}`
       : undefined;
 
     // activities
@@ -126,6 +128,7 @@ export class EditComponent implements OnInit {
           : ''
       );
     });
+    console.log(this.form.value);
   }
 
   /* ================= ADD / REMOVE ================= */

@@ -1,11 +1,11 @@
-<div class="details-dialog" [class.rtl]="i18n.isRTL">
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
 
   <!-- ===== Header ===== -->
   <div class="dialog-header">
     <div class="title-wrap">
       <mat-icon class="title-icon">info</mat-icon>
       <h2>
-        {{ i18n.currentLang === 'ar' ? 'تفاصيل الهيئة الحكومية' : 'Agency Details' }}
+        {{ 'AGENCY.DETAILS_TITLE' | translate | async }}
       </h2>
     </div>
 
@@ -14,43 +14,126 @@
     </button>
   </div>
 
-  <!-- ===== Content ===== -->
-  <div class="dialog-content">
+  <!-- ===== Scrollable Content ===== -->
+  <div class="dialog-body">
+    <div class="dialog-content scroll-area">
+      <!-- ===== Basic Info ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.BASIC_INFO' | translate | async }}
+        </h3>
 
-    <div class="loading-box" *ngIf="loading">
-      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
-      <span>{{ i18n.currentLang === 'ar' ? 'جاري التحميل...' : 'Loading...' }}</span>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.nameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.nameEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.DIR_NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.dirNameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.DIR_NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.dirNameEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.addressAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.addressEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.EMAIL' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.email" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.phoneNumber1" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.phoneNumber2" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.faxNumber" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.LINK' | translate | async }}</mat-label>
+          <input matInput [value]="agency?.link" readonly>
+        </mat-form-field>
+      </div>
+
+      <!-- ===== Images ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.IMAGES' | translate | async }}
+        </h3>
+
+        <div class="file-row">
+          <label>
+            {{ 'AGENCY.LOGO' | translate | async }}
+            <div class="photo-box" *ngIf="agency?.photoUrl">
+              <img [src]="getPhotoUrl(agency?.photoUrl)" alt="صورة الشعار" />
+            </div>
+          </label>
+
+          <label>
+            {{ 'DIRECTORATE.DIR_PHOTO_URL' | translate | async }}
+            <div class="photo-box" *ngIf="agency?.dirPhotoUrl">
+              <img [src]="getDirPhotoUrl(agency?.dirPhotoUrl)" alt="صورة المدير" />
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===== Activities ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.ACTIVITIES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let activity of agency?.activities">
+            {{ i18n.currentLang === 'ar' ? activity.activityAr : activity.activityEn }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- ===== Services ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.SERVICES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let service of agency?.services">
+            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <ng-container *ngIf="!loading && agency">
-
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>language</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الهيئة الحكومية (عربي)' : 'Name (Arabic)' }}</mat-label>
-        <input matInput [value]="agency.nameAr" readonly />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-icon matPrefix>public</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الهيئة الحكومية (إنجليزي)' : 'Name (English)' }}</mat-label>
-        <input matInput [value]="agency.nameEn" readonly />
-      </mat-form-field>
-
-
-
-    </ng-container>
-
-    <div class="error-box" *ngIf="!loading && !agency">
-      <mat-icon>error_outline</mat-icon>
-      <span>{{ i18n.currentLang === 'ar' ? 'تعذر تحميل التفاصيل' : 'Unable to load details' }}</span>
-    </div>
-
   </div>
 
   <!-- ===== Actions ===== -->
   <div class="dialog-actions">
     <button mat-stroked-button color="primary" type="button" (click)="close()">
-      {{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}
+      {{ 'COMMON.CLOSE' | translate | async }}
     </button>
   </div>
 

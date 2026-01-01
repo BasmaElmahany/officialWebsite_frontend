@@ -69,6 +69,7 @@
 
         <!-- Upload -->
         <div class="upload-box" (click)="fileInput.click()">
+
             <mat-icon>photo_camera</mat-icon>
             <span>
                 {{ 'GOV_TOURS.UPLOAD_IMAGES' | translate | async }}
@@ -76,6 +77,10 @@
 
             <input #fileInput type="file" multiple hidden (change)="onFilesSelected($event)">
         </div>
+        <div class="image-preview" *ngIf="imagePreviews.length">
+            <img *ngFor="let img of imagePreviews" [src]="img" alt="preview" />
+        </div>
+
 
     </form>
 

@@ -25,7 +25,7 @@ export interface GetGovTours {
 
 // CREATE / UPDATE model (what frontend sends)
 export interface CreateGovTour {
-  date: string;
+  date: Date;
   titleAr: string;
   titleEn: string;
   articleAr: string;

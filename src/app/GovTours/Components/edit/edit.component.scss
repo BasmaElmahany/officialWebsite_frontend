@@ -4,19 +4,25 @@ $bg: #f7f9fc;
 $radius: 18px;
 
 .create-dialog {
-  width: 100%;
-  max-width: 500px;
-  background:transparent;
-  border-radius: $radius;
-  overflow: hidden;
-  animation: fadeUp 0.35s ease both;
+   width: 100%;
+   max-height: 90vh;
+   max-width: 500px;
+   background: transparent;
+   border-radius: $radius;
+   overflow: hidden;
+   animation: fadeUp 0.35s ease both;
+   max-height: 90vh;
+   flex: 1;
+   /* 🔥 يسمح بالتمدد */
+   overflow-y: auto;
 
-  &.rtl {
-    direction: rtl;
-    text-align: right;
-  }
-  
-}
+   &.rtl {
+     direction: rtl;
+     text-align: right;
+   }
+
+ }
+
 
 
 /* ===== Header ===== */

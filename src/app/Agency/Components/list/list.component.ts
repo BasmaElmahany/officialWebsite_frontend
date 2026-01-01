@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Agency } from '../../Models/agency';
+import { Agency, AgencyRead } from '../../Models/agency';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AgncyService } from '../../Services/agncy.service';
@@ -12,6 +12,7 @@ import { Center } from '../../../Center/Models/center';
 import { EditComponent } from '../edit/edit.component';
 import { DetailsComponent } from '../details/details.component';
 import { DeleteComponent } from '../delete/delete.component';
+import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-list',
@@ -21,8 +22,9 @@ import { DeleteComponent } from '../delete/delete.component';
 })
 export class ListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['icon', 'name', 'actions'];
-  dataSource = new MatTableDataSource<Agency>();
+  displayedColumns: string[] = ['icon', 'name', 'managerName', 'phoneNumber', 'actions'];
+  dataSource = new MatTableDataSource<AgencyRead>();
+
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,7 +33,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   constructor(
     private agncyService: AgncyService,
     private router: Router,
-    public i18n: I18nService, private dialog: MatDialog
+    public i18n: I18nService, private dialog: MatDialog, private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -45,19 +47,20 @@ export class ListComponent implements OnInit, AfterViewInit {
 
     // 🔥 Sorting based on language
     this.dataSource.sortingDataAccessor = (item, property) => {
-      if (property === 'name') {
+      if (property === 'name' || property === 'managerName' || property === 'phoneNumber') {
         return this.i18n.currentLang === 'ar'
           ? item.nameAr
-          : item.nameEn;
+          : item.nameEn || item.dirNameAr || item.dirNameEn || item.phoneNumber1 || '';
       }
       return '';
     };
 
     // 🔎 Filtering based on language
-    this.dataSource.filterPredicate = (center, filter) => {
+    this.dataSource.filterPredicate = (directorate, filter) => {
       const value = this.i18n.currentLang === 'ar'
-        ? center.nameAr
-        : center.nameEn;
+        ? directorate.nameAr
+        : directorate.nameEn || directorate.dirNameEn || directorate.dirNameAr || directorate.phoneNumber1 || ''  ;
+
       return value.toLowerCase().includes(filter);
     };
   }
@@ -72,11 +75,21 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  getAgncyName(agency: Agency): string {
+  getAgencyName(agency: Agency): string {
     return this.i18n.currentLang === 'ar'
       ? agency.nameAr
       : agency.nameEn;
   }
+   getManagerName(agency: Agency): string {
+    return this.i18n.currentLang === 'ar'
+      ? agency.dirNameAr
+      : agency.dirNameEn;
+  }
+     getPhoneNumber(agency: Agency): string {
+    return agency.phoneNumber1 ? agency.phoneNumber1 : 'N/A';
+      
+  }
+
 
 
   goToCreate(): void {
@@ -88,13 +101,13 @@ export class ListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.reloadCenters();
+        this.reloadAgency();
       }
     });
   }
 
 
-  reloadCenters(): void {
+  reloadAgency(): void {
     this.loading = true;
     this.agncyService.getAllAgencies().subscribe({
       next: data => {
@@ -108,12 +121,12 @@ export class ListComponent implements OnInit, AfterViewInit {
   openEdit(agency: Agency): void {
     const ref = this.dialog.open(EditComponent, {
       width: '420px',
-      data: agency  ,
+      data: { id: agency.id },
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadCenters();
+      if (ok) this.reloadAgency();
     });
   }
   openDetails(agency: Agency): void {
@@ -125,15 +138,15 @@ export class ListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openDelete(agency: Agency): void {
+  openDelete(directorate: Agency): void {
     const ref = this.dialog.open(DeleteComponent, {
       width: '380px',
-      data: agency,
+      data: directorate,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadCenters();
+      if (ok) this.reloadAgency();
     });
   }
 }

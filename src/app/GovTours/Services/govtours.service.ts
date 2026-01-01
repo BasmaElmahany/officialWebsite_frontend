@@ -11,7 +11,7 @@ export class GovtoursService {
 
   private readonly apiUrl = `${baseAPI}/GovTours`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // -------------------- GET ALL --------------------
   getAll(): Observable<ApiResponse<GetGovTours[]>> {
@@ -29,6 +29,7 @@ export class GovtoursService {
     return this.http.post<ApiResponse<GetGovTours>>(this.apiUrl, formData);
   }
 
+
   // -------------------- UPDATE --------------------
   update(id: string, model: CreateGovTour): Observable<ApiResponse<boolean>> {
     const formData = this.buildFormData(model);
@@ -44,7 +45,12 @@ export class GovtoursService {
   private buildFormData(model: CreateGovTour): FormData {
     const formData = new FormData();
 
-    formData.append('date', model.date);
+    const date =
+      model.date instanceof Date
+        ? model.date.toISOString().split('T')[0]
+        : model.date;
+
+    formData.append('date', date);
     formData.append('titleAr', model.titleAr);
     formData.append('titleEn', model.titleEn);
     formData.append('articleAr', model.articleAr);

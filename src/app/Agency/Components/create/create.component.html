@@ -1,12 +1,10 @@
 <div class="create-dialog" [class.rtl]="i18n.isRTL">
 
-  <!-- ===== Header ===== -->
+  <!-- ===== Header (Sticky) ===== -->
   <div class="dialog-header">
     <div class="title-wrap">
-      <mat-icon class="title-icon">add_location_alt</mat-icon>
-      <h2>
-        {{ 'AGENCIES.CREATE_TITLE' | translate | async }}
-      </h2>
+      <mat-icon class="title-icon">account_balance</mat-icon>
+      <h2>{{ 'AGENCY.CREATE_TITLE' | translate | async }}</h2>
     </div>
 
     <button mat-icon-button class="close-btn" (click)="close()">
@@ -14,69 +12,190 @@
     </button>
   </div>
 
-  <!-- ===== Content ===== -->
-  <form
-    [formGroup]="form"
-    (ngSubmit)="submit()"
-    class="dialog-content">
+  <!-- ===== Scrollable Content ===== -->
+  <div class="dialog-body">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content scroll-area">
+      <!-- ===== Basic Info ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.BASIC_INFO' | translate | async }}
+        </h3>
 
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>language</mat-icon>
-      <mat-label>
-        {{ 'AGENCIES.NAME_AR' | translate | async }}
-      </mat-label>
-      <input matInput formControlName="nameAr">
-      <mat-error *ngIf="form.get('nameAr')?.invalid">
-        {{ 'VALIDATION.REQUIRED' | translate | async }}
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.NAME_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="nameAr">
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>public</mat-icon>
-      <mat-label>
-        {{ 'AGENCIES.NAME_EN' | translate | async }}
-      </mat-label>
-      <input matInput formControlName="nameEn">
-      <mat-error *ngIf="form.get('nameEn')?.invalid">
-        {{ 'VALIDATION.REQUIRED' | translate | async }}
-      </mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.NAME_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="nameEn">
+        </mat-form-field>
 
-  </form>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.DIR_NAME_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="dirNameAr">
+        </mat-form-field>
 
-  <!-- ===== Actions ===== -->
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.DIR_NAME_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="dirNameEn">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="addressAr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="addressEn">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.EMAIL' | translate | async }}</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput formControlName="phoneNumber1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput formControlName="phoneNumber2">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput formControlName="faxNumber">
+        </mat-form-field>
+         <mat-form-field appearance="outline">
+          <mat-label>{{ 'AGENCY.LINK' | translate | async }}</mat-label>
+          <input matInput formControlName="link">
+        </mat-form-field>
+      </div>
+
+      <!-- ===== Images ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.IMAGES' | translate | async }}
+        </h3>
+
+        <div class="file-row">
+          <label>
+            {{ 'AGENCY.LOGO' | translate | async }}
+            <input type="file" (change)="onPhotoChange($event)">
+          </label>
+
+         
+        </div>
+        <div class="file-row">
+          
+
+          <label>
+            {{ 'AGENCY.DIR_PHOTO_URL' | translate | async }}
+            <input type="file" (change)="onDirPhotoChange($event)">
+          </label>
+        </div>
+      </div>
+
+      <!-- ===== Activities ===== -->
+      <!-- ===== Activities ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.ACTIVITIES' | translate | async }}
+        </h3>
+
+        <!-- 🔥 REQUIRED wrapper -->
+        <div formArrayName="activities">
+
+          <div class="repeat-card" *ngFor="let a of activities.controls; let i = index" [formGroupName]="i">
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'AGENCY.ACTIVITY_NAME_AR' | translate | async }}
+              </mat-label>
+              <textarea matInput formControlName="activityAr"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'AGENCY.ACTIVITY_NAME_EN' | translate | async }}
+              </mat-label>
+              <textarea matInput formControlName="activityEn"></textarea>
+            </mat-form-field>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeActivity(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
+        </div>
+
+        <button mat-stroked-button type="button" (click)="addActivity()">
+          <mat-icon>add</mat-icon>
+          {{ 'COMMON.ADD' | translate | async }}
+        </button>
+      </div>
+
+
+      <!-- ===== Services ===== -->
+      <!-- ===== Services ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'AGENCY.SERVICES' | translate | async }}
+        </h3>
+
+        <!-- 🔥 REQUIRED wrapper -->
+        <div formArrayName="services">
+
+          <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'AGENCY.SERVICES' | translate | async }}</mat-label>
+              <input matInput formControlName="serviceAr">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'AGENCY.SERVICES_EN' | translate | async }}</mat-label>
+              <input matInput formControlName="serviceEn">
+            </mat-form-field>
+
+            <input type="file" accept="application/pdf" (change)="onServiceFileChange($event, i)">
+
+            <button mat-icon-button color="warn" type="button" (click)="removeService(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
+        </div>
+
+        <button mat-stroked-button type="button" (click)="addService()">
+          <mat-icon>add</mat-icon>
+          {{ 'COMMON.ADD' | translate | async }}
+        </button>
+      </div>
+
+
+    </form>
+  </div>
+
+  <!-- ===== Actions (Sticky) ===== -->
   <div class="dialog-actions">
-
-    <button
-      mat-stroked-button
-      color="primary"
-      type="button"
-      (click)="close()">
-
+    <button mat-stroked-button type="button" (click)="close()">
       {{ 'COMMON.CANCEL' | translate | async }}
     </button>
 
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="submit()"
-      [disabled]="loading">
-
-      <mat-icon *ngIf="!loading">check</mat-icon>
-      <mat-progress-spinner
-        *ngIf="loading"
-        diameter="20"
-        mode="indeterminate">
+    <button mat-raised-button color="primary" (click)="submit()" [disabled]="loading">
+      <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate">
       </mat-progress-spinner>
 
       <span>
         {{ loading
-          ? ('COMMON.SAVING' | translate | async)
-          : ('COMMON.CREATE' | translate | async)
+        ? ('COMMON.SAVING' | translate | async)
+        : ('COMMON.CREATE' | translate | async)
         }}
       </span>
-
     </button>
-
   </div>
+
 </div>

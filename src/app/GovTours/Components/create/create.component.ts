@@ -6,14 +6,15 @@ import { I18nService } from '../../../Shared/Services/i18n.service';
 
 @Component({
   selector: 'app-create',
- 
+
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
 export class CreateComponent {
- form: FormGroup;
+  form: FormGroup;
   loading = false;
   selectedFiles: File[] = [];
+  imagePreviews: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -35,18 +36,26 @@ export class CreateComponent {
     if (!input.files?.length) return;
 
     this.selectedFiles = Array.from(input.files);
-  }
 
+    // reset previews
+    this.imagePreviews = [];
+
+    this.selectedFiles.forEach(file => {
+      const url = URL.createObjectURL(file);
+      this.imagePreviews.push(url);
+    });
+  }
   submit(): void {
     if (this.form.invalid) return;
 
+    console.log(this.form.value);
     this.loading = true;
 
     const payload = {
       ...this.form.value,
       photos: this.selectedFiles
     };
-
+console.log(payload);
     this.govToursService.create(payload).subscribe({
       next: () => {
         this.loading = false;
@@ -59,4 +68,7 @@ export class CreateComponent {
   close(): void {
     this.dialogRef.close(false);
   }
+
+
+
 }

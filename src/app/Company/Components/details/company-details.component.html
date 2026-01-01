@@ -1,4 +1,3 @@
-
 <div class="details-dialog" [class.rtl]="i18n.isRTL">
   <!-- ===== Header ===== -->
   <div class="dialog-header">
@@ -22,15 +21,58 @@
 
     <ng-container *ngIf="!loading && company">
       <mat-form-field appearance="outline">
-        <mat-icon matPrefix>language</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الشركة (عربي)' : 'Name (Arabic)' }}</mat-label>
-        <input matInput [value]="company.nameAr" readonly />
+        <mat-label>{{ 'COMPANY.NAME_AR' | translate | async }}</mat-label>
+        <input matInput [value]="company.nameAr" readonly>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-icon matPrefix>public</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الشركة (إنجليزي)' : 'Name (English)' }}</mat-label>
-        <input matInput [value]="company.nameEn" readonly />
+        <mat-label>{{ 'COMPANY.NAME_EN' | translate | async }}</mat-label>
+        <input matInput [value]="company.nameEn" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.DIR_NAME_AR' | translate | async }}</mat-label>
+        <input matInput [value]="company.dirNameAr" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.DIR_NAME_EN' | translate | async }}</mat-label>
+        <input matInput [value]="company.dirNameEn" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.ADDRESS_AR' | translate | async }}</mat-label>
+        <input matInput [value]="company.addressAr" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.ADDRESS_EN' | translate | async }}</mat-label>
+        <input matInput [value]="company.addressEn" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.EMAIL' | translate | async }}</mat-label>
+        <input matInput [value]="company.email" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.PHONE_NUMBER_1' | translate | async }}</mat-label>
+        <input matInput [value]="company.phoneNumber1" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.PHONE_NUMBER_2' | translate | async }}</mat-label>
+        <input matInput [value]="company.phoneNumber2" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.FAX_NUMBER' | translate | async }}</mat-label>
+        <input matInput [value]="company.faxNumber" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'COMPANY.LINK' | translate | async }}</mat-label>
+        <input matInput [value]="company.link" readonly>
       </mat-form-field>
     </ng-container>
 

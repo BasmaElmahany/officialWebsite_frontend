@@ -1,8 +1,7 @@
-
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../Services/company.service';
-import { Company } from '../../Models/company';
+import { CompanyRead } from '../../Models/company';
 import { MatDialogRef } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
 
@@ -15,9 +14,10 @@ import { I18nService } from '../../../Shared/Services/i18n.service';
 export class CompanyCreateComponent {
   form: FormGroup;
   loading = false;
+  activities = this.fb.array<FormGroup>([]);
+  services = this.fb.array<FormGroup>([]);
 
   constructor(
-   
     private fb: FormBuilder,
     private companyService: CompanyService,
     private dialogRef: MatDialogRef<CompanyCreateComponent>,
@@ -25,33 +25,89 @@ export class CompanyCreateComponent {
   ) {
     this.form = this.fb.group({
       nameAr: ['', Validators.required],
-      nameEn: ['', Validators.required]
+      nameEn: ['', Validators.required],
+      dirNameAr: [''],
+      dirNameEn: [''],
+      addressAr: [''],
+      addressEn: [''],
+      email: [''],
+      phoneNumber1: [''],
+      phoneNumber2: [''],
+      faxNumber: [''],
+      link: [''],
+      activities: this.activities,
+      services: this.services
     });
   }
 
   submit(): void {
     if (this.form.invalid) return;
     this.loading = true;
-    // Ensure the payload includes an id field as required by the backend
-    const payload = { id: this.generateUUID(), ...this.form.value };
-    this.companyService.createCompany(payload).subscribe({
+
+    const formData = new FormData();
+    formData.append('nameAr', this.form.get('nameAr')!.value!);
+    formData.append('nameEn', this.form.get('nameEn')!.value!);
+
+    this.companyService.createCompany(formData).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);
       },
-      error: () => this.loading = false
-    });
-  }
-
-  // Simple UUID generator for demo purposes
-  private generateUUID(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
+      error: () => {
+        this.loading = false;
+      }
     });
   }
 
   close(): void {
     this.dialogRef.close(false);
+  }
+
+  onPhotoChange(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.form.patchValue({ photo: file });
+    }
+  }
+
+  onDirPhotoChange(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.form.patchValue({ dirPhoto: file });
+    }
+  }
+
+  addActivity(): void {
+    this.activities.push(
+      this.fb.group({
+        activityAr: this.fb.control(''),
+        activityEn: this.fb.control('')
+      })
+    );
+  }
+
+  removeActivity(index: number): void {
+    this.activities.removeAt(index);
+  }
+
+  addService(): void {
+    this.services.push(
+      this.fb.group({
+        serviceAr: this.fb.control(''),
+        serviceEn: this.fb.control(''),
+        file: this.fb.control(null)
+      })
+    );
+  }
+
+  removeService(index: number): void {
+    this.services.removeAt(index);
+  }
+
+  onServiceFileChange(event: Event, index: number): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.services.at(index).patchValue({ file });
+    }
   }
 }

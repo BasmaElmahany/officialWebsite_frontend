@@ -1,39 +1,43 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { baseAPI } from '../../../Environment/env';
-import { ApiResponse, Company, CreateCompany } from '../Models/company';
+import { Company, ApiResponse, CreateCompany, CompanyRead } from '../Models/company';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
-  private baseUrl = baseAPI + '/Company';
 
-  constructor(private http: HttpClient) {}
+  private readonly apiUrl = `${baseAPI}/Company`;
 
-  getCompanies(): Observable<any> {
-    return this.http.get<any>(this.baseUrl);
+  constructor(private http: HttpClient) { }
+
+  getAllCompanies(): Observable<CompanyRead[]> {
+    return this.http
+      .get<ApiResponse<CompanyRead[]>>(this.apiUrl)
+      .pipe(map(res => res.data));
   }
 
-  createCompany(company: Company): Observable<any> {
-    return this.http.post<any>(this.baseUrl, company);
+  getCompanyById(id: string): Observable<CompanyRead> {
+    return this.http
+      .get<ApiResponse<CompanyRead>>(`${this.apiUrl}/${id}`)
+      .pipe(map(res => res.data));
   }
 
-    updateCompany(
-      id: string,
-      payload: CreateCompany
-    ): Observable<Company> {
-      return this.http
-        .put<ApiResponse<Company>>(`${this.baseUrl}/${id}`, payload)
-        .pipe(map(res => res.data));
-    }
-
-  getCompanyById(id: string): Observable<Company> {
-    return this.http.get<Company>(`${this.baseUrl}/${id}`);
+  createCompany(formData: FormData): Observable<Company> {
+    return this.http
+      .post<ApiResponse<Company>>(this.apiUrl, formData)
+      .pipe(map(res => res.data));
   }
 
-  deleteCompany(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${id}`);
+  updateCompany(id: string, formData: FormData): Observable<Company> {
+    return this.http
+      .put<ApiResponse<Company>>(`${this.apiUrl}/${id}`, formData)
+      .pipe(map(res => res.data));
+  }
+
+  deleteCompany(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

@@ -2,10 +2,10 @@ export interface Agency {
   id: string;
   nameAr: string;
   nameEn: string;
-  dirNameAr: string;
-  dirNameEn: string;
-  addressAr: string;
-  addressEn: string;
+  dirNameAr?: string;
+  dirNameEn?: string;
+  addressAr?: string;
+  addressEn?: string;
   phoneNumber1?: string;
   phoneNumber2?: string;
   email?: string;
@@ -13,8 +13,8 @@ export interface Agency {
   link?: string;
   photoUrl?: string;
   dirPhotoUrl?: string;
-  activities: AgencyActivity[];
-  services: AgencyService[];
+  activities?: AgencyActivity[];
+  services?: AgencyService[];
 }
 
 export interface AgencyRead {
@@ -23,17 +23,17 @@ export interface AgencyRead {
   nameEn: string;
   photoUrl?: string;
   dirPhotoUrl?: string;
-  dirNameAr: string;
-  dirNameEn: string;
-  addressAr: string;
-  addressEn: string;
+  dirNameAr?: string;
+  dirNameEn?: string;
+  addressAr?: string;
+  addressEn?: string;
   phoneNumber1?: string;
   phoneNumber2?: string;
   email?: string;
   faxNumber?: string;
   link?: string;
-  activities: AgencyActivity[];
-  services: AgencyService[];
+  activities?: AgencyActivity[];
+  services?: AgencyService[];
 }
 
 export interface AgencyActivity {

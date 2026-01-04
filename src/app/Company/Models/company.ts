@@ -13,8 +13,8 @@ export interface Company {
   email?: string | null;
   faxNumber?: string | null;
   link?: string | null;
-  activities: any[];
-  services: any[];
+  activities?: any[];
+  services?: any[];
 }
 
 
@@ -46,6 +46,6 @@ export interface CompanyRead {
   email?: string | null;
   faxNumber?: string | null;
   link?: string | null;
-  activities: any[];
-  services: any[];
+  activities?: any[];
+  services?: any[];
 }

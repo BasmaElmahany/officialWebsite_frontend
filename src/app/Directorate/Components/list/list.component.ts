@@ -58,7 +58,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.filterPredicate = (directorate, filter) => {
       const value = this.i18n.currentLang === 'ar'
         ? directorate.nameAr
-        : directorate.nameEn || directorate.dirNameEn || directorate.dirNameAr || directorate.phoneNumber1 || ''  ;
+        : directorate.nameEn || directorate.dirNameEn || directorate.dirNameAr || directorate.phoneNumber1 || '';
 
       return value.toLowerCase().includes(filter);
     };
@@ -79,14 +79,22 @@ export class ListComponent implements OnInit, AfterViewInit {
       ? directorate.nameAr
       : directorate.nameEn;
   }
-   getManagerName(directorate: Directorate): string {
-    return this.i18n.currentLang === 'ar'
-      ? directorate.dirNameAr
-      : directorate.dirNameEn;
+  getManagerName(directorate: Directorate): string {
+    const ar = directorate.dirNameAr?.trim() ?? '';
+    const en = directorate.dirNameEn?.trim() ?? '';
+
+    return (
+      this.i18n.currentLang === 'ar'
+        ? ar || en
+        : en || ar
+    ) || '—';
   }
-     getPhoneNumber(directorate: Directorate): string {
+
+
+
+  getPhoneNumber(directorate: Directorate): string {
     return directorate.phoneNumber1 ? directorate.phoneNumber1 : 'N/A';
-      
+
   }
 
 

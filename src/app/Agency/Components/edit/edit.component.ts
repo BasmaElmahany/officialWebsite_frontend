@@ -179,7 +179,7 @@ export class EditComponent implements OnInit {
   /* ================= SUBMIT ================= */
   submit(): void {
     if (this.form.invalid) {
-      // this.form.markAllAsTouched();
+      
       return;
     }
 

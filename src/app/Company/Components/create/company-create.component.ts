@@ -47,6 +47,21 @@ export class CompanyCreateComponent {
     const formData = new FormData();
     formData.append('nameAr', this.form.get('nameAr')!.value!);
     formData.append('nameEn', this.form.get('nameEn')!.value!);
+    formData.append('dirNameAr', this.form.get('dirNameAr')!.value!);
+    formData.append('dirNameEn', this.form.get('dirNameEn')!.value!);
+    formData.append('addressAr', this.form.get('addressAr')!.value!);
+    formData.append('addressEn', this.form.get('addressEn')!.value!);
+    formData.append('email', this.form.get('email')!.value!);
+    formData.append('phoneNumber1', this.form.get('phoneNumber1')!.value!);
+    formData.append('phoneNumber2', this.form.get('phoneNumber2')!.value!);
+    formData.append('faxNumber', this.form.get('faxNumber')!.value!);
+    formData.append('link', this.form.get('link')!.value!);
+
+    // Append the photo file
+    const photo = this.form.get('photo')!.value;
+    if (photo) {
+      formData.append('photo', photo);
+    }
 
     this.companyService.createCompany(formData).subscribe({
       next: () => {

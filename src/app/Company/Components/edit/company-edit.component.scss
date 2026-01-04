@@ -5,7 +5,7 @@ $radius: 18px;
 
 .create-dialog {
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
   max-height: 90vh;
   background: #fff;
   border-radius: $radius;
@@ -21,7 +21,6 @@ $radius: 18px;
     text-align: right;
   }
 }
-
 
 /* ===== Header ===== */
 .dialog-header {
@@ -62,6 +61,8 @@ $radius: 18px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow-y: auto; /* 🔥 إضافة خاصية التمرير */
+  max-height: 70vh; /* 🔥 تحديد أقصى ارتفاع */
 
   mat-form-field {
     width: 100%;
@@ -78,30 +79,32 @@ $radius: 18px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-}
 
-.section .file-row label {
-  background: #f9fafb;
-  border: 1px dashed #d1d5db;
-  border-radius: 14px;
-  padding: 14px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #374151;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    color: $primary;
 
-.section .file-row label:hover {
-  border-color: $accent;
-  background: rgba($accent, 0.05);
-}
+    .photo-box {
+      width: 100%;
+      height: 120px;
+      border: 1px solid $accent;
+      border-radius: $radius;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $bg;
 
-.section .file-row input[type="file"] {
-  font-size: 12px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
 }
 
 /* ================= ACTIVITIES / SERVICES CARDS ================= */
@@ -147,6 +150,44 @@ $radius: 18px;
   border-radius: 8px;
   background: #f9fafb;
   border: 1px solid #d1d5db;
+}
+
+/* ===== Activities and Services Section (Updated Design) ===== */
+.section {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: $primary;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: 8px 12px;
+      background: #ffffff;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .file-link {
+        color: $accent;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 /* ===== Actions ===== */
@@ -262,14 +303,50 @@ $radius: 18px;
   }
 }
 
-.preview-img {
-  width: 100%;
-  max-width: 380px;        // ✔ أقل شوية من 420 للهوامش
-  max-height: 180px;       // ✔ ارتفاع مناسب داخل dialog
-  object-fit: contain;     // ✔ بدون قص أو تشويه
-  display: block;
-  margin: 0 auto 12px;     // ✔ توسيط + مسافة أسفل
-  border-radius: 14px;
+/* ================= IMAGES SECTION ================= */
+.section .file-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.section .file-row label {
   background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.section .file-row label:hover {
+  border-color: $accent;
+  background: rgba($accent, 0.05);
+}
+
+.section .file-row input[type="file"] {
+  font-size: 12px;
+}
+
+/* ================= ACTIVITIES / SERVICES CARDS ================= */
+.repeat-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 16px 16px;
+  display: grid;
+  gap: 14px;
+  position: relative;
   border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+}
+
+.repeat-card:hover {
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
 }

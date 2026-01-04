@@ -45,6 +45,11 @@ export const routes: Routes = [
         path: 'govtours',
         loadChildren: () =>
           import('./GovTours/govtours.module').then(m => m.GovtoursModule)
+      },
+       {
+        path: 'newstypes',
+        loadChildren: () =>
+          import('./NewsTypes/news-type.module').then(m => m.NewsTypeModule)
       }
     ]
   }

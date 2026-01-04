@@ -110,5 +110,10 @@
   "AGENCY.NAME_EN": "Agency Name (English)",
   "AGENCY.NAME_AR": "Agency Name (Arabic)",
   "AGENCY.CREATE_TITLE": "Add New Government Agency",
-  "AGENCY.EDIT_TITLE": "Edit Government Agency"
+  "AGENCY.EDIT_TITLE": "Edit Government Agency",
+  "MENU.NEWSTYPES": "News Types",
+  "TYPES.CREATE_TITLE": "Create New News Type",
+  "TYPES.NAME_AR": "News Type Name (Arabic)",
+  "TYPES.NAME_EN": "News Type Name (English)",
+  "TYPES.EDIT_TITLE": "Edit News Type"
 }

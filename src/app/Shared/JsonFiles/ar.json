@@ -121,5 +121,10 @@
   "AGENCY.NAME_EN": "اسم الهيئة (إنجليزي)",
   "AGENCY.NAME_AR": "اسم الهيئة (عربي)",
   "AGENCY.CREATE_TITLE": "إضافة هيئة حكومية جديدة",
-  "AGENCY.EDIT_TITLE": "تعديل الهيئة الحكومية"
+  "AGENCY.EDIT_TITLE": "تعديل الهيئة الحكومية",
+  "MENU.NEWSTYPES": "أنواع الأخبار",
+  "TYPES.CREATE_TITLE": "إضافة نوع خبر جديد",
+  "TYPES.NAME_AR": "اسم نوع الخبر (عربي)",
+  "TYPES.NAME_EN": "اسم نوع الخبر (انجليزي)",
+   "TYPES.EDIT_TITLE": "تعديل نوع الخبر"
 }

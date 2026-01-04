@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CompanyService } from '../../Services/company.service';
-import { Company } from '../../Models/company';
+import { CompanyRead } from '../../Models/company';
 import { I18nService } from '../../../Shared/Services/i18n.service';
 
 @Component({
@@ -10,14 +10,14 @@ import { I18nService } from '../../../Shared/Services/i18n.service';
   styleUrls: ['./company-details.component.scss']
 })
 export class CompanyDetailsComponent implements OnInit {
-  company?: Company;
+  company?: CompanyRead;
   loading = true;
   error = '';
 
   constructor(
     private companyService: CompanyService,
     private dialogRef: MatDialogRef<CompanyDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Company,
+    @Inject(MAT_DIALOG_DATA) public data: CompanyRead,
     public i18n: I18nService
   ) {}
 

@@ -18,25 +18,58 @@
   <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content">
 
     <mat-form-field appearance="outline">
-      <mat-icon matPrefix>language</mat-icon>
-      <mat-label>
-        {{ 'COMPANY.NAME_AR' | translate | async }}
-      </mat-label>
+      <mat-label>{{ 'COMPANY.NAME_AR' | translate | async }}</mat-label>
       <input matInput formControlName="nameAr">
-      <mat-error *ngIf="form.get('nameAr')?.touched && form.get('nameAr')?.invalid">
-        {{ 'VALIDATION.REQUIRED' | translate | async }}
-      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-icon matPrefix>public</mat-icon>
-      <mat-label>
-        {{ 'COMPANY.NAME_EN' | translate | async }}
-      </mat-label>
+      <mat-label>{{ 'COMPANY.NAME_EN' | translate | async }}</mat-label>
       <input matInput formControlName="nameEn">
-      <mat-error *ngIf="form.get('nameEn')?.touched && form.get('nameEn')?.invalid">
-        {{ 'VALIDATION.REQUIRED' | translate | async }}
-      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.DIR_NAME_AR' | translate | async }}</mat-label>
+      <input matInput formControlName="dirNameAr">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.DIR_NAME_EN' | translate | async }}</mat-label>
+      <input matInput formControlName="dirNameEn">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.ADDRESS_AR' | translate | async }}</mat-label>
+      <input matInput formControlName="addressAr">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.ADDRESS_EN' | translate | async }}</mat-label>
+      <input matInput formControlName="addressEn">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.EMAIL' | translate | async }}</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.PHONE_NUMBER_1' | translate | async }}</mat-label>
+      <input matInput formControlName="phoneNumber1">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.PHONE_NUMBER_2' | translate | async }}</mat-label>
+      <input matInput formControlName="phoneNumber2">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.FAX_NUMBER' | translate | async }}</mat-label>
+      <input matInput formControlName="faxNumber">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'COMPANY.LINK' | translate | async }}</mat-label>
+      <input matInput formControlName="link">
     </mat-form-field>
 
   </form>

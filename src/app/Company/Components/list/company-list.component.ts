@@ -1,7 +1,6 @@
-
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CompanyService } from '../../Services/company.service';
-import { Company } from '../../Models/company';
+import { CompanyRead } from '../../Models/company';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,7 +18,7 @@ import { CompanyDeleteComponent } from '../delete/company-delete.component';
 })
 export class CompanyListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'actions'];
-  dataSource = new MatTableDataSource<Company>();
+  dataSource = new MatTableDataSource<CompanyRead>();
   loading = true;
   error = '';
 
@@ -60,8 +59,16 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  getCompanyName(company: Company): string {
+  getCompanyName(company: CompanyRead): string {
     return this.i18n.currentLang === 'ar' ? company.nameAr : company.nameEn;
+  }
+
+  getManagerName(company: CompanyRead): string {
+    return this.i18n.currentLang === 'ar' ? company.dirNameAr || '' : company.dirNameEn || '';
+  }
+
+  getPhoneNumber(company: CompanyRead): string {
+    return company.phoneNumber1 || company.phoneNumber2 || '';
   }
 
   goToCreate(): void {
@@ -79,7 +86,7 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
   }
 
   // Placeholder for edit, details, delete
-  openEdit(company: Company): void {
+  openEdit(company: CompanyRead): void {
     const ref = this.dialog.open(CompanyEditComponent, {
       width: '420px',
       data: company,
@@ -89,14 +96,14 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
       if (ok) this.loadCompanies();
     });
   }
-  openDetails(company: Company): void {
+  openDetails(company: CompanyRead): void {
     this.dialog.open(CompanyDetailsComponent, {
       width: '420px',
       data: { ...company },
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
   }
-  openDelete(company: Company): void {
+  openDelete(company: CompanyRead): void {
     const ref = this.dialog.open(CompanyDeleteComponent, {
       width: '380px',
       data: { id: company.id, nameAr: company.nameAr, nameEn: company.nameEn },
@@ -109,12 +116,12 @@ export class CompanyListComponent implements OnInit, AfterViewInit {
 
   private loadCompanies(): void {
     this.loading = true;
-    this.companyService.getCompanies().subscribe({
-      next: (res) => {
-        this.dataSource.data = res.data || [];
+    this.companyService.getAllCompanies().subscribe({
+      next: (res: CompanyRead[]) => {
+        this.dataSource.data = res || [];
         this.loading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         this.error = err?.error?.message || 'Failed to load companies.';
         this.loading = false;
       }

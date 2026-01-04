@@ -4,73 +4,259 @@ $bg: #f7f9fc;
 $radius: 18px;
 
 .create-dialog {
-	width: 100%;
-	max-width: 420px;
-	background: #fff;
-	border-radius: $radius;
-	overflow: hidden;
-	animation: fadeUp 0.35s ease both;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: $radius;
+  overflow: hidden;
+  animation: fadeUp 0.35s ease both;
+  max-height: 90vh;
+  flex: 1;
+  /* 🔥 يسمح بالتمدد */
+  overflow-y: auto;
 
-	&.rtl {
-		direction: rtl;
-		text-align: right;
-	}
+  &.rtl {
+    direction: rtl;
+    text-align: right;
+  }
 }
 
+/* ===== Header ===== */
 .dialog-header {
-	background: linear-gradient(
-		135deg,
-		$primary,
-		darken($primary, 10%)
-	);
-	color: #fff;
-	padding: 16px 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  background: linear-gradient(135deg,
+      $primary,
+      darken($primary, 10%));
+  position: sticky;
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-	.title-wrap {
-		display: flex;
-		align-items: center;
-		gap: 10px;
+  .title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-		h2 {
-			font-size: 18px;
-			font-weight: 700;
-			margin: 0;
-		}
-	}
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
 
-	.title-icon {
-		color: $accent;
-	}
-
-	.close-btn {
-		color: #fff;
-	}
-}
-
-.dialog-content {
-	padding: 24px;
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-}
-
-.dialog-actions {
-	display: flex;
-	justify-content: flex-end;
-	gap: 12px;
-	padding: 16px 24px 24px;
-}
-.title-icon {
+  .title-icon {
     color: $accent;
   }
-    mat-icon { color: #d32f2f; }
-  span { font-weight: 800; color: rgba(211, 47, 47, 0.9); }
- mat-form-field {
+
+  .close-btn {
+    color: #fff;
+  }
+}
+
+/* ===== Content ===== */
+.dialog-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  mat-form-field {
     width: 100%;
+
     mat-icon {
       color: $accent;
     }
   }
+}
+
+
+/* ================= IMAGES SECTION ================= */
+.section .file-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.section .file-row label {
+  background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.section .file-row label:hover {
+  border-color: $accent;
+  background: rgba($accent, 0.05);
+}
+
+.section .file-row input[type="file"] {
+  font-size: 12px;
+}
+
+/* ================= ACTIVITIES / SERVICES CARDS ================= */
+.repeat-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 16px 16px;
+  display: grid;
+  gap: 14px;
+  position: relative;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+}
+
+.repeat-card:hover {
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+/* delete button */
+.repeat-card button[mat-icon-button] {
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 10px;
+  background: #fee2e2;
+  border-radius: 50%;
+}
+
+.repeat-card button mat-icon {
+  color: #b91c1c;
+}
+
+.section>button[mat-stroked-button] {
+  align-self: flex-start;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+}
+
+.repeat-card input[type="file"] {
+  font-size: 12px;
+  padding: 6px;
+  border-radius: 8px;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+}
+
+/* ===== Actions ===== */
+/* =====================================================
+   DIALOG ACTIONS – PREMIUM STYLE
+===================================================== */
+
+.dialog-actions {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(180deg,
+      rgba(247, 249, 252, 0.85),
+      #f7f9fc);
+  backdrop-filter: blur(6px);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 18px 18px;
+
+  button {
+    min-width: 130px;
+    height: 42px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+  }
+
+  /* Cancel Button */
+  button[mat-stroked-button] {
+    background: transparent;
+
+    &:hover {
+      background: rgba(0, 45, 98, 0.05);
+      transform: translateY(-1px);
+    }
+  }
+
+  /* Primary Action */
+  button[mat-raised-button] {
+    box-shadow: 0 10px 25px rgba(0, 45, 98, 0.25);
+
+    &:hover {
+      box-shadow: 0 14px 35px rgba(0, 45, 98, 0.35);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(0, 45, 98, 0.2);
+    }
+
+    mat-icon {
+      font-size: 20px;
+    }
+  }
+
+  /* Loading Spinner */
+  mat-progress-spinner {
+    width: 20px !important;
+    height: 20px !important;
+
+    circle {
+      stroke: #fff;
+    }
+  }
+}
+
+/* =====================================================
+   RTL SUPPORT
+===================================================== */
+.create-dialog.rtl {
+  .dialog-actions {
+    justify-content: flex-start;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 480px) {
+  .dialog-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .section .file-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ===== Animation ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

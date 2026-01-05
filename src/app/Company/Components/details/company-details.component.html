@@ -123,25 +123,7 @@
 
         <ul>
           <li *ngFor="let service of company?.services">
-            <span>{{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}</span>
-            <a *ngIf="service.fileUrl" [href]="service.fileUrl" target="_blank" class="file-link">
-              {{ 'COMPANY.SERVICE_FILE' | translate | async }}
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- ===== Files ===== -->
-      <div class="section">
-        <h3 class="section-title">
-          {{ 'COMPANY.FILES' | translate | async }}
-        </h3>
-
-        <ul>
-          <li *ngFor="let file of company?.files">
-            <a [href]="file.fileUrl" target="_blank">
-              {{ i18n.currentLang === 'ar' ? file.fileNameAr : file.fileNameEn }}
-            </a>
+            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
           </li>
         </ul>
       </div>

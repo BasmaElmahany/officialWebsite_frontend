@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../Services/company.service';
 import { CompanyRead } from '../../Models/company';
 import { MatDialogRef } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
+import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-company-create',
@@ -14,14 +15,17 @@ import { I18nService } from '../../../Shared/Services/i18n.service';
 export class CompanyCreateComponent {
   form: FormGroup;
   loading = false;
-  activities = this.fb.array<FormGroup>([]);
-  services = this.fb.array<FormGroup>([]);
+
+  // store files outside the form
+  mainPhoto?: File;
+  dirPhoto?: File;
+  serviceFiles: File[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private companyService: CompanyService,
+    private service: CompanyService,
     private dialogRef: MatDialogRef<CompanyCreateComponent>,
-    public i18n: I18nService
+    public i18n: I18nService, private toast: ToastService
   ) {
     this.form = this.fb.group({
       nameAr: ['', Validators.required],
@@ -30,73 +34,34 @@ export class CompanyCreateComponent {
       dirNameEn: [''],
       addressAr: [''],
       addressEn: [''],
-      email: [''],
       phoneNumber1: [''],
       phoneNumber2: [''],
+      email: ['', Validators.email],
       faxNumber: [''],
       link: [''],
-      activities: this.activities,
-      services: this.services
+      activities: this.fb.array([]),
+      services: this.fb.array([])
     });
   }
 
-  submit(): void {
-    if (this.form.invalid) return;
-    this.loading = true;
-
-    const formData = new FormData();
-    formData.append('nameAr', this.form.get('nameAr')!.value!);
-    formData.append('nameEn', this.form.get('nameEn')!.value!);
-    formData.append('dirNameAr', this.form.get('dirNameAr')!.value!);
-    formData.append('dirNameEn', this.form.get('dirNameEn')!.value!);
-    formData.append('addressAr', this.form.get('addressAr')!.value!);
-    formData.append('addressEn', this.form.get('addressEn')!.value!);
-    formData.append('email', this.form.get('email')!.value!);
-    formData.append('phoneNumber1', this.form.get('phoneNumber1')!.value!);
-    formData.append('phoneNumber2', this.form.get('phoneNumber2')!.value!);
-    formData.append('faxNumber', this.form.get('faxNumber')!.value!);
-    formData.append('link', this.form.get('link')!.value!);
-
-    // Append the photo file
-    const photo = this.form.get('photo')!.value;
-    if (photo) {
-      formData.append('photo', photo);
-    }
-
-    this.companyService.createCompany(formData).subscribe({
-      next: () => {
-        this.loading = false;
-        this.dialogRef.close(true);
-      },
-      error: () => {
-        this.loading = false;
-      }
-    });
+  /* =====================================================
+     GETTERS
+  ===================================================== */
+  get activities(): FormArray {
+    return this.form.get('activities') as FormArray;
+  }
+  get services(): FormArray {
+    return this.form.get('services') as FormArray;
   }
 
-  close(): void {
-    this.dialogRef.close(false);
-  }
-
-  onPhotoChange(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.form.patchValue({ photo: file });
-    }
-  }
-
-  onDirPhotoChange(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.form.patchValue({ dirPhoto: file });
-    }
-  }
-
+  /* =====================================================
+     ACTIVITIES
+  ===================================================== */
   addActivity(): void {
     this.activities.push(
       this.fb.group({
-        activityAr: this.fb.control(''),
-        activityEn: this.fb.control('')
+        activityAr: ['', Validators.required],
+        activityEn: ['', Validators.required]
       })
     );
   }
@@ -105,24 +70,130 @@ export class CompanyCreateComponent {
     this.activities.removeAt(index);
   }
 
+  /* =====================================================
+     SERVICES
+  ===================================================== */
   addService(): void {
     this.services.push(
       this.fb.group({
-        serviceAr: this.fb.control(''),
-        serviceEn: this.fb.control(''),
-        file: this.fb.control(null)
+        serviceAr: ['', Validators.required],
+        serviceEn: ['', Validators.required]
       })
     );
   }
 
   removeService(index: number): void {
     this.services.removeAt(index);
+    this.serviceFiles.splice(index, 1);
+  }
+
+  /* =====================================================
+     FILE HANDLERS
+  ===================================================== */
+  onPhotoChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.mainPhoto = input.files[0];
+    }
+  }
+
+  onDirPhotoChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.dirPhoto = input.files[0];
+    }
   }
 
   onServiceFileChange(event: Event, index: number): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.services.at(index).patchValue({ file });
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.serviceFiles[index] = input.files[0];
     }
+  }
+
+  /* =====================================================
+     SUBMIT
+  ===================================================== */
+  submit(): void {
+    if (this.form.invalid || this.activities.invalid || this.services.invalid) {
+      this.form.markAllAsTouched();
+      this.activities.markAllAsTouched();
+      this.services.markAllAsTouched();
+      return;
+    }
+    this.loading = true;
+
+    const formData = new FormData();
+
+    // ===== basic fields =====
+    Object.entries(this.form.value).forEach(([key, value]) => {
+      if (key !== 'activities' && key !== 'services' && value != null) {
+        formData.append(key, String(value));
+      }
+    });
+
+    // ===== images =====
+    if (this.mainPhoto) {
+      formData.append('PhotoUrl', this.mainPhoto);
+    }
+
+    if (this.dirPhoto) {
+      formData.append('DirPhotoUrl', this.dirPhoto);
+    }
+
+    // ===== activities =====
+    this.activities.controls.forEach((ctrl, i) => {
+      const { activityAr, activityEn } = ctrl.value;
+
+      if (activityAr && activityEn) {
+        formData.append(`Activities[${i}].ActivityAr`, activityAr);
+        formData.append(`Activities[${i}].ActivityEn`, activityEn);
+      }
+    });
+
+    // ===== services =====
+    this.services.controls.forEach((ctrl, i) => {
+      const { serviceAr, serviceEn } = ctrl.value;
+
+      if (serviceAr && serviceEn) {
+        formData.append(`Services[${i}].ServiceAr`, serviceAr);
+        formData.append(`Services[${i}].ServiceEn`, serviceEn);
+
+        if (this.serviceFiles[i]) {
+          formData.append(`Services[${i}].File`, this.serviceFiles[i]);
+        }
+      }
+    });
+    console.group('📦 Directorate FormData Payload');
+
+    formData.forEach((value, key) => {
+      if (value instanceof File) {
+        console.log(key, {
+          fileName: value.name,
+          fileType: value.type,
+          fileSize: value.size
+        });
+      } else {
+        console.log(key, value);
+      }
+    });
+
+    console.groupEnd();
+
+    this.service.createCompany(formData).subscribe({
+      next: () => {
+        this.loading = false;
+        this.toast.success('TOAST.CREATE_SUCCESS');
+        this.dialogRef.close(true);
+      },
+      error: () => {
+        this.toast.error('TOAST.OPERATION_FAILED');
+        this.loading = false;
+      }
+    });
+  }
+
+  close(): void {
+    this.dialogRef.close(false);
   }
 }

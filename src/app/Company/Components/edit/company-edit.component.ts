@@ -1,40 +1,75 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CompanyService } from '../../Services/company.service';
 import { CompanyRead } from '../../Models/company';
 import { I18nService } from '../../../Shared/Services/i18n.service';
+import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-company-edit',
   templateUrl: './company-edit.component.html',
   styleUrls: ['./company-edit.component.scss']
 })
-export class CompanyEditComponent {
+export class CompanyEditComponent  implements OnInit {
+  form: FormGroup;
   loading = false;
+  company!: CompanyRead;
+
   photoUrl?: string;
   dirPhotoUrl?: string;
   serviceFileUrls: string[] = [];
+  // files
+  mainPhoto?: File;
+  dirPhoto?: File;
   serviceFiles: File[] = [];
 
-  form = this.fb.group({
-    nameAr: ['', Validators.required],
-    nameEn: ['', Validators.required],
-    dirNameAr: [''],
-    dirNameEn: [''],
-    addressAr: [''],
-    addressEn: [''],
-    email: [''],
-    phoneNumber1: [''],
-    phoneNumber2: [''],
-    faxNumber: [''],
-    link: [''],
-    activities: this.fb.array([]),
-    services: this.fb.array([]),
-    photo: [null as File | null],
-    dirPhoto: [null as File | null]
-  });
+  constructor(
+    private fb: FormBuilder,
+    private service: CompanyService,
+    private dialogRef: MatDialogRef<CompanyEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { id: string },
+    public i18n: I18nService, private toast: ToastService
+  ) {
+    this.form = this.fb.group({
+      nameAr: ['', Validators.required],
+      nameEn: ['', Validators.required],
+      dirNameAr: [''],
+      dirNameEn: [''],
+      addressAr: [''],
+      addressEn: [''],
+      phoneNumber1: [''],
+      phoneNumber2: [''],
+      email: ['', Validators.email],
+      faxNumber: [''],
+      link: [''],
+      activities: this.fb.array([]),
+      services: this.fb.array([])
+    });
 
+
+  }
+
+  ngOnInit(): void {
+    this.loadCompany();
+  }
+
+
+  loadCompany(): void {
+    this.service.getbyId(this.data.id).subscribe({
+      next: d => {
+        this.company = d;
+        this.patchData(d);
+        console.log('Company API response:', d);
+        console.log('dirPhotoUrl value:', d.dirPhotoUrl);
+      },
+      error: () => {
+        this.toast.error('TOAST.OPERATION_FAILED');
+        this.dialogRef.close(false);
+      }
+    });
+  }
+  /* ================= GETTERS ================= */
   get activities(): FormArray {
     return this.form.get('activities') as FormArray;
   }
@@ -43,41 +78,33 @@ export class CompanyEditComponent {
     return this.form.get('services') as FormArray;
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private companyService: CompanyService,
-    private dialogRef: MatDialogRef<CompanyEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public company: CompanyRead,
-    public i18n: I18nService
-  ) {
-    this.patchData(company);
-  }
-
-  patchData(c: CompanyRead): void {
+  /* ================= PATCH OLD DATA ================= */
+  patchData(d: CompanyRead): void {
     this.form.patchValue({
-      nameAr: c.nameAr,
-      nameEn: c.nameEn,
-      dirNameAr: c.dirNameAr,
-      dirNameEn: c.dirNameEn,
-      addressAr: c.addressAr,
-      addressEn: c.addressEn,
-      phoneNumber1: c.phoneNumber1,
-      phoneNumber2: c.phoneNumber2,
-      email: c.email,
-      faxNumber: c.faxNumber,
-      link: c.link
+      nameAr: d.nameAr,
+      nameEn: d.nameEn,
+      dirNameAr: d.dirNameAr,
+      dirNameEn: d.dirNameEn,
+      addressAr: d.addressAr,
+      addressEn: d.addressEn,
+      phoneNumber1: d.phoneNumber1,
+      phoneNumber2: d.phoneNumber2,
+      email: d.email,
+      faxNumber: d.faxNumber,
+      link: d.link
     });
 
     // images URLs
-    this.photoUrl = c.photoUrl
-      ? `https://shusha.minya.gov.eg:93${c.photoUrl}`
+    this.photoUrl = d.photoUrl
+      ? `https://shusha.minya.gov.eg:93${d.photoUrl}`
       : undefined;
-    this.dirPhotoUrl = c.dirPhotoUrl
-      ? `https://shusha.minya.gov.eg:93${c.dirPhotoUrl}`
+    console.log(this.photoUrl);
+    this.dirPhotoUrl = (d as any).dirphotoUrl
+      ? `https://shusha.minya.gov.eg:93${(d as any).dirphotoUrl}`
       : undefined;
 
     // activities
-    c.activities?.forEach(a => {
+    d.activities?.forEach(a => {
       this.activities.push(
         this.fb.group({
           activityAr: [a.activityAr, Validators.required],
@@ -87,7 +114,7 @@ export class CompanyEditComponent {
     });
 
     // services
-    c.services?.forEach(s => {
+    d.services?.forEach(s => {
       this.services.push(
         this.fb.group({
           serviceAr: [s.serviceAr, Validators.required],
@@ -101,9 +128,11 @@ export class CompanyEditComponent {
           : ''
       );
     });
+    console.log(this.form.value);
   }
 
-  addActivity(): void {
+  /* ================= ADD / REMOVE ================= */
+  addActivity() {
     this.activities.push(
       this.fb.group({
         activityAr: ['', Validators.required],
@@ -112,11 +141,11 @@ export class CompanyEditComponent {
     );
   }
 
-  removeActivity(index: number): void {
-    this.activities.removeAt(index);
+  removeActivity(i: number) {
+    this.activities.removeAt(i);
   }
 
-  addService(): void {
+  addService() {
     this.services.push(
       this.fb.group({
         serviceAr: ['', Validators.required],
@@ -125,106 +154,82 @@ export class CompanyEditComponent {
     );
   }
 
-  removeService(index: number): void {
-    this.services.removeAt(index);
-    this.serviceFiles.splice(index, 1);
+  removeService(i: number) {
+    this.services.removeAt(i);
+    this.serviceFiles.splice(i, 1);
   }
 
-  onServiceFileChange(event: Event, index: number): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.serviceFiles[index] = file;
-    }
+  /* ================= FILE HANDLERS ================= */
+  onPhotoChange(e: Event) {
+    const f = (e.target as HTMLInputElement).files;
+    if (f?.length) this.mainPhoto = f[0];
   }
 
+  onDirPhotoChange(e: Event) {
+    const f = (e.target as HTMLInputElement).files;
+    if (f?.length) this.dirPhoto = f[0];
+  }
+
+  onServiceFileChange(e: Event, i: number) {
+    const f = (e.target as HTMLInputElement).files;
+    if (f?.length) this.serviceFiles[i] = f[0];
+  }
+
+  /* ================= SUBMIT ================= */
   submit(): void {
-    if (this.form.invalid || this.loading) return;
+    if (this.form.invalid) {
+      // this.form.markAllAsTouched();
+      return;
+    }
 
     this.loading = true;
     const formData = new FormData();
 
+    // basic
     Object.entries(this.form.value).forEach(([key, value]) => {
       if (key !== 'activities' && key !== 'services' && value != null) {
-        formData.append(key, value as string | Blob);
+        formData.append(key, String(value));
       }
     });
 
-    if (this.form.get('photo')!.value) {
-      formData.append('Photo', this.form.get('photo')!.value as Blob);
-    }
+    // images
+    if (this.mainPhoto) formData.append('PhotoUrl', this.mainPhoto);
+    if (this.dirPhoto) formData.append('DirPhotoUrl', this.dirPhoto);
 
-    if (this.form.get('dirPhoto')!.value) {
-      formData.append('DirPhotoUrl', this.form.get('dirPhoto')!.value as Blob);
-    }
-
-    this.activities.controls.forEach((control, index) => {
-      const { activityAr, activityEn } = control.value;
-      formData.append(`Activities[${index}].ActivityAr`, activityAr);
-      formData.append(`Activities[${index}].ActivityEn`, activityEn);
+    // activities
+    this.activities.controls.forEach((c, i) => {
+      const { activityAr, activityEn } = c.value;
+      formData.append(`Activities[${i}].ActivityAr`, activityAr);
+      formData.append(`Activities[${i}].ActivityEn`, activityEn);
     });
 
-    this.services.controls.forEach((control, index) => {
-      const { serviceAr, serviceEn } = control.value;
-      formData.append(`Services[${index}].ServiceAr`, serviceAr);
-      formData.append(`Services[${index}].ServiceEn`, serviceEn);
+    // services
+    this.services.controls.forEach((c, i) => {
+      const { serviceAr, serviceEn } = c.value;
+      formData.append(`Services[${i}].ServiceAr`, serviceAr);
+      formData.append(`Services[${i}].ServiceEn`, serviceEn);
 
-      if (this.serviceFiles[index]) {
-        formData.append(`Services[${index}].File`, this.serviceFiles[index]);
+      if (this.serviceFiles[i]) {
+        formData.append(`Services[${i}].File`, this.serviceFiles[i]);
       }
     });
 
-    this.companyService.updateCompany(this.company.id, formData).subscribe({
-      next: () => {
-        this.loading = false;
-        this.dialogRef.close(true);
-      },
-      error: () => {
-        this.loading = false;
-      }
-    });
+    this.service
+      .updateCompany(this.company.id, formData)
+      .subscribe({
+        next: () => {
+          this.loading = true;
+          this.toast.success('TOAST.UPDATE_SUCCESS');
+          this.dialogRef.close(true);
+        },
+        error: () => {
+          this.loading = false;
+          this.toast.error('TOAST.UPDATE_FAIL');
+        }
+      });
   }
 
   close(): void {
     this.dialogRef.close(false);
-  }
-
-  onPhotoChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.photoUrl = reader.result as string;
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  onDirPhotoChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.dirPhotoUrl = reader.result as string;
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  getPhotoUrl(photoData?: string | { fileName: string }): string {
-    if (!photoData) return '';
-    if (typeof photoData === 'string') {
-      if (photoData.startsWith('http')) return photoData;
-      return 'https://shusha.minya.gov.eg:93' + photoData;
-    }
-    return `https://shusha.minya.gov.eg:93${photoData.fileName}`;
-  }
-
-  getDirPhotoUrl(dirPhotoData?: string | { fileName: string }): string {
-    if (!dirPhotoData) return '';
-    if (typeof dirPhotoData === 'string') {
-      if (dirPhotoData.startsWith('http')) return dirPhotoData;
-      return 'https://shusha.minya.gov.eg:93' + dirPhotoData;
-    }
-    return `https://shusha.minya.gov.eg:93${dirPhotoData.fileName}`;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { CompanyRead } from '../../Models/company';
+import { Company, CompanyRead } from '../../Models/company';
 import { CompanyService } from '../../Services/company.service';
 
 @Component({
@@ -11,14 +11,15 @@ import { CompanyService } from '../../Services/company.service';
 })
 export class CompanyDetailsComponent {
   loading = true;
-  company?: CompanyRead;
+  company?: Company;
 
   constructor(
     private companyService: CompanyService,
     private dialogRef: MatDialogRef<CompanyDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CompanyRead,
+    @Inject(MAT_DIALOG_DATA) public data: Company,
     public i18n: I18nService
   ) {
+    // ✅ Always re-fetch by id to ensure you have the latest/full entity
     const id = (data as any)?.id;
 
     if (!id) {
@@ -27,27 +28,23 @@ export class CompanyDetailsComponent {
       return;
     }
 
-    this.companyService.getCompanyById(id).subscribe({
-      next: (c: CompanyRead) => {
+    this.companyService.getbyId(id).subscribe({
+      next: (c) => {
+        console.log('API Response:', c); // Log the API response
         this.company = c;
         const raw = c as any;
 
         c.dirPhotoUrl = this.getDirPhotoUrl(
           raw.dirPhotoUrl ?? raw.dirphotoUrl
-        );
-
-        // Ensure files are processed if available
-        if (c.files) {
-          c.files = c.files.map(file => ({
-            ...file,
-            fileUrl: this.getPhotoUrl(file.fileUrl)
-          }));
-        }
-
+        );// Assign the API response to the `company` property
+        console.log('Company Data:', this.company); // Verify the assignment
+        console.log('Company DirPhotoUrl:', this.company?.dirPhotoUrl); // Verify the `dirPhotoUrl`
         this.loading = false;
       },
       error: () => {
+        // Fallback to passed data if API fails
         this.company = this.data;
+        console.log('Fallback Data:', this.company); // Log fallback data
         this.loading = false;
       }
     });
@@ -57,12 +54,18 @@ export class CompanyDetailsComponent {
     this.dialogRef.close(false);
   }
 
+  ngOnInit() {
+    console.log('Company Data:', this.company);
+    console.log('Company DirPhotoUrl:', this.company?.dirPhotoUrl);
+  }
+
   getPhotoUrl(photoData?: string | { fileName: string }): string {
     if (!photoData) return '';
     if (typeof photoData === 'string') {
       if (photoData.startsWith('http')) return photoData;
       return 'https://shusha.minya.gov.eg:93' + photoData;
     }
+    // Construct URL using fileName
     return `https://shusha.minya.gov.eg:93${photoData.fileName}`;
   }
 
@@ -70,8 +73,9 @@ export class CompanyDetailsComponent {
     if (!dirphotoUrl) return '';
     if (typeof dirphotoUrl === 'string') {
       if (dirphotoUrl.startsWith('http')) return dirphotoUrl;
-      return 'https://shusha.minya.gov.eg:93' + dirphotoUrl;
+      return 'https://shusha.minya.gov.eg:93' + dirphotoUrl; // Prepend base URL
     }
+    // Construct URL using fileName
     return `https://shusha.minya.gov.eg:93${dirphotoUrl.fileName}`;
   }
 }

@@ -2,34 +2,33 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CompanyService } from '../../Services/company.service';
 import { I18nService } from '../../../Shared/Services/i18n.service';
+import { Company } from '../../Models/company';
 
 @Component({
   selector: 'app-company-delete',
   templateUrl: './company-delete.component.html',
-  styleUrls: ['./company-delete.component.scss']
+  styleUrls: ['../create/company-create.component.scss']
 })
 export class CompanyDeleteComponent {
-  loading = false;
-  error = '';
+
+loading = false;
 
   constructor(
-    private companyService: CompanyService,
+    private service: CompanyService,
     private dialogRef: MatDialogRef<CompanyDeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string; nameAr: string; nameEn: string },
+    @Inject(MAT_DIALOG_DATA) public company: Company,
     public i18n: I18nService
   ) {}
 
-  confirmDelete(): void {
+  confirm(): void {
     this.loading = true;
-    this.companyService.deleteCompany(this.data.id).subscribe({
-      next: (res) => {
+
+    this.service.deleteCompany(this.company.id).subscribe({
+      next: () => {
         this.loading = false;
         this.dialogRef.close(true);
       },
-      error: (err) => {
-        this.error = err?.error?.message || 'Failed to delete company.';
-        this.loading = false;
-      }
+      error: () => this.loading = false
     });
   }
 

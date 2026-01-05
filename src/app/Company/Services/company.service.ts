@@ -8,18 +8,16 @@ import { Company, ApiResponse, CreateCompany, CompanyRead } from '../Models/comp
   providedIn: 'root'
 })
 export class CompanyService {
-
-  private readonly apiUrl = `${baseAPI}/Company`;
+ private readonly apiUrl = `${baseAPI}/Company`;
 
   constructor(private http: HttpClient) { }
-
-  getAllCompanies(): Observable<CompanyRead[]> {
+  getAllCompanies() {
     return this.http
       .get<ApiResponse<CompanyRead[]>>(this.apiUrl)
       .pipe(map(res => res.data));
   }
 
-  getCompanyById(id: string): Observable<CompanyRead> {
+  getbyId(id: string) {
     return this.http
       .get<ApiResponse<CompanyRead>>(`${this.apiUrl}/${id}`)
       .pipe(map(res => res.data));
@@ -30,14 +28,26 @@ export class CompanyService {
       .post<ApiResponse<Company>>(this.apiUrl, formData)
       .pipe(map(res => res.data));
   }
-
-  updateCompany(id: string, formData: FormData): Observable<Company> {
+  /* =============================
+     UPDATE
+     API expects: PUT /Centers/{id}
+  ============================== */
+  updateCompany(
+    id: string,
+    formData: FormData
+  ): Observable<Company> {
     return this.http
       .put<ApiResponse<Company>>(`${this.apiUrl}/${id}`, formData)
       .pipe(map(res => res.data));
   }
 
-  deleteCompany(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  /* =============================
+     DELETE
+     API returns: data: true
+  ============================== */
+  deleteCompany(id: string): Observable<boolean> {
+    return this.http
+      .delete<ApiResponse<boolean>>(`${this.apiUrl}/${id}`)
+      .pipe(map(res => res.data));
   }
 }

@@ -5,7 +5,7 @@
     <div class="title-wrap">
       <mat-icon class="title-icon">edit_location_alt</mat-icon>
       <h2>
-        {{ 'COMPANY.EDIT_TITLE' | translate | async }}
+        {{ 'DIRECTORATE.EDIT_TITLE' | translate | async }}
       </h2>
     </div>
 
@@ -14,64 +14,65 @@
     </button>
   </div>
 
+
   <!-- ===== Scrollable Content ===== -->
   <div class="dialog-body">
     <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content scroll-area">
       <!-- ===== Basic Info ===== -->
       <div class="section">
         <h3 class="section-title">
-          {{ 'COMPANY.BASIC_INFO' | translate | async }}
+          {{ 'DIRECTORATE.BASIC_INFO' | translate | async }}
         </h3>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.NAME_AR' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.NAME_AR' | translate | async }}</mat-label>
           <input matInput formControlName="nameAr">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.NAME_EN' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.NAME_EN' | translate | async }}</mat-label>
           <input matInput formControlName="nameEn">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.DIR_NAME_AR' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.DIR_NAME_AR' | translate | async }}</mat-label>
           <input matInput formControlName="dirNameAr">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.DIR_NAME_EN' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.DIR_NAME_EN' | translate | async }}</mat-label>
           <input matInput formControlName="dirNameEn">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.ADDRESS_AR' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.ADDRESS_AR' | translate | async }}</mat-label>
           <input matInput formControlName="addressAr">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.ADDRESS_EN' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.ADDRESS_EN' | translate | async }}</mat-label>
           <input matInput formControlName="addressEn">
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.EMAIL' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.EMAIL' | translate | async }}</mat-label>
           <input matInput formControlName="email">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.PHONE_NUMBER_1' | translate | async }}</mat-label>
           <input matInput formControlName="phoneNumber1">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.PHONE_NUMBER_2' | translate | async }}</mat-label>
           <input matInput formControlName="phoneNumber2">
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.FAX_NUMBER' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.FAX_NUMBER' | translate | async }}</mat-label>
           <input matInput formControlName="faxNumber">
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'COMPANY.LINK' | translate | async }}</mat-label>
+          <mat-label>{{ 'DIRECTORATE.LINK' | translate | async }}</mat-label>
           <input matInput formControlName="link">
         </mat-form-field>
       </div>
@@ -79,20 +80,24 @@
       <!-- ===== Images ===== -->
       <div class="section">
         <h3 class="section-title">
-          {{ 'COMPANY.IMAGES' | translate | async }}
+          {{ 'DIRECTORATE.IMAGES' | translate | async }}
         </h3>
 
         <div class="file-row">
           <label>
-            {{ 'COMPANY.LOGO' | translate | async }}
+            {{ 'DIRECTORATE.LOGO' | translate | async }}
             <img *ngIf="photoUrl" [src]="photoUrl" class="preview-img" />
 
             <input type="file" (change)="onPhotoChange($event)">
           </label>
+
+         
         </div>
         <div class="file-row">
+         
+
           <label>
-            {{ 'COMPANY.DIR_PHOTO_URL' | translate | async }}
+            {{ 'DIRECTORATE.DIR_PHOTO_URL' | translate | async }}
             <img *ngIf="dirPhotoUrl" [src]="dirPhotoUrl" class="preview-img" />
             <input type="file" (change)="onDirPhotoChange($event)">
           </label>
@@ -100,23 +105,27 @@
       </div>
 
       <!-- ===== Activities ===== -->
+      <!-- ===== Activities ===== -->
       <div class="section">
         <h3 class="section-title">
-          {{ 'COMPANY.ACTIVITIES' | translate | async }}
+          {{ 'DIRECTORATE.ACTIVITIES' | translate | async }}
         </h3>
 
+        <!-- 🔥 REQUIRED wrapper -->
         <div formArrayName="activities">
+
           <div class="repeat-card" *ngFor="let a of activities.controls; let i = index" [formGroupName]="i">
+
             <mat-form-field appearance="outline">
               <mat-label>
-                {{ 'COMPANY.ACTIVITY_NAME_AR' | translate | async }}
+                {{ 'DIRECTORATE.ACTIVITY_NAME_AR' | translate | async }}
               </mat-label>
               <textarea matInput formControlName="activityAr"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>
-                {{ 'COMPANY.ACTIVITY_NAME_EN' | translate | async }}
+                {{ 'DIRECTORATE.ACTIVITY_NAME_EN' | translate | async }}
               </mat-label>
               <textarea matInput formControlName="activityEn"></textarea>
             </mat-form-field>
@@ -124,6 +133,7 @@
             <button mat-icon-button color="warn" type="button" (click)="removeActivity(i)">
               <mat-icon>delete</mat-icon>
             </button>
+
           </div>
         </div>
 
@@ -133,21 +143,26 @@
         </button>
       </div>
 
+
+      <!-- ===== Services ===== -->
       <!-- ===== Services ===== -->
       <div class="section">
         <h3 class="section-title">
-          {{ 'COMPANY.SERVICES' | translate | async }}
+          {{ 'DIRECTORATE.SERVICES' | translate | async }}
         </h3>
 
+        <!-- 🔥 REQUIRED wrapper -->
         <div formArrayName="services">
+
           <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
+
             <mat-form-field appearance="outline">
-              <mat-label>{{ 'COMPANY.SERVICES_AR' | translate | async }}</mat-label>
+              <mat-label>{{ 'DIRECTORATE.SERVICES_AR' | translate | async }}</mat-label>
               <input matInput formControlName="serviceAr">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>{{ 'COMPANY.SERVICES_EN' | translate | async }}</mat-label>
+              <mat-label>{{ 'DIRECTORATE.SERVICES_EN' | translate | async }}</mat-label>
               <input matInput formControlName="serviceEn">
             </mat-form-field>
 
@@ -160,6 +175,7 @@
             <button mat-icon-button color="warn" type="button" (click)="removeService(i)">
               <mat-icon>delete</mat-icon>
             </button>
+
           </div>
         </div>
 
@@ -168,10 +184,12 @@
           {{ 'COMMON.ADD' | translate | async }}
         </button>
       </div>
+
+
     </form>
   </div>
 
-  <!-- ===== Actions ===== -->
+  <!-- ===== Actions (Sticky) ===== -->
   <div class="dialog-actions">
     <button mat-stroked-button type="button" (click)="close()">
       {{ 'COMMON.CANCEL' | translate | async }}
@@ -189,4 +207,5 @@
       </span>
     </button>
   </div>
+
 </div>

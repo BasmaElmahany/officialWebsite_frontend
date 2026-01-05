@@ -130,4 +130,9 @@
   "COMPANY.FAX_NUMBER": "Fax Number",
   "COMPANY.LINK": "Website Link",
   "COMPANY.IMAGES": "Images"
+  "MENU.NEWSTYPES": "News Types",
+  "TYPES.CREATE_TITLE": "Create New News Type",
+  "TYPES.NAME_AR": "News Type Name (Arabic)",
+  "TYPES.NAME_EN": "News Type Name (English)",
+  "TYPES.EDIT_TITLE": "Edit News Type"
 }

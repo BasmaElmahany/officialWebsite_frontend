@@ -138,4 +138,9 @@
   "COMPANY.SERVICE_FILE": "ملف الخدمة",
   "COMPANY.DETAILS_TITLE":"تفاصيل الشركة",
   "COMPANY.FILES": "الملفات"
+  "MENU.NEWSTYPES": "أنواع الأخبار",
+  "TYPES.CREATE_TITLE": "إضافة نوع خبر جديد",
+  "TYPES.NAME_AR": "اسم نوع الخبر (عربي)",
+  "TYPES.NAME_EN": "اسم نوع الخبر (انجليزي)",
+   "TYPES.EDIT_TITLE": "تعديل نوع الخبر"
 }

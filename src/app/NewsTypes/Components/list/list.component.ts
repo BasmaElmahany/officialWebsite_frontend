@@ -1,42 +1,39 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Directorate, DirectorateRead } from '../../Models/directorate';
 import { MatTableDataSource } from '@angular/material/table';
+import { NewsTypes } from '../../Models/newTypes';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 import { I18nService } from '../../../Shared/Services/i18n.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DirectorateService } from '../../Services/directorate.service';
-import { Router } from '@angular/router';
+import { NewsTypeService } from '../../Services/news-type.service';
 import { CreateComponent } from '../create/create.component';
 import { EditComponent } from '../edit/edit.component';
 import { DetailsComponent } from '../details/details.component';
 import { DeleteComponent } from '../delete/delete.component';
-import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-list',
-
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['icon', 'name', 'managerName', 'phoneNumber', 'actions'];
-  dataSource = new MatTableDataSource<DirectorateRead>();
-
+  displayedColumns: string[] = ['icon', 'name', 'actions'];
+  dataSource = new MatTableDataSource<NewsTypes>();
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private directorateService: DirectorateService,
+    private service: NewsTypeService,
     private router: Router,
-    public i18n: I18nService, private dialog: MatDialog, private toast: ToastService
+    public i18n: I18nService, private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.directorateService.getAllDirectorates().subscribe({
+    this.service.getAllNewsTypes().subscribe({
       next: data => {
         this.dataSource.data = data;
         this.loading = false;
@@ -46,20 +43,19 @@ export class ListComponent implements OnInit, AfterViewInit {
 
     // 🔥 Sorting based on language
     this.dataSource.sortingDataAccessor = (item, property) => {
-      if (property === 'name' || property === 'managerName' || property === 'phoneNumber') {
+      if (property === 'name') {
         return this.i18n.currentLang === 'ar'
           ? item.nameAr
-          : item.nameEn || item.dirNameAr || item.dirNameEn || item.phoneNumber1 || '';
+          : item.nameEn;
       }
       return '';
     };
 
     // 🔎 Filtering based on language
-    this.dataSource.filterPredicate = (directorate, filter) => {
+    this.dataSource.filterPredicate = (center, filter) => {
       const value = this.i18n.currentLang === 'ar'
-        ? directorate.nameAr
-        : directorate.nameEn || directorate.dirNameEn || directorate.dirNameAr || directorate.phoneNumber1 || '';
-
+        ? center.nameAr
+        : center.nameEn;
       return value.toLowerCase().includes(filter);
     };
   }
@@ -74,29 +70,11 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  getDirectorateName(directorate: Directorate): string {
+  getNewsTypeName(newsType: NewsTypes): string {
     return this.i18n.currentLang === 'ar'
-      ? directorate.nameAr
-      : directorate.nameEn;
+      ? newsType.nameAr
+      : newsType.nameEn;
   }
-  getManagerName(directorate: Directorate): string {
-    const ar = directorate.dirNameAr?.trim() ?? '';
-    const en = directorate.dirNameEn?.trim() ?? '';
-
-    return (
-      this.i18n.currentLang === 'ar'
-        ? ar || en
-        : en || ar
-    ) || '—';
-  }
-
-
-
-  getPhoneNumber(directorate: Directorate): string {
-    return directorate.phoneNumber1 ? directorate.phoneNumber1 : 'N/A';
-
-  }
-
 
 
   goToCreate(): void {
@@ -108,15 +86,15 @@ export class ListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.reloadDirectorate();
+        this.reloadNewsTypes();
       }
     });
   }
 
 
-  reloadDirectorate(): void {
+  reloadNewsTypes(): void {
     this.loading = true;
-    this.directorateService.getAllDirectorates().subscribe({
+    this.service.getAllNewsTypes().subscribe({
       next: data => {
         this.dataSource.data = data;
         this.loading = false;
@@ -125,35 +103,36 @@ export class ListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openEdit(directorate: Directorate): void {
+  openEdit(newsType: NewsTypes): void {
     const ref = this.dialog.open(EditComponent, {
       width: '420px',
-      data: { id: directorate.id },
+      data: newsType,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadDirectorate();
+      if (ok) this.reloadNewsTypes();
     });
   }
-  openDetails(directorate: Directorate): void {
+  openDetails(newsType: NewsTypes): void {
     this.dialog.open(DetailsComponent, {
       width: '520px',
-      data: { id: directorate.id } as any,
+      data: { id: newsType.id } as any,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr',
       autoFocus: false
     });
   }
 
-  openDelete(directorate: Directorate): void {
+  openDelete(newsType: NewsTypes): void {
     const ref = this.dialog.open(DeleteComponent, {
       width: '380px',
-      data: directorate,
+      data: newsType,
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
 
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadDirectorate();
+      if (ok) this.reloadNewsTypes();
     });
   }
+
 }

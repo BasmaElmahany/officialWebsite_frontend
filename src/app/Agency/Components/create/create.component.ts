@@ -115,7 +115,7 @@ export class CreateComponent  {
   ===================================================== */
   submit(): void {
     if (this.form.invalid || this.activities.invalid || this.services.invalid) {
-      this.form.markAllAsTouched();
+     
       this.activities.markAllAsTouched();
       this.services.markAllAsTouched();
       return;

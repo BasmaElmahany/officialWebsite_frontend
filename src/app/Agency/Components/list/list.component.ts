@@ -80,11 +80,17 @@ export class ListComponent implements OnInit, AfterViewInit {
       ? agency.nameAr
       : agency.nameEn;
   }
-   getManagerName(agency: Agency): string {
-    return this.i18n.currentLang === 'ar'
-      ? agency.dirNameAr
-      : agency.dirNameEn;
-  }
+  getManagerName(agency: Agency): string {
+  const ar = agency.dirNameAr?.trim() ?? '';
+  const en = agency.dirNameEn?.trim() ?? '';
+
+  return (
+    this.i18n.currentLang === 'ar'
+      ? ar || en
+      : en || ar
+  ) || '—';
+}
+
      getPhoneNumber(agency: Agency): string {
     return agency.phoneNumber1 ? agency.phoneNumber1 : 'N/A';
       

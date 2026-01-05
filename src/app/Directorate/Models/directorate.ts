@@ -2,10 +2,10 @@ export interface Directorate {
   id: string;
   nameAr: string;
   nameEn: string;
-  dirNameAr: string;
-  dirNameEn: string;
-  addressAr: string;
-  addressEn: string;
+  dirNameAr?: string;
+  dirNameEn?: string;
+  addressAr?: string;
+  addressEn?: string;
   phoneNumber1?: string;
   phoneNumber2?: string;
   email?: string;
@@ -13,8 +13,8 @@ export interface Directorate {
   link?: string;
   photoUrl?: string;
   dirPhotoUrl?: string;
-  activities: DirectorateActivity[];
-  services: DirectorateService[];
+  activities?: DirectorateActivity[];
+  services?: DirectorateService[];
   managerName?: {
     ar: string;
     en: string;
@@ -27,17 +27,17 @@ export interface DirectorateRead {
   nameEn: string;
   photoUrl?: string;
   dirPhotoUrl?: string;
-  dirNameAr: string;
-  dirNameEn: string;
-  addressAr: string;
-  addressEn: string;
+  dirNameAr?: string;
+  dirNameEn?: string;
+  addressAr?: string;
+  addressEn?: string;
   phoneNumber1?: string;
   phoneNumber2?: string;
   email?: string;
   faxNumber?: string;
   link?: string;
-  activities: DirectorateActivity[];
-  services: DirectorateService[];
+  activities?: DirectorateActivity[];
+  services?: DirectorateService[];
 }
 
 export interface DirectorateActivity {

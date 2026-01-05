@@ -1,91 +1,158 @@
-<div class="details-dialog" [class.rtl]="i18n.isRTL">
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
   <!-- ===== Header ===== -->
   <div class="dialog-header">
     <div class="title-wrap">
       <mat-icon class="title-icon">info</mat-icon>
       <h2>
-        {{ i18n.currentLang === 'ar' ? 'تفاصيل الشركة' : 'Company Details' }}
+        {{ 'COMPANY.DETAILS_TITLE' | translate | async }}
       </h2>
     </div>
+
     <button mat-icon-button class="close-btn" (click)="close()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
-  <!-- ===== Content ===== -->
-  <div class="dialog-content">
-    <div class="loading-box" *ngIf="loading">
-      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
-      <span>{{ i18n.currentLang === 'ar' ? 'جاري التحميل...' : 'Loading...' }}</span>
-    </div>
+  <!-- ===== Scrollable Content ===== -->
+  <div class="dialog-body">
+    <div class="dialog-content scroll-area">
+      <!-- ===== Basic Info ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'COMPANY.BASIC_INFO' | translate | async }}
+        </h3>
 
-    <ng-container *ngIf="!loading && company">
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.NAME_AR' | translate | async }}</mat-label>
-        <input matInput [value]="company.nameAr" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="company?.nameAr" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.NAME_EN' | translate | async }}</mat-label>
-        <input matInput [value]="company.nameEn" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="company?.nameEn" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.DIR_NAME_AR' | translate | async }}</mat-label>
-        <input matInput [value]="company.dirNameAr" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.DIR_NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="company?.dirNameAr" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.DIR_NAME_EN' | translate | async }}</mat-label>
-        <input matInput [value]="company.dirNameEn" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.DIR_NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="company?.dirNameEn" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.ADDRESS_AR' | translate | async }}</mat-label>
-        <input matInput [value]="company.addressAr" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput [value]="company?.addressAr" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.ADDRESS_EN' | translate | async }}</mat-label>
-        <input matInput [value]="company.addressEn" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput [value]="company?.addressEn" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.EMAIL' | translate | async }}</mat-label>
-        <input matInput [value]="company.email" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.EMAIL' | translate | async }}</mat-label>
+          <input matInput [value]="company?.email" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.PHONE_NUMBER_1' | translate | async }}</mat-label>
-        <input matInput [value]="company.phoneNumber1" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput [value]="company?.phoneNumber1" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.PHONE_NUMBER_2' | translate | async }}</mat-label>
-        <input matInput [value]="company.phoneNumber2" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput [value]="company?.phoneNumber2" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.FAX_NUMBER' | translate | async }}</mat-label>
-        <input matInput [value]="company.faxNumber" readonly>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput [value]="company?.faxNumber" readonly>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'COMPANY.LINK' | translate | async }}</mat-label>
-        <input matInput [value]="company.link" readonly>
-      </mat-form-field>
-    </ng-container>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'COMPANY.LINK' | translate | async }}</mat-label>
+          <input matInput [value]="company?.link" readonly>
+        </mat-form-field>
+      </div>
 
-    <div class="error-box" *ngIf="!loading && !company">
-      <mat-icon>error_outline</mat-icon>
-      <span>{{ i18n.currentLang === 'ar' ? 'تعذر تحميل التفاصيل' : 'Unable to load details' }}</span>
+      <!-- ===== Images ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'COMPANY.IMAGES' | translate | async }}
+        </h3>
+
+        <div class="file-row">
+          <label>
+            {{ 'COMPANY.LOGO' | translate | async }}
+            <div class="photo-box" *ngIf="company?.photoUrl">
+              <img [src]="getPhotoUrl(company?.photoUrl)" alt="صورة الشعار" />
+            </div>
+          </label>
+
+          <label>
+            {{ 'COMPANY.DIR_PHOTO_URL' | translate | async }}
+            <div class="photo-box" *ngIf="company?.dirPhotoUrl">
+              <img [src]="getDirPhotoUrl(company?.dirPhotoUrl)" alt="صورة المدير" />
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===== Activities ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'COMPANY.ACTIVITIES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let activity of company?.activities">
+            {{ i18n.currentLang === 'ar' ? activity.activityAr : activity.activityEn }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- ===== Services ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'COMPANY.SERVICES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let service of company?.services">
+            <span>{{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}</span>
+            <a *ngIf="service.fileUrl" [href]="service.fileUrl" target="_blank" class="file-link">
+              {{ 'COMPANY.SERVICE_FILE' | translate | async }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ===== Files ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'COMPANY.FILES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let file of company?.files">
+            <a [href]="file.fileUrl" target="_blank">
+              {{ i18n.currentLang === 'ar' ? file.fileNameAr : file.fileNameEn }}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <!-- ===== Actions ===== -->
   <div class="dialog-actions">
     <button mat-stroked-button color="primary" type="button" (click)="close()">
-      {{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}
+      {{ 'COMMON.CLOSE' | translate | async }}
     </button>
   </div>
+
 </div>

@@ -5,7 +5,7 @@ $radius: 18px;
 
 .create-dialog {
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
   max-height: 90vh;
   background: #fff;
   border-radius: $radius;
@@ -57,20 +57,20 @@ $radius: 18px;
 
 /* ===== Content ===== */
 .dialog-content {
-  padding: 24px;
+  padding: 16px; /* تقليل المسافات بين العناصر */
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px; /* تقليل الفجوات بين الحقول */
 
   mat-form-field {
     width: 100%;
+    font-size: 14px; /* تصغير النص داخل الحقول */
 
     mat-icon {
       color: $accent;
     }
   }
 }
-
 
 /* ================= IMAGES SECTION ================= */
 .section .file-row {
@@ -99,10 +99,6 @@ $radius: 18px;
   background: rgba($accent, 0.05);
 }
 
-.section .file-row input[type="file"] {
-  font-size: 12px;
-}
-
 /* ================= ACTIVITIES / SERVICES CARDS ================= */
 .repeat-card {
   background: #ffffff;
@@ -120,39 +116,7 @@ $radius: 18px;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
 }
 
-/* delete button */
-.repeat-card button[mat-icon-button] {
-  position: absolute;
-  top: 10px;
-  inset-inline-end: 10px;
-  background: #fee2e2;
-  border-radius: 50%;
-}
-
-.repeat-card button mat-icon {
-  color: #b91c1c;
-}
-
-.section>button[mat-stroked-button] {
-  align-self: flex-start;
-  border-radius: 12px;
-  font-weight: 600;
-  padding: 6px 14px;
-}
-
-.repeat-card input[type="file"] {
-  font-size: 12px;
-  padding: 6px;
-  border-radius: 8px;
-  background: #f9fafb;
-  border: 1px solid #d1d5db;
-}
-
 /* ===== Actions ===== */
-/* =====================================================
-   DIALOG ACTIONS – PREMIUM STYLE
-===================================================== */
-
 .dialog-actions {
   position: sticky;
   bottom: 0;
@@ -160,11 +124,11 @@ $radius: 18px;
       rgba(247, 249, 252, 0.85),
       #f7f9fc);
   backdrop-filter: blur(6px);
-  padding: 14px 20px;
+  padding: 12px; /* تقليل المسافات في الأزرار */
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 12px;
+  gap: 8px; /* تقليل الفجوات بين الأزرار */
   border-top: 1px solid #e5e7eb;
   border-radius: 0 0 18px 18px;
 
@@ -208,45 +172,7 @@ $radius: 18px;
       font-size: 20px;
     }
   }
-
-  /* Loading Spinner */
-  mat-progress-spinner {
-    width: 20px !important;
-    height: 20px !important;
-
-    circle {
-      stroke: #fff;
-    }
-  }
 }
-
-/* =====================================================
-   RTL SUPPORT
-===================================================== */
-.create-dialog.rtl {
-  .dialog-actions {
-    justify-content: flex-start;
-  }
-}
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-@media (max-width: 480px) {
-  .dialog-actions {
-    flex-direction: column-reverse;
-    align-items: stretch;
-
-    button {
-      width: 100%;
-    }
-  }
-
-  .section .file-row {
-    grid-template-columns: 1fr;
-  }
-}
-
 
 /* ===== Animation ===== */
 @keyframes fadeUp {
@@ -258,5 +184,20 @@ $radius: 18px;
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+.photo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid $accent;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,45,98,0.08);
   }
 }

@@ -118,8 +118,6 @@
   "AGENCY.EDIT_TITLE": "Edit Government Agency",
   "COMPANY.CREATE_TITLE": "Create New Company",
   "COMPANY.BASIC_INFO": "Basic Information",
-  "COMPANY.NAME_AR": "Company Name (Arabic)",
-  "COMPANY.NAME_EN": "Company Name (English)",
   "COMPANY.DIR_NAME_AR": "Director Name (Arabic)",
   "COMPANY.DIR_NAME_EN": "Director Name (English)",
   "COMPANY.ADDRESS_AR": "Address (Arabic)",
@@ -134,5 +132,16 @@
   "TYPES.CREATE_TITLE": "Create New News Type",
   "TYPES.NAME_AR": "News Type Name (Arabic)",
   "TYPES.NAME_EN": "News Type Name (English)",
-  "TYPES.EDIT_TITLE": "Edit News Type"
+  "TYPES.EDIT_TITLE": "Edit News Type",
+  "MENU.NEWS": "News",
+  "NEWS.TYPE": "Type",
+  "NEWS.DATE": "Date",
+  "NEWS.TITLE_AR": "Title (Arabic)",
+  "NEWS.TITLE_EN": "Title (English)",
+  "NEWS.ARTICLE_AR": "Article (Arabic)",
+  "NEWS.ARTICLE_EN": "Article (English)",
+  "NEWS.UPLOAD_IMAGES": "Upload Images",
+  "NEWS.CREATE": "Create",
+  "NEWS.CANCEL": "Cancel",
+  "NEWS.SAVING": "Saving..."
 }

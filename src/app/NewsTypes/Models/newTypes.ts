@@ -1,5 +1,5 @@
 export interface NewsTypes {
-    id: string;
+    id: number;
     nameAr: string;
     nameEn: string;
 }

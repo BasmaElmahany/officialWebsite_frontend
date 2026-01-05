@@ -50,6 +50,11 @@ export const routes: Routes = [
         path: 'newstypes',
         loadChildren: () =>
           import('./NewsTypes/news-type.module').then(m => m.NewsTypeModule)
+      },
+       {
+        path: 'news',
+        loadChildren: () =>
+          import('./News/news.module').then(m => m.NewsModule)
       }
     ]
   }

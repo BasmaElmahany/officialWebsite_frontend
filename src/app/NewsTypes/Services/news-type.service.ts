@@ -39,7 +39,7 @@ private readonly apiUrl = `${baseAPI}/NewsTypes`;
      API expects: PUT /NewsTypes/{id}
   ============================== */
   updateNewsType(
-    id: string,
+    id: number,
     payload: CreateType
   ): Observable<NewsTypes> {
     return this.http
@@ -51,7 +51,7 @@ private readonly apiUrl = `${baseAPI}/NewsTypes`;
      DELETE
      API returns: data: true
   ============================== */
-  deleteNewsType(id: string): Observable<boolean> {
+  deleteNewsType(id: number): Observable<boolean> {
     return this.http
       .delete<ApiResponse<boolean>>(`${this.apiUrl}/${id}`)
       .pipe(map(res => res.data));

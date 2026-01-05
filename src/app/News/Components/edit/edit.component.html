@@ -1,0 +1,109 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="title-wrap">
+            <mat-icon class="title-icon">edit</mat-icon>
+            <h2>
+                {{ i18n.currentLang === 'ar'
+                ? 'تعديل الخبر'
+                : 'Edit The News' }}
+            </h2>
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Content -->
+    <form [formGroup]="form" class="dialog-content">
+        <!-- News Type -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>category</mat-icon>
+
+            <mat-label>
+                {{ 'NEWS.TYPE' | translate | async }}
+            </mat-label>
+
+            <mat-select formControlName="typeId">
+                <mat-option *ngFor="let type of newsTypes" [value]="type.id">
+                    {{ i18n.currentLang === 'ar' ? type.nameAr : type.nameEn }}
+                </mat-option>
+            </mat-select>
+
+            <mat-error *ngIf="form.get('typeId')?.invalid">
+                {{ 'VALIDATION.REQUIRED' | translate | async }}
+            </mat-error>
+        </mat-form-field>
+        <!-- Date -->
+        <mat-form-field appearance="outline">
+            <mat-label>{{ 'GOV_TOURS.DATE' | translate | async }} *</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Title AR -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>title</mat-icon>
+            <mat-label>{{ 'NEWS.TITLE_AR' | translate | async }}</mat-label>
+            <input matInput formControlName="titleAr">
+        </mat-form-field>
+
+        <!-- Title EN -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>title</mat-icon>
+            <mat-label>{{ 'NEWS.TITLE_EN' | translate | async }}</mat-label>
+            <input matInput formControlName="titleEn">
+        </mat-form-field>
+
+        <!-- Article AR -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>description</mat-icon>
+            <mat-label>{{ 'NEWS.ARTICLE_AR' | translate | async }}</mat-label>
+            <textarea matInput rows="3" formControlName="articleAr"></textarea>
+        </mat-form-field>
+
+        <!-- Article EN -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>description</mat-icon>
+            <mat-label>{{ 'NEWS.ARTICLE_EN' | translate | async }}</mat-label>
+            <textarea matInput rows="3" formControlName="articleEn"></textarea>
+        </mat-form-field>
+
+        <!-- Existing Images -->
+        <div class="images-grid" *ngIf="existingPhotos.length">
+            <img *ngFor="let img of existingPhotos" [src]="getImageUrl(img.photoUrl)" alt="tour image">
+        </div>
+
+        <!-- Upload New -->
+        <div class="upload-box" (click)="fileInput.click()">
+            <mat-icon>photo_camera</mat-icon>
+            <span>{{ 'NEWS.UPLOAD_IMAGES' | translate | async }}</span>
+            <input #fileInput type="file" multiple hidden (change)="onFilesSelected($event)">
+        </div>
+
+    </form>
+
+    <!-- Actions -->
+    <div class="dialog-actions">
+
+        <button mat-stroked-button color="primary" (click)="close()">
+            {{ 'NEWS.CANCEL' | translate | async }}
+        </button>
+
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="loading">
+            <mat-icon *ngIf="!loading">check</mat-icon>
+            <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span>
+                {{ loading
+                ? ('GOV_TOURS.SAVING' | translate | async)
+                : ('GOV_TOURS.UPDATE' | translate | async)
+                }}
+            </span>
+        </button>
+
+    </div>
+
+</div>

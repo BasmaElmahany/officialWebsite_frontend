@@ -1,3 +1,4 @@
+
 // --- ملف الموديل (Models) فقط لتعريف شكل البيانات ---
 
 export interface Activity {
@@ -26,13 +27,16 @@ export interface CompanyRead {
   dirNameEn?: string;
   addressAr?: string;
   addressEn?: string;
-  phoneNumber1?: string | null;
-  phoneNumber2?: string | null;
-  email?: string | null;
-  faxNumber?: string | null;
-  link?: string | null;
-  activities?: any[];
-  services?: any[];
+  email?: string;
+  phoneNumber1?: string;
+  phoneNumber2?: string;
+  faxNumber?: string;
+  link?: string;
+  photoUrl?: string;
+  dirPhotoUrl?: string;
+  activities?: Activity[];
+  services?: Service[];
+  files?: File[];
 }
 
 export interface ApiResponse<T = any> {
@@ -63,11 +67,9 @@ export interface Company {
   dirNameEn?: string;
   addressAr?: string;
   addressEn?: string;
-  phoneNumber1?: string | null;
-  phoneNumber2?: string | null;
-  email?: string | null;
-  faxNumber?: string | null;
-  link?: string | null;
-  activities?: any[];
-  services?: any[];
+  email?: string;
+  phoneNumber1?: string;
+  phoneNumber2?: string;
+  faxNumber?: string;
+  link?: string;
 }

@@ -1,73 +1,113 @@
 <section class="details-page" [class.rtl]="lang.current === 'ar'">
   <div class="loading-overlay" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
   </div>
 
   <div class="content-wrapper" *ngIf="!loading && company">
     
-    <header class="page-header">
-      <h1 class="main-title">{{ title() }}</h1>
-      <div class="meta-info">
-        <div class="info-item" *ngIf="company.phoneNumber1">
-          <mat-icon>phone</mat-icon>
-          <span>{{ company.phoneNumber1 }}</span>
-        </div>
-        <div class="info-item" *ngIf="company.email">
-          <mat-icon>email</mat-icon>
-          <span>{{ company.email }}</span>
+    <header class="hero-header">
+      <div class="hero-overlay"></div>
+      <img class="hero-bg" [src]="imageUrl(company.photoUrl)" onerror="this.src='assets/default-cover.jpg'">
+      
+      <div class="hero-content">
+        <h1 class="main-title">{{ lang.current === 'ar' ? company.nameAr : company.nameEn }}</h1>
+        <div class="quick-meta">
+          <div class="meta-badge" *ngIf="company.phoneNumber1">
+            <mat-icon>phone</mat-icon>
+            <span>{{ company.phoneNumber1 }}</span>
+          </div>
+          <div class="meta-badge" *ngIf="company.phoneNumber2">
+            <mat-icon>phone</mat-icon>
+            <span>{{ company.phoneNumber2 }}</span>
+          </div>
+          <div class="meta-badge" *ngIf="company.email">
+            <mat-icon>email</mat-icon>
+            <span>{{ company.email }}</span>
+          </div>
+          <div class="meta-badge" *ngIf="company.faxNumber">
+            <mat-icon>print</mat-icon>
+            <span>{{ company.faxNumber }}</span>
+          </div>
+          <div class="meta-badge" *ngIf="company.link">
+            <mat-icon>link</mat-icon>
+            <a [href]="company.link" target="_blank">{{ company.link }}</a>
+          </div>
         </div>
       </div>
     </header>
 
-    <div class="details-card">
-      <div class="main-image-container">
-        <img [src]="imageUrl(company.photoUrl)" 
-             [alt]="title()" 
-             onerror="this.src='https://via.placeholder.com/800x400'">
-      </div>
+    <div class="main-container">
+      <div class="main-content">
+        
+        <mat-card class="info-card fade-in">
+          <div class="card-section">
+            <h3 class="section-label">
+              <mat-icon>business</mat-icon>
+              {{ lang.current === 'ar' ? 'عن الشركة والمدير المسؤول' : 'About & Management' }}
+            </h3>
+            <p class="manager-name" *ngIf="company.dirNameAr || company.dirNameEn">
+              <strong>{{ lang.current === 'ar' ? 'السيد المهندس/' : 'Mr.' }}</strong>
+              {{ lang.current === 'ar' ? company.dirNameAr : company.dirNameEn }}
+            </p>
+            <p class="description-text">{{ address() }}</p>
+          </div>
+        </mat-card>
 
-      <div class="details-body">
-        <div class="section">
-          <h3 class="section-title">
-            <mat-icon>location_on</mat-icon>
-            {{ lang.current === 'ar' ? 'الموقع والعنوان' : 'Location & Address' }}
-          </h3>
-          <p class="description-text">{{ address() }}</p>
-        </div>
-
-        <div class="section" *ngIf="company.dirNameAr || company.dirNameEn">
-          <h3 class="section-title">
-            <mat-icon>person</mat-icon>
-            {{ lang.current === 'ar' ? 'المدير المسؤول' : 'Managing Director' }}
-          </h3>
-          <p class="description-text">
-            {{ lang.current === 'ar' ? company.dirNameAr : company.dirNameEn }}
-          </p>
-        </div>
-
-        <div class="grid-sections">
-          <div class="sub-section" *ngIf="company.activities?.length">
-            <h3 class="section-title">{{ lang.current === 'ar' ? 'الأنشطة' : 'Activities' }}</h3>
-            <ul class="styled-list">
+        <div class="features-grid">
+          <mat-card class="feature-card" *ngIf="company.activities.length">
+            <div class="feature-header">
+              <div class="icon-box"><mat-icon>stars</mat-icon></div>
+              <h3>{{ lang.current === 'ar' ? 'الأنشطة الرئيسية' : 'Key Activities' }}</h3>
+            </div>
+            <ul class="feature-list">
               <li *ngFor="let act of company.activities">{{ act }}</li>
             </ul>
-          </div>
+          </mat-card>
 
-          <div class="sub-section" *ngIf="company.services?.length">
-            <h3 class="section-title">{{ lang.current === 'ar' ? 'الخدمات' : 'Services' }}</h3>
-            <ul class="styled-list">
+          <mat-card class="feature-card" *ngIf="company.services.length">
+            <div class="feature-header">
+              <div class="icon-box"><mat-icon>settings_suggest</mat-icon></div>
+              <h3>{{ lang.current === 'ar' ? 'الخدمات المتاحة' : 'Available Services' }}</h3>
+            </div>
+            <ul class="feature-list">
               <li *ngFor="let svc of company.services">{{ svc }}</li>
             </ul>
-          </div>
-        </div>
-
-        <div class="actions-footer" *ngIf="company.link">
-          <a [href]="company.link" target="_blank" class="visit-btn">
-            {{ lang.current === 'ar' ? 'زيارة الموقع الرسمي' : 'Visit Official Website' }}
-            <mat-icon>open_in_new</mat-icon>
-          </a>
+          </mat-card>
         </div>
       </div>
+
+      <aside class="side-bar">
+        <mat-card class="cta-card">
+          <h3>{{ lang.current === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</h3>
+          <p>{{ lang.current === 'ar' ? 'لمزيد من المعلومات، تفضل بزيارة الموقع الرسمي' : 'For more info, visit the official website' }}</p>
+          
+          <a *ngIf="company.link" [href]="company.link" target="_blank" class="primary-btn">
+            <span>{{ lang.current === 'ar' ? 'الموقع الإلكتروني' : 'Visit Website' }}</span>
+            <mat-icon>open_in_new</mat-icon>
+          </a>
+          
+    
+        </mat-card>
+      </aside>
     </div>
+
+    <section class="details-section">
+      <h2>{{ lang.current === 'ar' ? 'العنوان' : 'Address' }}</h2>
+      <p>{{ lang.current === 'ar' ? company.addressAr || 'غير متوفر' : company.addressEn || 'Not available' }}</p>
+    </section>
+
+    <section class="details-section" *ngIf="company.activities.length > 0">
+      <h2>{{ lang.current === 'ar' ? 'الأنشطة' : 'Activities' }}</h2>
+      <ul>
+        <li *ngFor="let activity of company.activities">{{ activity }}</li>
+      </ul>
+    </section>
+
+    <section class="details-section" *ngIf="company.services.length > 0">
+      <h2>{{ lang.current === 'ar' ? 'الخدمات' : 'Services' }}</h2>
+      <ul>
+        <li *ngFor="let service of company.services">{{ service }}</li>
+      </ul>
+    </section>
   </div>
 </section>

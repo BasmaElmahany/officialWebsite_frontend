@@ -1,75 +1,230 @@
-<!-- Creative & Innovative Directorate Listing Component -->
-<div *ngIf="!loading" class="directorates-container">
-  <!-- Masonry-style Grid with Creative Layout -->
-  <div class="directorates-masonry">
-    <mat-card 
-      *ngFor="let directorate of directorates; let i = index" 
-      class="directorate-card"
-      [ngClass]="'card-size-' + ((i % 3) + 1)">
-      
-      <!-- Creative Image Section with Overlay -->
-      <div class="card-image-container">
-        <img 
-          mat-card-image 
-          [src]="cover(directorate)" 
-          [alt]="title(directorate)"
-          class="directorate-image"
-          loading="lazy">
-        
-        <!-- Gradient Overlay with Animation -->
-        <div class="image-overlay-gradient"></div>
-        
-        <!-- Badge/Tag Section -->
-        <div class="card-badge">
-          <span class="badge-text">{{ lang.current === 'ar' ? 'الديريكتوريت' : 'Directorate' }}</span>
+<!-- Modern Arabic Directorate Listing with Pagination -->
+<div *ngIf="!loading" class="directorates-container" [class.rtl]="lang.current === 'ar'">
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="page-title">{{ lang.current === 'ar' ? 'مديريات الشؤون الصحية' : 'Health Affairs Directorates' }}</h1>
+    <div class="title-underline"></div>
+  </div>
+
+  <!-- Controls Bar -->
+  <div class="controls-bar">
+    <!-- Search Box -->
+    <div class="search-container">
+      <div class="search-box">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input 
+          type="text" 
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="onSearch()"
+          [placeholder]="lang.current === 'ar' ? 'ابحث عن مديرية...' : 'Search directorate...'"
+          class="search-input">
+        <button 
+          *ngIf="searchQuery" 
+          (click)="clearSearch()"
+          class="clear-search-btn"
+          mat-icon-button
+          aria-label="Clear search">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <span class="search-info">
+        {{ filteredDirectorates.length }} {{ lang.current === 'ar' ? 'نتيجة' : 'results' }}
+      </span>
+    </div>
+
+    <!-- View Toggle -->
+    <div class="view-toggle">
+      <button 
+        mat-icon-button 
+        [class.active]="viewMode === 'grid'"
+        (click)="viewMode = 'grid'"
+        matTooltip="{{ lang.current === 'ar' ? 'عرض شبكي' : 'Grid view' }}">
+        <mat-icon>grid_view</mat-icon>
+      </button>
+      <button 
+        mat-icon-button 
+        [class.active]="viewMode === 'list'"
+        (click)="viewMode = 'list'"
+        matTooltip="{{ lang.current === 'ar' ? 'عرض قائمة' : 'List view' }}">
+        <mat-icon>view_list</mat-icon>
+      </button>
+    </div>
+
+    <!-- Page Size Selector -->
+    <div class="page-size-selector">
+      <mat-select 
+        [(value)]="pageSize"
+        (selectionChange)="changePageSize($event.value)"
+        class="page-size-select">
+        <mat-option *ngFor="let size of pageSizeOptions" [value]="size">
+          {{ size }} {{ lang.current === 'ar' ? 'عنصر' : 'items' }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <!-- Directorate Grid/List -->
+  <div [class]="viewMode === 'grid' ? 'directorate-grid' : 'directorate-list'">
+   <mat-card 
+  *ngFor="let directorate of paginatedDirectorates; let i = index" 
+  class="directorate-card"
+  [attr.data-index]="i">
+  
+  <div class="card-inner-wrapper"> <div class="card-image-section">
+      <div class="image-wrapper">
+        <img [src]="cover(directorate)" class="directorate-image" (error)="onImageError($event, directorate)">
+        <div class="image-overlay"></div>
+        <div class="directorate-badge">
+          <span class="badge-text">{{ lang.current === 'ar' ? 'مديرية' : 'Directorate' }}</span>
         </div>
       </div>
+    </div>
 
-      <!-- Creative Content Section -->
-      <div class="card-content-wrapper">
-        <!-- Title with Accent Line -->
-        <div class="title-section">
-          <div class="accent-line"></div>
-          <mat-card-title class="directorate-title">
-            {{ title(directorate) }}
-          </mat-card-title>
-        </div>
+    <div class="card-content">
+      <div class="card-header">
+        <h3 class="directorate-name">{{ title(directorate) }}</h3>
+        <div class="header-line"></div>
+      </div>
 
-        <!-- Description with Icon -->
-        <mat-card-content class="card-description-section">
-          <p class="directorate-description">
-            {{ excerpt(directorate) }}
-          </p>
-        </mat-card-content>
+      <div class="card-actions">
+        <button mat-button (click)="openDetails(directorate.id)" class="action-button">
+          <span class="button-text">{{ lang.current === 'ar' ? 'استكشف المزيد' : 'Explore More' }}</span>
+          <mat-icon class="button-icon">arrow_back</mat-icon> </button>
+      </div>
+    </div>
+  </div>
 
-        <!-- Creative Action Button -->
-        <mat-card-actions class="card-actions-creative">
+  <div class="decorative-corner top-right"></div>
+  <div class="decorative-corner bottom-left"></div>
+</mat-card>
+  </div>
+
+  <!-- No Results Message -->
+  <div *ngIf="filteredDirectorates.length === 0 && !loading" class="no-results">
+    <mat-icon class="no-results-icon">search_off</mat-icon>
+    <h3>{{ lang.current === 'ar' ? 'لا توجد نتائج' : 'No results found' }}</h3>
+    <p>{{ lang.current === 'ar' ? 'جرب مصطلحات بحث أخرى' : 'Try different search terms' }}</p>
+    <button mat-button (click)="clearSearch()" class="clear-all-btn">
+      {{ lang.current === 'ar' ? 'إعادة تعيين البحث' : 'Reset Search' }}
+    </button>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container" *ngIf="filteredDirectorates.length > pageSize">
+    <div class="pagination-wrapper">
+      <!-- Page Info -->
+      <div class="pagination-info">
+        <span class="info-text">{{ getPaginationInfo() }}</span>
+        <span class="size-info">{{ getPageSizeLabel() }}</span>
+      </div>
+
+      <!-- Page Navigation -->
+      <div class="page-navigation">
+        <!-- First Page -->
+        <button 
+          mat-icon-button 
+          [disabled]="currentPage === 1"
+          (click)="goToFirstPage()"
+          class="nav-button first-page"
+          matTooltip="{{ lang.current === 'ar' ? 'الصفحة الأولى' : 'First page' }}">
+          <mat-icon>first_page</mat-icon>
+        </button>
+
+        <!-- Previous Page -->
+        <button 
+          mat-icon-button 
+          [disabled]="currentPage === 1"
+          (click)="goToPreviousPage()"
+          class="nav-button prev-page"
+          matTooltip="{{ lang.current === 'ar' ? 'الصفحة السابقة' : 'Previous page' }}">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+
+        <!-- Page Numbers -->
+        <div class="page-numbers">
           <button 
-            mat-raised-button 
-            color="primary" 
-            (click)="openDetails(directorate.id)"
-            class="creative-action-button">
-            <span class="button-label">
-              {{ lang.current === 'ar' ? 'استكشف المزيد' : 'Explore More' }}
-            </span>
-            <mat-icon class="button-icon">arrow_forward</mat-icon>
+            *ngFor="let pageNumber of getPageNumbers()"
+            (click)="goToPage(pageNumber)"
+            [class.active]="pageNumber === currentPage"
+            class="page-number"
+            [attr.aria-label]="'Page ' + pageNumber">
+            {{ pageNumber }}
           </button>
-        </mat-card-actions>
+        </div>
+
+        <!-- Next Page -->
+        <button 
+          mat-icon-button 
+          [disabled]="currentPage === totalPages"
+          (click)="goToNextPage()"
+          class="nav-button next-page"
+          matTooltip="{{ lang.current === 'ar' ? 'الصفحة التالية' : 'Next page' }}">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <!-- Last Page -->
+        <button 
+          mat-icon-button 
+          [disabled]="currentPage === totalPages"
+          (click)="goToLastPage()"
+          class="nav-button last-page"
+          matTooltip="{{ lang.current === 'ar' ? 'الصفحة الأخيرة' : 'Last page' }}">
+          <mat-icon>last_page</mat-icon>
+        </button>
       </div>
 
-      <!-- Decorative Corner Element -->
-      <div class="corner-decoration top-left"></div>
-      <div class="corner-decoration bottom-right"></div>
-    </mat-card>
+      <!-- Page Jump -->
+      <div class="page-jump" *ngIf="!isMobile">
+        <span class="jump-label">{{ lang.current === 'ar' ? 'انتقل إلى:' : 'Go to:' }}</span>
+        <input 
+          type="number" 
+          [min]="1" 
+          [max]="totalPages"
+          [(ngModel)]="currentPage"
+          (change)="goToPage(currentPage)"
+          class="page-input"
+          aria-label="Page number">
+        <span class="total-pages">/ {{ totalPages }}</span>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Loading State -->
-<div *ngIf="loading" class="loading-state-creative">
-  <div class="loading-spinner-wrapper">
-    <mat-spinner diameter="60"></mat-spinner>
-    <p class="loading-text">
-      {{ lang.current === 'ar' ? 'جاري التحميل...' : 'Loading...' }}
-    </p>
+<div *ngIf="loading" class="loading-state">
+  <div class="loading-content">
+    <!-- Page Header Skeleton -->
+    <div class="skeleton-header">
+      <div class="skeleton-title"></div>
+      <div class="skeleton-line"></div>
+    </div>
+
+    <!-- Controls Skeleton -->
+    <div class="skeleton-controls">
+      <div class="skeleton-search"></div>
+      <div class="skeleton-tools">
+        <div class="skeleton-tool"></div>
+        <div class="skeleton-tool"></div>
+        <div class="skeleton-tool"></div>
+      </div>
+    </div>
+
+    <!-- Cards Grid Skeleton -->
+    <div class="skeleton-grid">
+      <div *ngFor="let item of [1,2,3,4,5,6]" class="skeleton-card">
+        <div class="skeleton-card-image"></div>
+        <div class="skeleton-card-content">
+          <div class="skeleton-text-line short"></div>
+          <div class="skeleton-text-line medium"></div>
+          <div class="skeleton-text-line long"></div>
+          <div class="skeleton-button"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination Skeleton -->
+    <div class="skeleton-pagination">
+      <div class="skeleton-pagination-controls"></div>
+    </div>
   </div>
 </div>

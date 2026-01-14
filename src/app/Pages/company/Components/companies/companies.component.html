@@ -1,28 +1,45 @@
-<section class="companies-container" [class.rtl]="lang.current === 'ar'">
+<section class="companies-management" [class.rtl]="lang.current === 'ar'">
   
-  <div class="loading-overlay" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  <div class="table-header-box">
+    <div class="search-bar">
+      <mat-icon>search</mat-icon>
+      <input type="text" [placeholder]="lang.current === 'ar' ? 'ابحث عن شركة...' : 'Search for a company...'">
+    </div>
+    <div class="count-badge">
+      {{ companies.length }} {{ lang.current === 'ar' ? 'شركة مسجلة' : 'Registered Companies' }}
+    </div>
   </div>
 
-  <div class="cards-list" *ngIf="!loading">
-    <mat-card class="company-row" *ngFor="let company of companies" (click)="openDetails(company.id)">
+  <div class="modern-list" *ngIf="!loading">
+    <div class="list-item-row" *ngFor="let company of companies; let i = index" (click)="openDetails(company.id)">
       
-      <div class="company-image-wrapper">
-        <img [src]="cover(company)" 
-             [alt]="title(company)" 
-             onerror="this.src='assets/placeholder.jpg'">
-      </div>
-
-      <div class="company-info">
-        <h2 class="company-title">{{ title(company) }}</h2>
-        <div class="actions">
-          <button mat-flat-button color="primary" (click)="openDetails(company.id); $event.stopPropagation()">
-            {{ lang.current === 'ar' ? 'المزيد' : 'More' }}
-          </button>
+      <div class="index-cell">{{ i + 1 }}</div>
+      
+      <div class="logo-cell">
+        <div class="img-frame">
+          <img [src]="cover(company)" [alt]="title(company)" (error)="handleImageError($event, company)">
         </div>
       </div>
 
-    </mat-card>
+      <div class="info-cell">
+        <h3 class="company-name">{{ title(company) }}</h3>
+        <p class="company-desc">{{ excerpt(company) }}</p>
+      </div>
+
+      <div class="status-cell">
+        <span class="status-pill active">{{ lang.current === 'ar' ? 'نشط' : 'Active' }}</span>
+      </div>
+
+      <div class="action-cell">
+        <button class="view-more-btn">
+          <mat-icon>{{ lang.current === 'ar' ? 'arrow_back' : 'arrow_forward' }}</mat-icon>
+        </button>
+      </div>
+
+    </div>
   </div>
 
+  <div *ngIf="loading" class="loading-area">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
 </section>

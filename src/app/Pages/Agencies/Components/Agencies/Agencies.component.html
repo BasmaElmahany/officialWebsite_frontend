@@ -1,0 +1,42 @@
+<section class="agencies-explorer" [class.rtl]="lang.current === 'ar'">
+  <div class="explorer-wrapper" *ngIf="!loading">
+    
+   <div class="agencies-nav">
+  <div 
+    *ngFor="let agency of agencies; let i = index" 
+    class="nav-item" 
+    [class.active]="selectedAgency?.id === agency.id"
+    (mouseenter)="selectedAgency = agency">
+    
+    <mat-icon class="nav-icon">account_balance</mat-icon> 
+    
+    <span class="nav-title">{{ title(agency) }}</span>
+    
+    <span class="nav-number">{{ i + 1 | number:'2.0' }}</span>
+  </div>
+</div>
+
+    <div class="stage-area">
+    <div class="stage-content" *ngIf="selectedAgency">
+        <div class="image-showcase">
+          <img [src]="cover(selectedAgency)" class="main-logo-big">
+          <div class="accent-circle"></div>
+        </div>
+        
+        <div class="text-details">
+          <h2 class="stage-title">{{ title(selectedAgency) }}</h2>
+          <p class="stage-excerpt">{{ excerpt(selectedAgency) }}</p>
+          <button class="prime-btn" (click)="openDetails(selectedAgency.id)">
+            {{ lang.current === 'ar' ? 'اكتشف المزيد' : 'Learn More' }}
+          </button>
+        </div>
+      </div>
+      
+      <div class="empty-state" *ngIf="!selectedAgency">
+        <mat-icon>touch_app</mat-icon>
+        <p>{{ lang.current === 'ar' ? 'مرر الماوس لاستكشاف الهيئات' : 'Hover to explore agencies' }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>

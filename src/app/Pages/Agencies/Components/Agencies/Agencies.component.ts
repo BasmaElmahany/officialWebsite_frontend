@@ -6,11 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterModule } from '@angular/router';
 import { LanguageService } from '../../../../Shared/Services/language.service';
-import { CompaniesService } from '../../../../Services/companies/companies.service';
-import { Company } from '../../Models/company';
+import { AgenciesService } from '../../../../Services/Agencies/Agencies.service';
+import { Agency } from '../../Models/Agencies';
 
 @Component({
-  selector: 'app-companies',
+  selector: 'app-agencies',
   standalone: true,
   imports: [
     CommonModule,
@@ -20,59 +20,63 @@ import { Company } from '../../Models/company';
     MatProgressSpinnerModule,
     MatButtonModule
   ],
-  templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.scss']
+  templateUrl: './Agencies.component.html',
+  styleUrls: ['./Agencies.component.scss']
 })
-export class CompaniesComponent implements OnInit {
+export class AgenciesComponent implements OnInit {
   loading = true;
-  companies: Company[] = [];
+  agencies: Agency[] = [];
+  // السطر المضاف لربط التصميم الجديد
+  selectedAgency: Agency | null = null;
 
   constructor(
-    private companiesService: CompaniesService,
+    private agenciesService: AgenciesService,
     public lang: LanguageService,
     public router: Router
   ) {}
 
   ngOnInit(): void {
-    this.companiesService.getAllCompanies().subscribe({
+    this.agenciesService.getAgencies().subscribe({
       next: (res) => {
-        this.companies = res.data;
+        this.agencies = res;
         this.loading = false;
-        console.log('Companies data:', res);
+        // تعيين أول عنصر ليعمل الـ Explorer فور التحميل
+        if (this.agencies.length > 0) {
+          this.selectedAgency = this.agencies[0];
+        }
+        console.log('Agencies data:', res);
       },
       error: () => (this.loading = false)
     });
   }
 
-  title(c: Company): string {
-    return this.lang.current === 'ar' ? c.nameAr : c.nameEn;
+  title(a: Agency): string {
+    return this.lang.current === 'ar' ? a.nameAr : a.nameEn;
   }
 
-  excerpt(c: Company): string {
-    const text = this.lang.current === 'ar' ? (c.addressAr || '') : (c.addressEn || '');
+  excerpt(a: Agency): string {
+    const text = this.lang.current === 'ar' ? (a.addressAr || '') : (a.addressEn || '');
     return text.length > 100 ? text.slice(0, 100) + '...' : text;
   }
 
-  cover(c: Company): string {
-    if (c.photoUrl) {
+  cover(a: Agency): string {
+    if (a.photoUrl) {
       const baseUrl = 'https://shusha.minya.gov.eg:93';
-      const path = c.photoUrl.startsWith('/') ? c.photoUrl : '/' + c.photoUrl;
+      const path = a.photoUrl.startsWith('/') ? a.photoUrl : '/' + a.photoUrl;
       return `${baseUrl}${path}`;
     }
     return 'https://via.placeholder.com/150';
   }
 
-  // دالة للتعامل مع أخطاء الصور
-  handleImageError(event: any, company: Company): void {
-    console.log('Image error for company:', company.nameAr || company.nameEn);
+  handleImageError(event: any, agency: Agency): void {
+    console.log('Image error for agency:', agency.nameAr || agency.nameEn);
     event.target.src = 'https://via.placeholder.com/150';
   }
 
   openDetails(id: string): void {
-    this.router.navigate(['/companies/details'], { state: { id } });
+    this.router.navigate(['/agencies/details'], { state: { id } });
   }
 
-  // دالة إضافية للتصميم: الحصول على لون عشوائي لخلفية البطاقة (اختياري)
   getCardColor(index: number): string {
     const colors = [
       'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',

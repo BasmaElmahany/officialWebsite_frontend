@@ -1,0 +1,62 @@
+<section class="agency-details-page" *ngIf="!loading && agency" [class.rtl]="lang.current === 'ar'">
+  
+  <div class="hero-card">
+    <div class="header-actions">
+      <button class="back-circle" (click)="goBack()">
+        <mat-icon>{{ lang.current === 'ar' ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="hero-main-content">
+      <div class="logo-container">
+        <img [src]="cover(agency)" [alt]="title(agency)" (error)="handleImageError($event, agency)">
+      </div>
+      <h1 class="agency-title">{{ title(agency) }}</h1>
+      <div class="status-badge">
+        <span class="dot"></span>
+        {{ lang.current === 'ar' ? 'جهة حكومية معتمدة' : 'Official Agency' }}
+      </div>
+    </div>
+  </div>
+
+  <div class="details-grid">
+    
+    <div class="info-card" *ngIf="agency.addressAr || agency.addressEn">
+      <div class="card-icon location">
+        <mat-icon>room</mat-icon>
+      </div>
+      <div class="card-body">
+        <label>{{ lang.current === 'ar' ? 'الموقع والعنوان' : 'Location' }}</label>
+        <p>{{ lang.current === 'ar' ? agency.addressAr : agency.addressEn }}</p>
+      </div>
+    </div>
+
+    <div class="info-card" *ngIf="agency.phoneNumber1">
+      <div class="card-icon phone">
+        <mat-icon>phone_in_talk</mat-icon>
+      </div>
+      <div class="card-body">
+        <label>{{ lang.current === 'ar' ? 'خط التواصل' : 'Contact Number' }}</label>
+        <a [href]="'tel:' + agency.phoneNumber1">{{ agency.phoneNumber1 }}</a>
+      </div>
+    </div>
+
+    <div class="info-card" *ngIf="agency.email">
+      <div class="card-icon email">
+        <mat-icon>mail_outline</mat-icon>
+      </div>
+      <div class="card-body">
+        <label>{{ lang.current === 'ar' ? 'البريد الرسمي' : 'Official Email' }}</label>
+        <a [href]="'mailto:' + agency.email">{{ agency.email }}</a>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</section>
+
+<div *ngIf="loading" class="loading-state">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>

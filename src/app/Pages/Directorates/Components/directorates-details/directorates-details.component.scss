@@ -1,56 +1,156 @@
-$primary: #002D62;
-$accent: #D4AF37;
-
-.gov-tour-details {
+/* الحاوية الأساسية */
+.directorate-container {
   max-width: 1100px;
-  margin: auto;
-  padding: 48px 20px;
-  background: #fff;
+  margin: 20px auto;
+  padding: 20px;
 
   &.rtl {
     direction: rtl;
   }
 
-  h1 {
-    font-size: 28px;
-    font-weight: 900;
-    color: $primary;
-    margin-bottom: 8px;
-  }
-
-  .date {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: $accent;
-    margin-bottom: 24px;
-  }
-
-  article {
-    font-size: 16px;
-    line-height: 2;
-    color: #222;
-    margin-bottom: 40px;
+  &:not(.rtl) {
+    direction: ltr;
   }
 }
 
-/* Image Grid */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-
-  img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.15);
-  }
+/* العنوان الرئيسي الكحلي */
+.main-header-title {
+  background-color: #1a237e;
+  color: white;
+  width: fit-content;
+  margin: 0 auto 40px;
+  padding: 10px 40px;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%); /* شكل مائل بسيط */
 }
 
-.loading {
+.top-section {
   display: flex;
-  justify-content: center;
-  padding: 80px;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-bottom: 50px;
+  gap: 30px;
+}
+
+/* كارت المدير */
+.director-card {
+  border: 2px solid #ffd700;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  background: #fdfdfd;
+}
+
+.image-holder {
+  border: 2px solid #000;
+  margin-bottom: 10px;
+  height: 250px;
+}
+
+.image-holder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.director-info h3 {
+  color: #000;
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.director-info p {
+  color: #1a237e;
+}
+
+/* بيانات المديرية */
+.contact-details {
+  flex: 1;
+  max-width: 500px;
+}
+
+.section-subtitle {
+  color: #1a237e;
+  border-bottom: 3px solid #ffd700;
+  width: fit-content;
+  padding-bottom: 5px;
+  margin-bottom: 25px;
+}
+
+.contact-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.gold-icon {
+  color: #ffd700;
+  font-size: 24px;
+}
+
+.value {
+  color: #666;
+  font-size: 16px;
+}
+
+/* الأقسام السفلية الثلاثة */
+.bottom-sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  background-color: #f0f4f8;
+  padding: 20px;
+}
+
+.info-column {
+  border-left: 1px solid #ddd;
+  padding: 0 15px;
+}
+
+.info-column:last-child {
+  border-left: none;
+}
+
+.column-title {
+  color: #1a237e;
+  font-size: 18px;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1a237e;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.check-item mat-icon {
+  font-size: 20px;
+  color: #1a237e;
+}
+
+.view-all-btn {
+  background: white;
+  border: 1px solid #1a237e;
+  color: #1a237e;
+  padding: 5px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .top-section, .bottom-sections {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: center;
+  }
+  .info-column { border-left: none; border-bottom: 1px solid #ddd; padding-bottom: 20px; }
 }

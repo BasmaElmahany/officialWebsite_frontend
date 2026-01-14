@@ -43,5 +43,11 @@ export const routes: Routes = [
     path: 'companies/details',
     loadComponent: () => import('./Pages/company/Components/companies-details/companies-details.component').then(m => m.CompaniesDetailsComponent)
   },
+  { path: 'agencies', loadComponent: () => import('./Pages/Agencies/Components/Agencies/Agencies.component').then(m => m.AgenciesComponent) },
+  {
+    path: 'agencies/details',
+    loadComponent: () => import('./Pages/Agencies/Components/Agencies-details/Agencies-details.component')
+      .then(m => m.AgenciesDetailsComponent)
+  },
   { path: '**', redirectTo: 'home' },
 ];

@@ -1,444 +1,989 @@
-// ============================================================================
-// Creative & Innovative Directorate Component Styles
-// ============================================================================
+/* ============================================================================
+   Modern Arabic Design System
+============================================================================ */
 
-// Modern Color Palette with Gradient Support
 :root {
-  // Primary Colors with Gradients
-  --primary-color: #002D62;
-  --primary-light: #1a4d8f;
-  --primary-dark: #001a3d;
-  
-  // Accent & Highlight Colors
-  --accent-color: #D4AF37;
-  --accent-light: #e6c547;
-  --accent-bright: #FFD700;
-  
-  // Secondary Colors for Creative Effects
-  --secondary-teal: #0d7377;
-  --secondary-coral: #ff6b6b;
-  --secondary-purple: #6c5ce7;
-  
-  // Neutral Colors
-  --light-bg: #f5f7fa;
-  --white: #ffffff;
-  --text-dark: #1a1a1a;
-  --text-medium: #4a4a4a;
-  --text-light: #757575;
-  
-  // Shadows - Enhanced
-  --shadow-sm: 0 2px 8px rgba(0, 45, 98, 0.1);
-  --shadow-md: 0 8px 16px rgba(0, 45, 98, 0.15);
-  --shadow-lg: 0 16px 32px rgba(0, 45, 98, 0.2);
-  --shadow-xl: 0 24px 48px rgba(0, 45, 98, 0.25);
-  
-  // Spacing
-  --border-radius: 12px;
-  --transition-duration: 0.4s;
-  --transition-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Colors - Professional & Elegant */
+  --primary-color: #0056b3;
+  --primary-light: #0066cc;
+  --primary-dark: #004085;
+  --accent-color: #ff6b35;
+  --accent-light: #ff8c42;
+  --bg-color: #f8f9fa;
+  --surface-color: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --border-color: #e2e8f0;
+  --border-light: #edf2f7;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// ============================================================================
-// Main Container
-// ============================================================================
+/* ============================================================================
+   Base Styles
+============================================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-color);
+  line-height: 1.6;
+  color: var(--text-primary);
+}
 
 .directorates-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 24px;
-  background: linear-gradient(135deg, rgba(0, 45, 98, 0.02), rgba(212, 175, 55, 0.02));
-  min-height: 100vh;
-}
+  padding: 2rem 1rem;
 
-// ============================================================================
-// Masonry Grid Layout - Creative & Non-Traditional
-// ============================================================================
+  &.rtl {
+    direction: rtl;
+  }
 
-.directorates-masonry {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 32px;
-  grid-auto-rows: auto;
-  
-  // Create staggered effect with different card sizes
-  @supports (grid-auto-flow: dense) {
-    grid-auto-flow: dense;
+  &:not(.rtl) {
+    direction: ltr;
   }
 }
 
-// Card Size Variations for Creative Layout
-.card-size-1 {
-  grid-column: span 1;
-  grid-row: span 1;
-}
+/* ============================================================================
+   Page Header
+============================================================================ */
 
-.card-size-2 {
-  grid-column: span 1;
-  grid-row: span 1.2;
-}
-
-.card-size-3 {
-  grid-column: span 1;
-  grid-row: span 1.1;
-}
-
-// Responsive Adjustments
-@media (max-width: 1024px) {
-  .directorates-masonry {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 28px;
-  }
-}
-
-@media (max-width: 768px) {
-  .directorates-masonry {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 24px;
-  }
-  
-  .directorates-container {
-    padding: 32px 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .directorates-masonry {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .directorates-container {
-    padding: 24px 12px;
-  }
-  
-  .card-size-1,
-  .card-size-2,
-  .card-size-3 {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-}
-
-// ============================================================================
-// Card Styles - Creative & Modern
-// ============================================================================
-
-.directorate-card {
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
   position: relative;
-  background: var(--white);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+  border-radius: 2px;
+}
+
+.title-underline {
+  height: 2px;
+  width: 200px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+  margin: 2rem auto;
+}
+
+/* ============================================================================
+   Controls Bar
+============================================================================ */
+
+.controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--surface-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.search-container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-color);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 1rem;
+  transition: var(--transition);
+    border-color: var(--primary-color);
+     box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+  
+
+
+.search-box:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+.search-icon {
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.clear-search-btn {
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.clear-search-btn:hover {
+  color: var(--accent-color);
+  transform: rotate(90deg);
+}
+
+.search-info {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--bg-color);
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+}
+
+.view-toggle button {
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.view-toggle button.active {
+  color: var(--primary-color);
+  background: var(--surface-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.view-toggle button:hover:not(.active) {
+  color: var(--accent-color);
+}
+
+.page-size-selector {
+  min-width: 150px;
+}
+
+.page-size-select {
+  width: 100%;
+}
+
+::ng-deep .mat-select-value {
+  color: var(--text-primary) !important;
+}
+
+::ng-deep .mat-select-arrow {
+  color: var(--text-muted) !important;
+}
+
+/* ============================================================================
+   Cards Grid & List Layout
+============================================================================ */
+
+.directorate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.directorate-list {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  border: 1px solid rgba(0, 45, 98, 0.08);
-  
-  // Hover Effects
-  &:hover {
-    box-shadow: var(--shadow-xl);
-    transform: translateY(-8px) scale(1.02);
-    border-color: var(--accent-color);
-    
-    .directorate-image {
-      transform: scale(1.08) rotate(1deg);
-    }
-    
-    .image-overlay-gradient {
-      opacity: 0.8;
-    }
-    
-    .accent-line {
-      width: 100%;
-    }
-    
-    .corner-decoration {
-      opacity: 1;
-    }
-  }
-  
-  // Focus State
-  &:focus-within {
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary-color);
-    outline: none;
-  }
+  gap: 1rem;
+  margin-bottom: 3rem;
 }
 
-// ============================================================================
-// Image Section - Creative Effects
-// ============================================================================
+/* ============================================================================
+   Card Design - Matching Image Style
+============================================================================ */
 
-.card-image-container {
-  position: relative;
-  width: 100%;
-  height: 240px;
+.directorate-card {
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+  transition: var(--transition);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 10%;
+    display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+}
+
+/* Grid View Cards */
+.directorate-grid .directorate-card {
+  height: 400px;
+}
+
+/* List View Cards */
+.directorate-list .directorate-card {
+  flex-direction: row;
+  height: 200px;
+}
+
+.directorate-list .card-image-section {
+  width: 300px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.directorate-list .card-content {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.directorate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-light);
+}
+
+/* Image Section */
+.card-image-section {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .directorate-image {
-  width: 300px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
-  transition: transform var(--transition-duration) var(--transition-timing);
-  display: block;
+  transition: transform 0.6s ease;
 }
 
-// Gradient Overlay with Animation
-.image-overlay-gradient {
+.directorate-card:hover .directorate-image {
+  transform: scale(1.1);
+}
+
+.image-overlay {
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
   background: linear-gradient(
-    135deg,
-    rgba(0, 45, 98, 0.3),
-    rgba(212, 175, 55, 0.2)
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 100%
   );
-  opacity: 0.4;
-  transition: opacity var(--transition-duration) ease;
-  pointer-events: none;
+  opacity: 0.3;
+  transition: var(--transition);
 }
 
-// Creative Badge
-.card-badge {
+.directorate-card:hover .image-overlay {
+  opacity: 0.5;
+}
+
+/* Badge */
+.directorate-badge {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
-  color: var(--primary-dark);
-  padding: 6px 14px;
+  top: 1rem;
+  left: 1rem;
+  background: var(--surface-color);
+  padding: 0.5rem 1rem;
   border-radius: 20px;
-  font-size: 12px;
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+  transition: var(--transition);
+}
+
+.directorate-card:hover .directorate-badge {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.badge-text {
+  color: var(--primary-dark);
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-  animation: badgeBounce 0.6s ease-out;
-  
-  @media (max-width: 480px) {
-    font-size: 11px;
-    padding: 4px 10px;
-  }
+  text-transform: uppercase;
 }
 
-// ============================================================================
-// Content Section - Creative Typography
-// ============================================================================
+.directorate-card:hover .badge-text {
+  color: white;
+}
 
-.card-content-wrapper {
+/* Content Section */
+.card-content {
+  padding: 1.5rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  padding: 28px 24px;
-  position: relative;
 }
 
-// Title Section with Accent Line
-.title-section {
+/* Card Header */
+.card-header {
   position: relative;
-  margin-bottom: 16px;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
 }
 
-.accent-line {
+.header-line {
   position: absolute;
-  bottom: -8px;
-  left: 0;
+  bottom: -1px;
+  right: 0;
+  width: 50px;
   height: 3px;
-  width: 0;
-  background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
-  border-radius: 2px;
-  transition: width var(--transition-duration) var(--transition-timing);
+  background: var(--accent-color);
+  border-radius: 1.5px;
+  transition: width 0.3s ease;
 }
 
-.directorate-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin: 0;
+.directorate-card:hover .header-line {
+  width: 80px;
+}
+
+.directorate-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin: 0 2rem 0 0;
   line-height: 1.4;
-  letter-spacing: 0.3px;
-  word-break: break-word;
-  position: relative;
-  z-index: 1;
-  
-  @media (max-width: 480px) {
-    font-size: 16px;
-  }
+  transition: var(--transition);
 }
 
-// Description Section
-.card-description-section {
-  padding: 0;
-  margin: 16px 0;
-  flex-grow: 1;
+.directorate-card:hover .directorate-name {
+  color: var(--primary-color);
 }
 
-.directorate-description {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-light);
+.header-ornament {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-color);
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Description */
+.card-description {
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.description-text {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-  
-  @media (max-width: 480px) {
-    font-size: 13px;
-    -webkit-line-clamp: 2;
-  }
 }
 
-// ============================================================================
-// Action Button - Creative Style
-// ============================================================================
+.directorate-list .description-text {
+  -webkit-line-clamp: 2;
+}
 
-.card-actions-creative {
-  padding: 0;
+/* Action Button */
+.card-actions {
   margin-top: auto;
-  display: flex;
-  gap: 12px;
-  border-top: 1px solid rgba(0, 45, 98, 0.08);
-  padding-top: 20px;
+  
 }
 
-.creative-action-button {
-  flex: 1;
-  display: flex;
+.action-button {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 2px solid #080b0e; /* Blue border */
+  border-radius: var(--radius-sm);
+  color: #121313; /* Blue text */
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  transition: all var(--transition-duration) ease;
-  
-  // Button Icon
-  .button-icon {
-    font-size: 18px;
-    width: 10px;
-    height: 8px;
-    transition: transform 0.3s ease;
-  }
-  
-  .button-label {
-    font-size: 14px;
-  }
-  
-  // Hover Effects
-  &:hover {
-    transform: translateY(-2px);
-    
-    .button-icon {
-      transform: translateX(4px);
-    }
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  // Ripple effect background
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-  }
-  
-  &:active::before {
-    width: 300px;
-    height: 300px;
-  }
-  
-  @media (max-width: 480px) {
-    .button-label {
-      font-size: 13px;
-    }
-    
-    .button-icon {
-      font-size: 16px;
-      width: 16px;
-      height: 16px;
-    }
-  }
+  border-radius: 40%;
+ margin-bottom: 8px;
 }
 
-// ============================================================================
-// Decorative Corner Elements
-// ============================================================================
 
-.corner-decoration {
+.action-button::before {
+  content: '';
   position: absolute;
-  width: 60px;
-  height: 60px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
   opacity: 0;
-  transition: opacity var(--transition-duration) ease;
-  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
   
-  &.top-left {
-    top: 0;
-    left: 0;
-    background: linear-gradient(135deg, var(--accent-color), transparent);
-    border-radius: 0 0 60px 0;
-  }
-  
-  &.bottom-right {
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(225deg, var(--accent-color), transparent);
-    border-radius: 60px 0 0 0;
-  }
 }
 
-// ============================================================================
-// Loading State - Creative
-// ============================================================================
+.action-button:hover {
+  border-color: transparent;
+  color: rgb(12, 12, 12);
+  transform: translateX(-4px);
+}
 
-.loading-state-creative {
+.action-button:hover::before {
+  opacity: 1;
+}
+
+.button-text {
+  position: relative;
+  z-index: 2;
+  ;
+  
+}
+
+.button-icon {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 500px;
-  background: linear-gradient(135deg, rgba(0, 45, 98, 0.02), rgba(212, 175, 55, 0.02));
-  border-radius: var(--border-radius);
-  margin: 48px 24px;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+
 }
 
-.loading-spinner-wrapper {
+.action-button:hover .button-icon {
+  transform: translateX(-4px);
+}
+
+/* Decorative Corners */
+.decorative-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.decorative-corner.top-right {
+  top: 0;
+  right: 0;
+  border-top: 2px solid var(--accent-color);
+  border-right: 2px solid var(--accent-color);
+  border-top-right-radius: var(--radius-lg);
+}
+
+.decorative-corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid var(--primary-color);
+  border-left: 2px solid var(--primary-color);
+  border-bottom-left-radius: var(--radius-lg);
+}
+
+.directorate-card:hover .decorative-corner {
+  opacity: 1;
+}
+
+/* ============================================================================
+   No Results Message
+============================================================================ */
+
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin: 2rem 0;
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+}
+
+.no-results h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.no-results p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.clear-all-btn {
+  padding: 0.75rem 2rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.clear-all-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================================================
+   Pagination Styles
+============================================================================ */
+
+.pagination-container {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pagination-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  gap: 0.25rem;
 }
 
-.loading-text {
-  font-size: 16px;
-  color: var(--text-medium);
+.info-text {
+  font-size: 0.875rem;
+  color: var(--text-primary);
   font-weight: 500;
-  letter-spacing: 1px;
-  animation: pulse 1.5s ease-in-out infinite;
 }
 
-// ============================================================================
-// Animations
-// ============================================================================
+.size-info {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
 
-@keyframes containerFadeIn {
+.page-navigation {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-button {
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.nav-button:not([disabled]):hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background: rgba(0, 86, 179, 0.05);
+}
+
+.nav-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.page-number {
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-number:hover:not(.active) {
+  border-color: var(--primary-light);
+  color: var(--primary-color);
+  background: rgba(0, 86, 179, 0.05);
+}
+
+.page-number.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 86, 179, 0.2);
+}
+
+.page-jump {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jump-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.page-input {
+  width: 60px;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--surface-color);
+  transition: var(--transition);
+}
+
+.page-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+}
+
+.total-pages {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================================
+   Loading State
+============================================================================ */
+
+.loading-state {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  direction: rtl;
+}
+
+.loading-content {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.skeleton-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.skeleton-title {
+  width: 300px;
+  height: 40px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+  margin: 0 auto 1rem;
+}
+
+.skeleton-line {
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+.skeleton-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--surface-color);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.skeleton-search {
+  flex: 1;
+  min-width: 300px;
+  height: 44px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-tools {
+  display: flex;
+  gap: 1rem;
+}
+
+.skeleton-tool {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.skeleton-card {
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  height: 400px;
+}
+
+.skeleton-card-image {
+  height: 200px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-card-content {
+  padding: 1.5rem;
+}
+
+.skeleton-text-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.skeleton-text-line.short {
+  width: 60%;
+  height: 20px;
+}
+
+.skeleton-text-line.medium {
+  width: 80%;
+  height: 16px;
+}
+
+.skeleton-text-line.long {
+  width: 100%;
+  height: 14px;
+}
+
+.skeleton-button {
+  width: 140px;
+  height: 40px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+  margin-top: 1rem;
+}
+
+.skeleton-pagination {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.skeleton-pagination-controls {
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ============================================================================
+   Responsive Design
+============================================================================ */
+
+@media (max-width: 1024px) {
+  .directorate-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .directorate-list .card-image-section {
+    width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container,
+  .skeleton-search {
+    min-width: 100%;
+  }
+  
+  .view-toggle {
+    align-self: flex-start;
+  }
+  
+  .page-size-selector {
+    align-self: flex-start;
+  }
+  
+  .directorate-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .directorate-list .directorate-card {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .directorate-list .card-image-section {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .pagination-wrapper {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .page-navigation {
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.75rem;
+  }
+  
+  .directorates-container {
+    padding: 1rem;
+  }
+  
+  .page-numbers {
+    gap: 0.125rem;
+  }
+  
+  .page-number {
+    min-width: 35px;
+    height: 35px;
+    font-size: 0.75rem;
+  }
+  
+  .nav-button {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .page-jump {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .skeleton-title {
+    width: 200px;
+    height: 32px;
+  }
+  
+  .skeleton-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   Animations
+============================================================================ */
+
+@keyframes cardSlideIn {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -449,127 +994,41 @@
   }
 }
 
-@keyframes cardSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes badgeBounce {
-  0% {
-    transform: scale(0) translateY(-20px);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-// Apply animations to cards
 .directorate-card {
-  animation: cardSlideIn 0.6s var(--transition-timing);
-  
-  @for $i from 1 through 20 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{($i - 1) * 0.08}s;
-    }
-  }
+  animation: cardSlideIn 0.5s ease-out forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.1s);
+  opacity: 0;
 }
 
-.directorates-container {
-  animation: containerFadeIn 0.5s ease-out;
-}
+/* ============================================================================
+   Accessibility
+============================================================================ */
 
-// ============================================================================
-// RTL Support
-// ============================================================================
-
-[dir="rtl"] {
-  .card-badge {
-    right: auto;
-    left: 16px;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
   
-  .creative-action-button {
-    flex-direction: row-reverse;
-    
-    .button-icon {
-      &:hover {
-        transform: translateX(-4px);
-      }
-    }
-  }
-  
-  .accent-line {
-    left: auto;
-    right: 0;
-  }
-  
-  .corner-decoration {
-    &.top-left {
-      left: auto;
-      right: 0;
-      border-radius: 0 0 0 60px;
-      background: linear-gradient(225deg, var(--accent-color), transparent);
-    }
-    
-    &.bottom-right {
-      right: auto;
-      left: 0;
-      border-radius: 0 60px 0 0;
-      background: linear-gradient(45deg, var(--accent-color), transparent);
-    }
+  .directorate-card {
+    animation: none;
+    opacity: 1;
   }
 }
 
-// ============================================================================
-// Accessibility
-// ============================================================================
-
-.directorate-card {
-  &:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-  }
+.action-button:focus-visible,
+.page-number:focus-visible,
+.nav-button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
-.creative-action-button {
-  &:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: -2px;
-  }
-}
-
-// ============================================================================
-// Print Styles
-// ============================================================================
+/* ============================================================================
+   Print Styles
+============================================================================ */
 
 @media print {
   .directorates-container {
@@ -577,22 +1036,294 @@
     background: none;
   }
   
+  .controls-bar,
+  .pagination-container,
+  .action-button,
+  .decorative-corner {
+    display: none !important;
+  }
+  
   .directorate-card {
-    box-shadow: none;
-    border: 1px solid #ddd;
-    page-break-inside: avoid;
-    
-    &:hover {
-      transform: none;
-      box-shadow: none;
-    }
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    margin-bottom: 1rem;
   }
   
-  .card-actions-creative {
-    display: none;
+  .directorate-grid {
+    display: block;
   }
-  
-  .corner-decoration {
-    display: none;
-  }
+}
+/* ============================================================================
+   Image Size Adjustments
+============================================================================ */
+
+.card-image-section {
+  position: relative;
+  height: 180px; /* تصغير من 200px */
+  overflow: hidden;
+}
+
+/* Grid View Cards */
+.directorate-grid .directorate-card {
+  height: 380px; /* تصغير من 400px */
+}
+
+/* List View Cards */
+.directorate-list .directorate-card {
+  height: 180px; /* تصغير من 200px */
+}
+
+/* تحسين عرض الصورة في وضع القائمة */
+.directorate-list .card-image-section {
+  width: 280px; /* تصغير من 300px */
+}
+
+/* تأثيرات الصورة الأصغر */
+.directorate-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.directorate-card:hover .directorate-image {
+  transform: scale(1.08); /* تأثير تكبير أقل */
+}
+
+/* Overlay أصغر وأكثر دقة */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+}
+
+.directorate-card:hover .image-overlay {
+  opacity: 0.4;
+}
+/* ============================================================================
+   Image Size Adjustments
+============================================================================ */
+
+.card-image-section {
+  position: relative;
+  height: 180px; /* تصغير من 200px */
+  overflow: hidden;
+}
+
+/* Grid View Cards */
+.directorate-grid .directorate-card {
+  height: 380px; /* تصغير من 400px */
+}
+
+/* List View Cards */
+.directorate-list .directorate-card {
+  height: 180px; /* تصغير من 200px */
+}
+
+/* تحسين عرض الصورة في وضع القائمة */
+.directorate-list .card-image-section {
+  width: 280px; /* تصغير من 300px */
+}
+
+/* تأثيرات الصورة الأصغر */
+.directorate-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.directorate-card:hover .directorate-image {
+  transform: scale(1.08); /* تأثير تكبير أقل */
+}
+
+/* Overlay أصغر وأكثر دقة */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+}
+
+.directorate-card:hover .image-overlay {
+  opacity: 0.4;
+}
+
+/* ============================================================================
+   Circular Card Design
+============================================================================ */
+/* التنسيق الأساسي المشترك للكارت */
+.directorate-card {
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  display: flex;
+  margin: 10px 0; /* مسافة بين الكروت */
+}
+
+/* التنسيق الخاص بوضع القائمة (List View) */
+.directorate-list .directorate-card {
+  flex-direction: row; /* عرض محاذي أفقياً */
+  width: 100%;        /* يتمدد بعرض الحاوية بالكامل */
+  height: 180px;      /* ارتفاع ثابت ومناسب للقائمة */
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+/* تنسيق الصورة في وضع القائمة */
+.directorate-list .card-image-section {
+  width: 200px;       /* عرض محدد للصورة فقط */
+  height: 100%;
+  flex-shrink: 0;     /* منع الصورة من الانضغاط */
+}
+
+/* التنسيق الخاص بوضع الشبكة (Grid View) */
+.directorate-grid .directorate-card {
+  flex-direction: column;
+  width: auto;        /* يترك التحكم للـ Grid */
+  height: 380px;      /* ارتفاع كروت الشبكة */
+  justify-content: space-between;
+}
+/* تحديث المتغيرات لتناسب روح التصميم الحديث */
+:root {
+  --primary-gradient: linear-gradient(135deg, #0056b3 0%, #00b4d8 100%);
+  --accent-soft: rgba(255, 107, 53, 0.1);
+  --card-shadow-hover: 0 20px 40px rgba(0, 86, 179, 0.15);
+}
+
+/* التنسيق الأساسي للكارت */
+.directorate-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 24px; /* زوايا مستديرة جداً وشيك */
+  border: 1px solid #f0f0f0;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* تأثير الـ Hover على الكارت بالكامل */
+.directorate-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: var(--card-shadow-hover);
+  border-color: #0056b3;
+}
+
+/* الصورة - تكبير هادئ */
+.card-image-section {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+}
+
+.directorate-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.directorate-card:hover .directorate-image {
+  transform: scale(1.15);
+}
+
+/* الاسم - تغيير اللون عند الـ Hover */
+.directorate-name {
+  color: #2d3436;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.directorate-card:hover .directorate-name {
+  color: #0056b3;
+}
+
+/* الزرار - تصميم "Capsule" حديث */
+.action-button {
+  background: #f8f9fa;
+  color: #0056b3;
+  border: 1px solid #e0e0e0;
+  border-radius: 50px; /* شكل كبسولة */
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.directorate-card:hover .action-button {
+  background: var(--primary-gradient);
+  color: rgb(235, 191, 191);
+  border-color: transparent;
+  box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+}
+
+/* الخط الصغير تحت العنوان - يتحرك مع الـ Hover */
+.header-line {
+  height: 3px;
+  width: 40px;
+  background: #ff6b35;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.directorate-card:hover .header-line {
+  width: 80px;
+  background: #00b4d8;
+}
+
+/* الأركان الديكورية - تظهر فقط عند الـ Hover */
+.decorative-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.top-right {
+  top: 10px;
+  right: 10px;
+  border-top: 3px solid #ff6b35;
+  border-right: 3px solid #ff6b35;
+}
+
+.bottom-left {
+  bottom: 10px;
+  left: 10px;
+  border-bottom: 3px solid #0056b3;
+  border-left: 3px solid #0056b3;
+}
+
+.directorate-card:hover .decorative-corner {
+  opacity: 1;
+  transform: scale(1.2);
 }

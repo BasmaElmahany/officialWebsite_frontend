@@ -21,6 +21,7 @@ import { LanguageService } from '../../../../Shared/Services/language.service';
   styleUrls: ['./companies-details.component.scss'] // تم تغييرها لـ scss لتطابق استايلك
 })
 export class CompaniesDetailsComponent implements OnInit {
+  
   id!: string;
   loading = true;
   company?: Company;
@@ -48,6 +49,13 @@ export class CompaniesDetailsComponent implements OnInit {
       next: (res: any) => {
         // بناءً على الـ Interface الخاص بك: ApiResponse<T> نستخدم res.data
         this.company = res.data;
+
+        // تهيئة الأنشطة والخدمات كقوائم فارغة إذا كانت غير معرفة
+        if (this.company) {
+          this.company.activities = this.company.activities || [];
+          this.company.services = this.company.services || [];
+        }
+
         this.loading = false;
       },
       error: () => {

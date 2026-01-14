@@ -206,6 +206,15 @@
             <span>{{ lang.current === 'ar' ? 'الشركات' : 'Companies' }}</span>
           </a>
         </div>
+
+        <!-- Added Agencies Section -->
+        <div class="mega-col">
+          <div class="mega-h">{{ lang.current === 'ar' ? 'هيئات المحافظه' : 'Agencies' }}</div>
+          <a class="mega-item" routerLink="/agencies" (click)="entitiesTrig.closeMenu()">
+            <mat-icon>store</mat-icon>
+            <span>{{ lang.current === 'ar' ? 'هيئات المحافظه' : 'Agencies' }}</span>
+          </a>
+        </div>
       </div>
 
     </div>

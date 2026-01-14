@@ -1,27 +1,97 @@
-<div *ngIf="loading" class="loading">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
-
-<div *ngIf="!loading && directorate" class="gov-tour-details" [class.rtl]="lang.current === 'ar'">
-  <header>
-    <h1>{{ title() }}</h1>
-    
-    <div class="date" *ngIf="directorate.phoneNumber1">
-      <mat-icon>phone</mat-icon>
-      <span>{{ directorate.phoneNumber1 }}</span>
-    </div>
-  </header>
-
-  <article>
-    {{ description() }}
-  </article>
-
-  <div class="gallery">
-    <img *ngIf="directorate.photoUrl" [src]="imageUrl(directorate.photoUrl)" [alt]="title()">
-    <img *ngIf="directorate.dirPhotoUrl" [src]="imageUrl(directorate.dirPhotoUrl)" [alt]="title()">
+<div *ngIf="!loading && directorate" class="directorate-container" [class.rtl]="lang.current === 'ar'">
+  
+  <div class="main-header-title">
+    <h1>{{ lang.current === 'ar' ? directorate.nameAr : directorate.nameEn }}</h1>
   </div>
-</div>
 
-<div *ngIf="!loading && !directorate" class="loading">
-  <p>لم يتم العثور على البيانات.</p>
+  <div class="top-section">
+    <div class="director-card">
+     <div class="image-holder">
+  <img 
+    *ngIf="directorate.dirPhotoUrl" 
+    [src]="imageUrl(directorate.dirPhotoUrl)" 
+    class="gallery-image" 
+    (error)="handleImageError($event)"
+  />
+
+  <img 
+    *ngIf="!directorate.dirPhotoUrl" 
+    src="assets/placeholder.jpg" 
+    class="gallery-image"
+  />
+</div>
+      <div class="director-info">
+        <h3>{{ lang.current === 'ar' ? 'رئيس المديرية' : 'Head of Directorate' }}</h3>
+        <p>{{ lang.current === 'ar' ? directorate.dirNameAr : directorate.dirNameEn }}</p> 
+      </div>
+    </div>
+
+    <div class="contact-details">
+      <h2 class="section-subtitle">{{ lang.current === 'ar' ? 'بيانات المديرية' : 'Directorate Data' }}</h2>
+      <div class="contact-list">
+        <div class="contact-row" *ngIf="directorate.addressAr || directorate.addressEn">
+          <span class="value">{{ lang.current === 'ar' ? directorate.addressAr : directorate.addressEn }}</span>
+          <mat-icon class="gold-icon">location_on</mat-icon>
+        </div>
+        
+        <div class="contact-row" *ngIf="directorate.phoneNumber1">
+          <span class="value">{{ directorate.phoneNumber1 }}</span>
+          <mat-icon class="gold-icon">phone</mat-icon>
+        </div>
+
+        <div class="contact-row" *ngIf="directorate.phoneNumber2 || directorate.faxNumber">
+          <span class="value">{{ directorate.phoneNumber2 || directorate.faxNumber }}</span>
+          <mat-icon class="gold-icon">print</mat-icon>
+        </div>
+
+        <div class="contact-row" *ngIf="directorate.email">
+          <span class="value">{{ directorate.email }}</span>
+          <mat-icon class="gold-icon">email</mat-icon>
+        </div>
+
+        <div class="contact-row" *ngIf="directorate.link">
+          <a [href]="directorate.link" target="_blank" class="value link-text">
+            {{ lang.current === 'ar' ? 'الموقع الإلكتروني' : 'Website' }}
+          </a>
+          <mat-icon class="gold-icon">account_tree</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-sections">
+    <div class="info-column">
+      <h2 class="column-title">{{ lang.current === 'ar' ? 'معلومات تهمك' : 'General Info' }}</h2>
+      <div class="links-list">
+        <a href="javascript:void(0)" class="list-item">الدليل الإرشادي للمالك</a>
+        <button class="view-all-btn">شاهد الكل</button>
+      </div>
+    </div>
+
+    <div class="info-column">
+      <h2 class="column-title">{{ lang.current === 'ar' ? 'خدمات المديرية' : 'Services' }}</h2>
+      <div class="links-list">
+         <div *ngFor="let service of directorate.services" class="list-item">
+            {{ lang.current === 'ar' ? service.serviceAr : service.serviceEn }}
+         </div>
+         <p *ngIf="!directorate.services?.length" class="empty-msg">لا توجد خدمات</p>
+      </div>
+    </div>
+
+    <div class="info-column">
+      <h2 class="column-title">{{ lang.current === 'ar' ? 'المهام والأنشطة' : 'Activities' }}</h2>
+      <div class="links-list">
+        <div class="check-item" *ngFor="let activity of directorate.activities">
+          <mat-icon>check_box</mat-icon>
+          <span>{{ lang.current === 'ar' ? activity.activityAr : activity.activityEn }}</span>
+        </div>
+
+        <p *ngIf="!directorate.activities?.length" class="empty-msg">لا توجد مهام مسجلة</p>
+        
+        <button class="view-all-btn" *ngIf="(directorate.activities?.length || 0) > 2">
+          {{ lang.current === 'ar' ? 'شاهد الكل' : 'View All' }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

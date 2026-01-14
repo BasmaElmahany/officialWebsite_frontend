@@ -40,6 +40,10 @@ export interface DirectorateRead {
   email?: string;
   faxNumber?: string;
   link?: string;
+  titleAr?: string;
+  titleEn?: string;
+  descriptionAr?: string;
+  descriptionEn?: string;
   activities?: DirectorateActivity[];
   services?: DirectorateService[];
 }

@@ -94,3 +94,29 @@
   </section>
 
 </div>
+<section class="latest-news-by-type-section" *ngIf="latestNewsPerType.length > 0">
+  <div class="section-header">
+    <h2>
+      {{ lang.current === 'ar' ? 'أحدث الأخبار حسب النوع' : 'Latest News by Category' }}
+    </h2>
+  </div>
+  <div class="news-type-section">
+    <div class="news-grid">
+      <div class="major-news" *ngFor="let item of latestNewsPerType" (click)="openNewsDetails(item.id)">
+        <img [src]="cover(item)" [alt]="newsTitle(item)">
+        <div class="overlay">
+          <span class="badge">{{ getTypeName(item.typeId) }}</span>
+          <h3>{{ newsTitle(item) }}</h3>
+          <p>{{ newsExcerpt(item, 100) }}</p>
+          <span class="date">{{ formatDate(item.date) }}</span>
+          <button mat-button color="primary" class="read-more-btn">
+            {{ lang.current === 'ar' ? 'اقرأ المزيد' : 'Read More' }}
+            <mat-icon>{{ lang.current === 'ar' ? 'arrow_back' : 'arrow_forward' }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

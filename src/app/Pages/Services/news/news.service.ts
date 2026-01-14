@@ -8,25 +8,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NewsService {
-
   private readonly apiUrl = `${baseAPI}/News`;
 
   constructor(private http: HttpClient) { }
 
-  // -------------------- GET ALL --------------------
+  // جلب كل الأخبار
   getAll(): Observable<ApiResponse<GetNews[]>> {
     return this.http.get<ApiResponse<GetNews[]>>(this.apiUrl);
   }
 
-  // -------------------- GET BY ID --------------------
+  // جلب خبر معين بالـ ID
   getById(id: string): Observable<ApiResponse<GetNews>> {
     return this.http.get<ApiResponse<GetNews>>(`${this.apiUrl}/${id}`);
   }
 
-  // -------------------- GET BY TypeID --------------------
+  // جلب الأخبار حسب النوع
   getByTypeId(typeId: number): Observable<ApiResponse<GetNews[]>> {
-    return this.http.get<ApiResponse<GetNews[]>>(
-      `${this.apiUrl}/by-type/${typeId}`
-    );
+    return this.http.get<ApiResponse<GetNews[]>>(`${this.apiUrl}/by-type/${typeId}`);
+  }
+
+  // جلب أحدث خبر من كل نوع (الذي يظهر في الصور عندك)
+  getLatestNewsByType(): Observable<ApiResponse<GetNews[]>> {
+    return this.http.get<ApiResponse<GetNews[]>>(`${this.apiUrl}/latestNews`);
   }
 }

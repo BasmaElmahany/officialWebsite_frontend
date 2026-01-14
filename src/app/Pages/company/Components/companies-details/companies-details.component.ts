@@ -18,7 +18,7 @@ import { LanguageService } from '../../../../Shared/Services/language.service';
     MatProgressSpinnerModule
   ],
   templateUrl: './companies-details.component.html',
-  styleUrls: ['./companies-details.component.scss'] // تم تغييرها لـ scss لتطابق استايلك
+  styleUrls: ['./companies-details.component.scss']
 })
 export class CompaniesDetailsComponent implements OnInit {
   
@@ -32,11 +32,9 @@ export class CompaniesDetailsComponent implements OnInit {
     public lang: LanguageService,
     private router: Router
   ) {
-    // جلب الـ ID من الحالة (State) المرسلة من صفحة العرض
     const state = history.state as { id?: string };
 
     if (!state?.id) {
-      // إذا حاول المستخدم فتح الرابط مباشرة بدون ID، يتم توجيهه لصفحة الشركات
       this.router.navigate(['/companies']);
       return;
     }
@@ -47,10 +45,8 @@ export class CompaniesDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.companiesService.getCompanyById(this.id).subscribe({
       next: (res: any) => {
-        // بناءً على الـ Interface الخاص بك: ApiResponse<T> نستخدم res.data
         this.company = res.data;
 
-        // تهيئة الأنشطة والخدمات كقوائم فارغة إذا كانت غير معرفة
         if (this.company) {
           this.company.activities = this.company.activities || [];
           this.company.services = this.company.services || [];
@@ -65,13 +61,37 @@ export class CompaniesDetailsComponent implements OnInit {
     });
   }
 
-  // لوجيك العناوين المترجمة
+  // --- الدوال الجديدة لحل أخطاء الـ HTML ---
+
+  /**
+   * دالة الاتصال الهاتفي
+   */
+  makePhoneCall(phoneNumber: string): void {
+    if (phoneNumber) {
+      // تنظيف الرقم من المسافات أو الرموز لضمان عمل الاتصال
+      const cleanNumber = phoneNumber.replace(/\D/g, '');
+      window.location.href = `tel:${cleanNumber}`;
+    }
+  }
+
+  /**
+   * دالة فتح الروابط الخارجية (الموقع الإلكتروني)
+   */
+  goToLink(url: string | undefined): void {
+    if (url) {
+      // التأكد من أن الرابط يبدأ بـ http ليعمل بشكل صحيح كطرف خارجي
+      const externalUrl = url.startsWith('http') ? url : `https://${url}`;
+      window.open(externalUrl, "_blank");
+    }
+  }
+
+  // --- لوجيك البيانات المترجمة ---
+
   title(): string {
     if (!this.company) return '';
     return this.lang.current === 'ar' ? this.company.nameAr : this.company.nameEn;
   }
 
-  // لوجيك العنوان/الوصف المترجم
   address(): string {
     if (!this.company) return '';
     return this.lang.current === 'ar' 
@@ -79,11 +99,15 @@ export class CompaniesDetailsComponent implements OnInit {
       : (this.company.addressEn || '');
   }
 
-  // بناء رابط الصورة بنفس لوجيك GovTours
   imageUrl(path: string | undefined | null): string {
     if (!path) return 'assets/placeholder.jpg';
     const baseUrl = 'https://shusha.minya.gov.eg:93';
     const cleanPath = path.startsWith('/') ? path : '/' + path;
     return `${baseUrl}${cleanPath}`;
+  }
+
+  // دالة احتياطية في حال فشل تحميل الصورة الأصلية
+  handleImageError(event: any): void {
+    event.target.src = 'assets/placeholder.jpg';
   }
 }

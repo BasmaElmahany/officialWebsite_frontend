@@ -1,113 +1,96 @@
-<section class="details-page" [class.rtl]="lang.current === 'ar'">
-  <div class="loading-overlay" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+<section class="details-page-creative" [class.rtl]="lang.current === 'ar'">
+  <div class="glass-loader" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
   </div>
 
-  <div class="content-wrapper" *ngIf="!loading && company">
-    
-    <header class="hero-header">
-      <div class="hero-overlay"></div>
-      <img class="hero-bg" [src]="imageUrl(company.photoUrl)" onerror="this.src='assets/default-cover.jpg'">
-      
-      <div class="hero-content">
-        <h1 class="main-title">{{ lang.current === 'ar' ? company.nameAr : company.nameEn }}</h1>
-        <div class="quick-meta">
-          <div class="meta-badge" *ngIf="company.phoneNumber1">
-            <mat-icon>phone</mat-icon>
-            <span>{{ company.phoneNumber1 }}</span>
-          </div>
-          <div class="meta-badge" *ngIf="company.phoneNumber2">
-            <mat-icon>phone</mat-icon>
-            <span>{{ company.phoneNumber2 }}</span>
-          </div>
-          <div class="meta-badge" *ngIf="company.email">
-            <mat-icon>email</mat-icon>
-            <span>{{ company.email }}</span>
-          </div>
-          <div class="meta-badge" *ngIf="company.faxNumber">
-            <mat-icon>print</mat-icon>
-            <span>{{ company.faxNumber }}</span>
-          </div>
-          <div class="meta-badge" *ngIf="company.link">
-            <mat-icon>link</mat-icon>
-            <a [href]="company.link" target="_blank">{{ company.link }}</a>
-          </div>
-        </div>
+  <div *ngIf="!loading && company" class="portal-container" [class.rtl]="lang.current === 'ar'">
+    <header class="portal-main-header">
+      <div class="header-overlay"></div>
+      <div class="header-content">
+        <span class="sub-label">{{ lang.current === 'ar' ? 'الجمهورية العربية - قطاع الشركات' : 'Official Portal' }}</span>
+        <h1 class="main-portal-title">{{ lang.current === 'ar' ? company?.nameAr : company?.nameEn }}</h1>
       </div>
     </header>
 
-    <div class="main-container">
-      <div class="main-content">
-        
-        <mat-card class="info-card fade-in">
-          <div class="card-section">
-            <h3 class="section-label">
-              <mat-icon>business</mat-icon>
-              {{ lang.current === 'ar' ? 'عن الشركة والمدير المسؤول' : 'About & Management' }}
-            </h3>
-            <p class="manager-name" *ngIf="company.dirNameAr || company.dirNameEn">
-              <strong>{{ lang.current === 'ar' ? 'السيد المهندس/' : 'Mr.' }}</strong>
-              {{ lang.current === 'ar' ? company.dirNameAr : company.dirNameEn }}
-            </p>
-            <p class="description-text">{{ address() }}</p>
+    <div class="portal-content-wrapper">
+      <div class="top-info-layout">
+        <mat-card class="exec-profile-card">
+          <div class="profile-img-container">
+            <img [src]="company?.photoUrl ? imageUrl(company.photoUrl) : 'assets/placeholder.jpg'" (error)="handleImageError($event)" />
+          </div>
+          <div class="profile-info">
+            <span class="role-badge">{{ lang.current === 'ar' ? 'رئيس الشركة' : 'Head of Company' }}</span>
+            <h2 class="exec-name">{{ lang.current === 'ar' ? company?.dirNameAr : company?.dirNameEn }}</h2>
+            <div class="status-indicator">
+              <span class="pulse-dot"></span> {{ lang.current === 'ar' ? 'على رأس العمل' : 'Active' }}
+            </div>
           </div>
         </mat-card>
 
-        <div class="features-grid">
-          <mat-card class="feature-card" *ngIf="company.activities.length">
-            <div class="feature-header">
-              <div class="icon-box"><mat-icon>stars</mat-icon></div>
-              <h3>{{ lang.current === 'ar' ? 'الأنشطة الرئيسية' : 'Key Activities' }}</h3>
+        <div class="quick-data-grid">
+          <div class="data-tile" *ngIf="company?.addressAr || company?.addressEn">
+            <div class="tile-icon location"><mat-icon>location_on</mat-icon></div>
+            <div class="tile-details">
+              <label>{{ lang.current === 'ar' ? 'المقر' : 'Location' }}</label>
+              <p>{{ lang.current === 'ar' ? company?.addressAr : company?.addressEn }}</p>
             </div>
-            <ul class="feature-list">
-              <li *ngFor="let act of company.activities">{{ act }}</li>
-            </ul>
-          </mat-card>
+          </div>
 
-          <mat-card class="feature-card" *ngIf="company.services.length">
-            <div class="feature-header">
-              <div class="icon-box"><mat-icon>settings_suggest</mat-icon></div>
-              <h3>{{ lang.current === 'ar' ? 'الخدمات المتاحة' : 'Available Services' }}</h3>
+          <div class="data-tile" *ngIf="company?.phoneNumber1">
+            <div class="tile-icon phone"><mat-icon>phone_in_talk</mat-icon></div>
+            <div class="tile-details">
+              <label>{{ lang.current === 'ar' ? 'الخط الساخن' : 'Hotline' }}</label>
+              <p>{{ company?.phoneNumber1 }}</p>
             </div>
-            <ul class="feature-list">
-              <li *ngFor="let svc of company.services">{{ svc }}</li>
-            </ul>
-          </mat-card>
+          </div>
+
+          <div class="data-tile" *ngIf="company?.email">
+            <div class="tile-icon email"><mat-icon>alternate_email</mat-icon></div>
+            <div class="tile-details">
+              <label>{{ lang.current === 'ar' ? 'البريد الرسمي' : 'Official Email' }}</label>
+              <p>{{ company?.email }}</p>
+            </div>
+          </div>
+
+          <a [href]="company?.link" target="_blank" class="data-tile link-tile" *ngIf="company?.link">
+            <div class="tile-icon web"><mat-icon>language</mat-icon></div>
+            <div class="tile-details">
+              <label>{{ lang.current === 'ar' ? 'الرابط' : 'Link' }}</label>
+              <p>{{ lang.current === 'ar' ? 'البوابة الإلكترونية' : 'Digital Portal' }}</p>
+            </div>
+          </a>
         </div>
       </div>
 
-      <aside class="side-bar">
-        <mat-card class="cta-card">
-          <h3>{{ lang.current === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</h3>
-          <p>{{ lang.current === 'ar' ? 'لمزيد من المعلومات، تفضل بزيارة الموقع الرسمي' : 'For more info, visit the official website' }}</p>
-          
-          <a *ngIf="company.link" [href]="company.link" target="_blank" class="primary-btn">
-            <span>{{ lang.current === 'ar' ? 'الموقع الإلكتروني' : 'Visit Website' }}</span>
-            <mat-icon>open_in_new</mat-icon>
-          </a>
-          
-    
+      <div class="bottom-details-grid">
+        <mat-card class="section-card">
+          <div class="card-header">
+            <mat-icon class="icon-blue">apps</mat-icon>
+            <h3>{{ lang.current === 'ar' ? 'الخدمات المتاحة' : 'Available Services' }}</h3>
+          </div>
+          <div class="card-body">
+            <div class="list-item-modern" *ngFor="let service of company?.services">
+              <mat-icon>arrow_left</mat-icon>
+              {{ service }}
+            </div>
+            <p *ngIf="!company?.services?.length" class="empty-text">لا توجد خدمات مسجلة حالياً</p>
+          </div>
         </mat-card>
-      </aside>
+
+        <mat-card class="section-card">
+          <div class="card-header">
+            <mat-icon class="icon-gold">verified</mat-icon>
+            <h3>{{ lang.current === 'ar' ? 'مجالات النشاط' : 'Business Activities' }}</h3>
+          </div>
+          <div class="card-body">
+            <div class="activity-pill" *ngFor="let activity of company?.activities">
+              <mat-icon>check_circle</mat-icon>
+              {{ activity }}
+            </div>
+            <p *ngIf="!company?.activities?.length" class="empty-text">لا توجد أنشطة مسجلة</p>
+          </div>
+        </mat-card>
+      </div>
     </div>
-
-    <section class="details-section">
-      <h2>{{ lang.current === 'ar' ? 'العنوان' : 'Address' }}</h2>
-      <p>{{ lang.current === 'ar' ? company.addressAr || 'غير متوفر' : company.addressEn || 'Not available' }}</p>
-    </section>
-
-    <section class="details-section" *ngIf="company.activities.length > 0">
-      <h2>{{ lang.current === 'ar' ? 'الأنشطة' : 'Activities' }}</h2>
-      <ul>
-        <li *ngFor="let activity of company.activities">{{ activity }}</li>
-      </ul>
-    </section>
-
-    <section class="details-section" *ngIf="company.services.length > 0">
-      <h2>{{ lang.current === 'ar' ? 'الخدمات' : 'Services' }}</h2>
-      <ul>
-        <li *ngFor="let service of company.services">{{ service }}</li>
-      </ul>
-    </section>
   </div>
 </section>

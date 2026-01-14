@@ -1,62 +1,96 @@
-<section class="agency-details-page" *ngIf="!loading && agency" [class.rtl]="lang.current === 'ar'">
-  
-  <div class="hero-card">
-    <div class="header-actions">
-      <button class="back-circle" (click)="goBack()">
-        <mat-icon>{{ lang.current === 'ar' ? 'arrow_forward' : 'arrow_back' }}</mat-icon>
-      </button>
-    </div>
 
-    <div class="hero-main-content">
-      <div class="logo-container">
-        <img [src]="cover(agency)" [alt]="title(agency)" (error)="handleImageError($event, agency)">
-      </div>
-      <h1 class="agency-title">{{ title(agency) }}</h1>
-      <div class="status-badge">
-        <span class="dot"></span>
-        {{ lang.current === 'ar' ? 'جهة حكومية معتمدة' : 'Official Agency' }}
-      </div>
-    </div>
-  </div>
-
-  <div class="details-grid">
-    
-    <div class="info-card" *ngIf="agency.addressAr || agency.addressEn">
-      <div class="card-icon location">
-        <mat-icon>room</mat-icon>
-      </div>
-      <div class="card-body">
-        <label>{{ lang.current === 'ar' ? 'الموقع والعنوان' : 'Location' }}</label>
-        <p>{{ lang.current === 'ar' ? agency.addressAr : agency.addressEn }}</p>
-      </div>
-    </div>
-
-    <div class="info-card" *ngIf="agency.phoneNumber1">
-      <div class="card-icon phone">
-        <mat-icon>phone_in_talk</mat-icon>
-      </div>
-      <div class="card-body">
-        <label>{{ lang.current === 'ar' ? 'خط التواصل' : 'Contact Number' }}</label>
-        <a [href]="'tel:' + agency.phoneNumber1">{{ agency.phoneNumber1 }}</a>
-      </div>
-    </div>
-
-    <div class="info-card" *ngIf="agency.email">
-      <div class="card-icon email">
-        <mat-icon>mail_outline</mat-icon>
-      </div>
-      <div class="card-body">
-        <label>{{ lang.current === 'ar' ? 'البريد الرسمي' : 'Official Email' }}</label>
-        <a [href]="'mailto:' + agency.email">{{ agency.email }}</a>
-      </div>
-    </div>
-
-  </div>
-
-
-
-</section>
 
 <div *ngIf="loading" class="loading-state">
   <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="!loading && agency" class="portal-container" [class.rtl]="lang.current === 'ar'">
+  <header class="portal-main-header">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <span class="sub-label">{{ lang.current === 'ar' ? 'الجمهورية العربية - قطاع الوكالات' : 'Official Portal' }}</span>
+      <h1 class="main-portal-title">{{ lang.current === 'ar' ? agency?.nameAr : agency?.nameEn }}</h1>
+    </div>
+  </header>
+
+  <div class="portal-content-wrapper">
+    <div class="top-info-layout">
+      <mat-card class="exec-profile-card">
+        <div class="profile-img-container">
+          <img [src]="agency?.photoUrl ? imageUrl(agency.photoUrl) : 'assets/placeholder.jpg'" (error)="handleImageError($event, agency)" />
+        </div>
+        <div class="profile-info">
+          <span class="role-badge">{{ lang.current === 'ar' ? 'رئيس الوكالة' : 'Head of Agency' }}</span>
+          <h2 class="exec-name">{{ lang.current === 'ar' ? agency?.dirNameAr : agency?.dirNameEn }}</h2>
+          <div class="status-indicator">
+            <span class="pulse-dot"></span> {{ lang.current === 'ar' ? 'على رأس العمل' : 'Active' }}
+          </div>
+        </div>
+      </mat-card>
+
+      <div class="quick-data-grid">
+        <div class="data-tile" *ngIf="agency?.addressAr || agency?.addressEn">
+          <div class="tile-icon location"><mat-icon>location_on</mat-icon></div>
+          <div class="tile-details">
+            <label>{{ lang.current === 'ar' ? 'المقر' : 'Location' }}</label>
+            <p>{{ lang.current === 'ar' ? agency?.addressAr : agency?.addressEn }}</p>
+          </div>
+        </div>
+
+        <div class="data-tile" *ngIf="agency?.phoneNumber1">
+          <div class="tile-icon phone"><mat-icon>phone_in_talk</mat-icon></div>
+          <div class="tile-details">
+            <label>{{ lang.current === 'ar' ? 'الخط الساخن' : 'Hotline' }}</label>
+            <p>{{ agency?.phoneNumber1 }}</p>
+          </div>
+        </div>
+
+        <div class="data-tile" *ngIf="agency?.email">
+          <div class="tile-icon email"><mat-icon>alternate_email</mat-icon></div>
+          <div class="tile-details">
+            <label>{{ lang.current === 'ar' ? 'البريد الرسمي' : 'Official Email' }}</label>
+            <p>{{ agency?.email }}</p>
+          </div>
+        </div>
+
+        <a [href]="agency?.link" target="_blank" class="data-tile link-tile" *ngIf="agency?.link">
+          <div class="tile-icon web"><mat-icon>language</mat-icon></div>
+          <div class="tile-details">
+            <label>{{ lang.current === 'ar' ? 'الرابط' : 'Link' }}</label>
+            <p>{{ lang.current === 'ar' ? 'البوابة الإلكترونية' : 'Digital Portal' }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="bottom-details-grid">
+      <mat-card class="section-card">
+        <div class="card-header">
+          <mat-icon class="icon-blue">apps</mat-icon>
+          <h3>{{ lang.current === 'ar' ? 'الخدمات المتاحة' : 'Available Services' }}</h3>
+        </div>
+        <div class="card-body">
+          <div class="list-item-modern" *ngFor="let service of agency?.services">
+            <mat-icon>arrow_left</mat-icon>
+            {{ service }}
+          </div>
+          <p *ngIf="!agency?.services?.length" class="empty-text">لا توجد خدمات مسجلة حالياً</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="section-card">
+        <div class="card-header">
+          <mat-icon class="icon-gold">verified</mat-icon>
+          <h3>{{ lang.current === 'ar' ? 'مجالات النشاط' : 'Business Activities' }}</h3>
+        </div>
+        <div class="card-body">
+          <div class="activity-pill" *ngFor="let activity of agency?.activities">
+            <mat-icon>check_circle</mat-icon>
+            {{ activity }}
+          </div>
+          <p *ngIf="!agency?.activities?.length" class="empty-text">لا توجد أنشطة مسجلة</p>
+        </div>
+      </mat-card>
+    </div>
+  </div>
 </div>

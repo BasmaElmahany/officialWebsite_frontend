@@ -3,6 +3,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card'; // <--- تم إضافة هذا لحل خطأ mat-card
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LanguageService } from '../../../../Shared/Services/language.service';
 import { DirectoratesService } from '../../../Services/directorates/directorates.service';
@@ -16,6 +17,7 @@ import { Directorate } from '../../../Models/directorates';
     MatIconModule, 
     MatProgressSpinnerModule,
     MatButtonModule,
+    MatCardModule, // <--- تم إضافة هذا لتفعيل الكروت الملونة
     RouterModule
   ],
   templateUrl: './directorates-details.component.html',
@@ -26,12 +28,10 @@ export class DirectoratesDetailsComponent implements OnInit {
   loading = true;
   directorate?: Directorate;
   
-  // تتبع الصور المكسورة لتجنب محاولة تحميلها مرة أخرى
   private brokenImages: Set<string> = new Set();
   
   isMobile: boolean = false;
   screenWidth: number = window.innerWidth;
-  isLoading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,12 +66,10 @@ export class DirectoratesDetailsComponent implements OnInit {
     this.loading = true;
     this.service.getbyId(this.id).subscribe({
       next: (res: any) => {
-        // استلام البيانات وتجهيزها
         const rawData = res.data ? res.data : res;
 
         if (rawData) {
           // حل مشكلة اختلاف أسماء الحقول بين الـ API والـ Model
-          // الـ API يرسل dirphotoUrl بينما الـ Model يتوقع dirPhotoUrl
           if (rawData.dirphotoUrl && !rawData.dirPhotoUrl) {
             rawData.dirPhotoUrl = rawData.dirphotoUrl;
           }
@@ -79,8 +77,6 @@ export class DirectoratesDetailsComponent implements OnInit {
 
         this.directorate = rawData;
         this.loading = false;
-        
-        console.log('Directorate Detail Loaded:', this.directorate);
       },
       error: (error) => {
         console.error('Error loading directorate:', error);
@@ -91,9 +87,8 @@ export class DirectoratesDetailsComponent implements OnInit {
 
   // دالة بناء رابط الصورة مع معالجة الأخطاء
   imageUrl(path: string | undefined): string {
-    // إذا كان المسار فارغاً أو الصورة مكسورة سابقاً، استخدم الصورة الافتراضية
     if (!path || this.brokenImages.has(path)) {
-      return 'assets/placeholder.jpg'; // تأكدي من وجود هذا الملف في src/assets/
+      return 'assets/placeholder.jpg';
     }
     
     let fullUrl = path;
@@ -105,13 +100,20 @@ export class DirectoratesDetailsComponent implements OnInit {
     return fullUrl;
   }
 
-  // معالجة خطأ تحميل الصورة ديناميكياً
   handleImageError(event: Event): void {
     const imgElement = event.target as HTMLImageElement;
     const src = imgElement.src;
-    
     this.brokenImages.add(src);
     imgElement.src = 'assets/placeholder.jpg';
+  }
+
+  // دالة لفتح الروابط الخارجية (تستخدم في زر البوابة الإلكترونية)
+  goToLink(url: string | undefined): void {
+    if (url) {
+      // التأكد من أن الرابط يبدأ بـ http ليعمل بشكل صحيح
+      const externalUrl = url.startsWith('http') ? url : `https://${url}`;
+      window.open(externalUrl, "_blank");
+    }
   }
 
   title(): string {
@@ -119,15 +121,6 @@ export class DirectoratesDetailsComponent implements OnInit {
     return this.lang.current === 'ar' 
       ? (this.directorate.nameAr || this.directorate.titleAr || 'بدون عنوان')
       : (this.directorate.nameEn || this.directorate.titleEn || 'No Title');
-  }
-
-  formatPhoneNumber(phone: string): string {
-    if (!phone) return '';
-    const digits = phone.replace(/\D/g, '');
-    if (digits.length === 11 && digits.startsWith('01')) {
-      return `${digits.slice(0, 3)} ${digits.slice(3, 7)} ${digits.slice(7)}`;
-    }
-    return phone;
   }
 
   makePhoneCall(phoneNumber: string): void {
@@ -143,10 +136,5 @@ export class DirectoratesDetailsComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/directorates']);
-  }
-
-  // دالة مفيدة لعرض الأنشطة بحد أقصى
-  getLimitedActivities() {
-    return this.directorate?.activities?.slice(0, 10) || [];
   }
 }

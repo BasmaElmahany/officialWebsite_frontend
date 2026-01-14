@@ -25,127 +25,72 @@
 <!-- ===============================
      GOVERNORATE TOURS SECTION
 ================================ -->
+<div class="hero-flex-container">
 
-<section class="govtours-home" *ngIf="govToursSection">
-
-  <!-- HEADER -->
-  <div class="section-header">
-    <h2>
-      {{ lang.current === 'ar'
-      ? 'الجولات والزيارات الرسمية'
-      : 'Official Governorate Tours' }}
-    </h2>
-
-    <a class="more-link" [routerLink]="['/gov-tours']">
-      {{ lang.current === 'ar' ? 'عرض الكل' : 'View All' }}
-    </a>
-  </div>
-
-  <div class="govtours-grid">
-
-    <!-- MAJOR TOUR -->
-    <div class="govtour-major"
-      (click)="router.navigate(['/gov-tours/details'], { state: { id: govToursSection.major.id } })">
-
-      <img [src]="govToursSection.major.photos?.length
-        ? 'https://shusha.minya.gov.eg:93' + govToursSection.major.photos[0].photoUrl
-        : '/assets/placeholder.jpg'">
-
-      <div class="overlay">
-        <span class="badge">
-          {{ lang.current === 'ar' ? 'جولة رسمية' : 'Official Tour' }}
-        </span>
-
-        <h3>
-          {{ lang.current === 'ar'
-          ? govToursSection.major.titleAr
-          : govToursSection.major.titleEn }}
-        </h3>
-
-
-        <p>
-          {{ govToursExcerpt(govToursSection.major, 120) }}
-        </p>
-
-      </div>
-    </div>
-
-    <!-- LIST -->
-    <div class="govtour-list">
-      <div class="govtour-item" *ngFor="let item of govToursSection.list"
-        (click)="router.navigate(['/gov-tours/details'], { state: { id: item.id } })">
-
-        <div class="thumb">
-          <img [src]="item.photos?.length
-            ? 'https://shusha.minya.gov.eg:93' + item.photos[0].photoUrl
-            : '/assets/placeholder.jpg'">
-        </div>
-
-        <div class="info">
-          <h4>
-            {{ lang.current === 'ar' ? item.titleAr : item.titleEn }}
-          </h4>
-
-          <span class="date">
-            {{ formatDate(item.date) }}
-          </span>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-<section class="home-news">
-
-  <div class="news-type-section" *ngFor="let section of newsByType">
-
-    <!-- ===== TYPE TITLE ===== -->
+  <section class="govtours-home" *ngIf="govToursSection">
     <div class="section-header">
       <h2>
-        {{ lang.current === 'ar'
-        ? section.typeName.ar
-        : section.typeName.en }}
+        {{ lang.current === 'ar' ? 'الجولات والزيارات الرسمية' : 'Official Governorate Tours' }}
       </h2>
-
-      <a class="more-link" [routerLink]="['/news']" [queryParams]="{ typeId: section.typeId }">
+      <a class="more-link" [routerLink]="['/gov-tours']">
         {{ lang.current === 'ar' ? 'عرض الكل' : 'View All' }}
       </a>
     </div>
 
-    <!-- ===== CONTENT ===== -->
-    <div class="news-grid">
-
-      <!-- MAJOR NEWS -->
-      <div class="major-news" (click)="router.navigate(['/news/details'], { state: { id: section.major.id } })">
-        <img [src]="section.major.photos?.length
-          ? 'https://shusha.minya.gov.eg:93' + section.major.photos[0].photoUrl
-          : '/assets/placeholder.jpg'">
-
+    <div class="govtours-grid">
+      <div class="govtour-major" (click)="router.navigate(['/gov-tours/details'], { state: { id: govToursSection.major.id } })">
+        <img [src]="govToursSection.major.photos?.length ? 'https://shusha.minya.gov.eg:93' + govToursSection.major.photos[0].photoUrl : '/assets/placeholder.jpg'">
         <div class="overlay">
-          <h3>{{ text({ ar: section.major.titleAr, en: section.major.titleEn }) }}</h3>
-          <p>
-            {{ newsTitle(section.major) }}
-          </p>
+          <span class="badge">{{ lang.current === 'ar' ? 'جولة رسمية' : 'Official Tour' }}</span>
+          <h3>{{ lang.current === 'ar' ? govToursSection.major.titleAr : govToursSection.major.titleEn }}</h3>
+          <p>{{ govToursExcerpt(govToursSection.major, 120) }}</p>
         </div>
       </div>
 
-      <!-- SIDE LIST -->
-      <div class="side-news">
-        <div class="side-item" *ngFor="let item of section.list"
-          (click)="router.navigate(['/news/details'], { state: { id: item.id } })">
-
-          <h4>{{ text({ ar: item.titleAr, en: item.titleEn }) }}</h4>
-          <p>
-            {{ newsExcerpt(section.major, 120) }}
-          </p>
+      <div class="govtour-list">
+        <div class="govtour-item" *ngFor="let item of govToursSection.list" (click)="router.navigate(['/gov-tours/details'], { state: { id: item.id } })">
+          <div class="thumb">
+            <img [src]="item.photos?.length ? 'https://shusha.minya.gov.eg:93' + item.photos[0].photoUrl : '/assets/placeholder.jpg'">
+          </div>
+          <div class="info">
+            <h4>{{ lang.current === 'ar' ? item.titleAr : item.titleEn }}</h4>
+            <span class="date">{{ formatDate(item.date) }}</span>
+          </div>
         </div>
       </div>
-
     </div>
-  </div>
+  </section>
 
-</section>
+  <section class="home-news">
+    <div *ngIf="newsByType" class="news-type-section">
+      <div *ngFor="let section of newsByType">
+        <div *ngIf="section.typeId === 3">
+          <div class="section-header">
+            <h2>{{ lang.current === 'ar' ? section.typeName.ar : section.typeName.en }}</h2>
+            <a class="more-link" [routerLink]="['/news']" [queryParams]="{ typeId: section.typeId }">
+              {{ lang.current === 'ar' ? 'عرض الكل' : 'View All' }}
+            </a>
+          </div>
+
+          <div class="news-grid">
+            <div class="major-news" (click)="router.navigate(['/news/details'], { state: { id: section.major.id } })">
+              <img [src]="section.major.photos?.length ? 'https://shusha.minya.gov.eg:93' + section.major.photos[0].photoUrl : '/assets/placeholder.jpg'">
+              <div class="overlay">
+                <h3>{{ text({ ar: section.major.titleAr, en: section.major.titleEn }) }}</h3>
+                <p>{{ newsTitle(section.major) }}</p>
+              </div>
+            </div>
+
+            <div class="side-news">
+              <div class="side-item" *ngFor="let item of section.list" (click)="router.navigate(['/news/details'], { state: { id: item.id } })">
+                <h4>{{ text({ ar: item.titleAr, en: item.titleEn }) }}</h4>
+                <p>{{ newsExcerpt(section.major, 120) }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

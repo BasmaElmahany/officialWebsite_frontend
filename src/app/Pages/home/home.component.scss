@@ -132,9 +132,9 @@ $accent: #F5C400;
 $primary: #002D62;
 $accent: #F5C400;
 .govtours-home {
-  max-width: 1200px;
-  margin: 80px auto;
-  padding: 0 20px;
+  max-width: 900px;
+ margin: 0px 0px;
+  padding: 0px;
 }
 
 .govtours-grid {
@@ -261,9 +261,9 @@ $primary: #002D62;
 $accent: #F5C400;
 
 .home-news {
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 20px;
+  max-width: 900px;
+  margin: 0px 0px;
+  padding: 0px;
 }
 
 .news-type-section {
@@ -275,13 +275,15 @@ $accent: #F5C400;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 
   h2 {
     font-size: 22px;
     font-weight: 800;
     color: $primary;
     position: relative;
+    margin-left: 20px;
 
     &::after {
       content: '';
@@ -393,5 +395,99 @@ $accent: #F5C400;
 
   .major-news {
     height: 240px;
+  }
+}
+// تعريف المتغيرات في البداية لتجنب الخطأ السابق
+$primary: #002D62;
+$accent: #F5C400;
+
+.hero-flex-container {
+  display: flex;
+  flex-direction: row; // لجعلهم بجانب بعض
+  align-items: stretch;
+  width: 100%;
+  min-height: 600px;
+  background: #fdfdfd;
+  gap: 10px; // مسافة بسيطة بين السكشنين
+}
+
+.diamond-side {
+  flex: 1; // سيأخذ نصف المساحة تقريباً
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px; // لجعل الحواف متناسقة مع الصور في الأخبار
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.news-side {
+  flex: 1.2; // سيأخذ مساحة أكبر قليلاً ليناسب تفاصيل الأخبار
+  padding: 20px;
+  overflow-y: auto; // للسماح بالتمرير إذا كانت الأخبار كثيرة
+}
+
+/* لضمان التوافق مع الشاشات الصغيرة (الموبايل) يرجعوا تحت بعض */
+@media (max-width: 992px) {
+  .hero-flex-container {
+    flex-direction: column;
+  }
+  .diamond-side {
+    height: 350px;
+    width: 100%;
+  }
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border-bottom: 2px solid #f0f0f0; // خط خفيف تحت العنوان
+  padding-bottom: 10px;
+  margin-right: 20px;
+
+  h2 {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: $primary;
+    margin: 0;
+    position: relative;
+
+    // إضافة الخط الأصفر المميز تحت العنوان
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: $accent;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+  }
+
+  .more-link {
+    background: #f8f9fa; // خلفية خفيفة للزر
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: $primary;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: $accent;
+      color: #000;
+      text-decoration: none;
+    }
   }
 }

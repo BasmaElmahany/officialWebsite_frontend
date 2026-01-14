@@ -1,156 +1,172 @@
-/* الحاوية الأساسية */
-.directorate-container {
-  max-width: 1100px;
-  margin: 20px auto;
-  padding: 20px;
-
-  &.rtl {
-    direction: rtl;
-  }
-
-  &:not(.rtl) {
-    direction: ltr;
-  }
+/* تعريف الألوان الأساسية لضمان ظهورها */
+:root {
+  --navy-deep: #0d124a;   /* كحلي غامق جداً للنصوص والأساسات */
+  --gold-main: #ffca28;   /* ذهبي صريح وواضح */
+  --bg-slate: #f1f4f8;    /* خلفية رمادية مزرقة لإبراز الكروت البيضاء */
 }
 
-/* العنوان الرئيسي الكحلي */
-.main-header-title {
-  background-color: #1a237e;
-  color: white;
-  width: fit-content;
-  margin: 0 auto 40px;
-  padding: 10px 40px;
-  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%); /* شكل مائل بسيط */
+.portal-container {
+  background-color: var(--bg-slate);
+  min-height: 100vh;
+  padding-bottom: 50px;
+  &.rtl { direction: rtl; }
 }
 
-.top-section {
+/* Header: إصلاح تباين العنوان */
+.portal-main-header {
+  background: linear-gradient(135deg, #0d124a 0%, #1a777e 100%);
+  height: 280px;
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  margin-bottom: 50px;
-  gap: 30px;
-}
-
-/* كارت المدير */
-.director-card {
-  border: 2px solid #ffd700;
-  border-radius: 15px;
-  padding: 20px;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  width: 300px;
-  background: #fdfdfd;
+  color: white;
+  clip-path: ellipse(120% 100% at 50% 0%);
 }
 
-.image-holder {
-  border: 2px solid #000;
-  margin-bottom: 10px;
-  height: 250px;
+.main-portal-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-top: 10px;
+  color: #ffffff !important; /* ضمان اللون الأبيض */
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.image-holder img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.sub-label { opacity: 0.8; letter-spacing: 1.5px; font-size: 0.9rem; }
+
+/* Layout Grid */
+.portal-content-wrapper {
+  max-width: 1200px;
+  margin: -60px auto 0;
+  padding: 0 20px;
 }
 
-.director-info h3 {
-  color: #000;
-  font-weight: bold;
-  margin: 10px 0 5px;
+.top-info-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 25px;
 }
 
-.director-info p {
-  color: #1a237e;
+/* Executive Card: كارت المدير */
+.exec-profile-card {
+  background: white !important;
+  border-radius: 25px !important;
+  padding: 30px !important;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
 }
 
-/* بيانات المديرية */
-.contact-details {
-  flex: 1;
-  max-width: 500px;
+.profile-img-container {
+  width: 160px; height: 160px;
+  margin: 0 auto 20px;
+  border: 4px solid var(--gold-main);
+  border-radius: 50%;
+  padding: 5px;
+  img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 }
 
-.section-subtitle {
-  color: #1a237e;
-  border-bottom: 3px solid #ffd700;
-  width: fit-content;
-  padding-bottom: 5px;
-  margin-bottom: 25px;
+.role-badge {
+  background: #e8eaf6;
+  color: var(--navy-deep);
+  padding: 4px 15px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.8rem;
 }
 
-.contact-row {
+.exec-name { color: var(--navy-deep); margin: 15px 0 5px; font-size: 1.4rem; font-weight: 800; }
+
+.status-indicator {
+  color: #43a047;
+  font-size: 0.9rem;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pulse-dot {
+  width: 8px; height: 8px; background: #43a047; border-radius: 50%;
+  box-shadow: 0 0 0 rgba(67, 160, 71, 0.4);
+  animation: pulse 2s infinite;
+}
+
+/* Quick Data Tiles: مربعات البيانات */
+.quick-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.data-tile {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
   align-items: center;
   gap: 15px;
-  margin-bottom: 15px;
+  border: 1px solid rgba(0,0,0,0.03);
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-.gold-icon {
-  color: #ffd700;
-  font-size: 24px;
+.tile-icon {
+  width: 50px; height: 50px; border-radius: 15px;
+  display: flex; align-items: center; justify-content: center;
+  mat-icon { font-size: 26px; }
+  &.location { background: #e3f2fd; color: #1976d2; }
+  &.phone { background: #f1f8e9; color: #558b2f; }
+  &.email { background: #fff3e0; color: #ef6c00; }
+  &.web { background: #efebe9; color: #5d4037; }
 }
 
-.value {
-  color: #666;
-  font-size: 16px;
-}
+.tile-details label { display: block; font-size: 0.8rem; color: #999; }
+.tile-details p { margin: 0; font-weight: 700; color: var(--navy-deep); font-size: 0.95rem; }
 
-/* الأقسام السفلية الثلاثة */
-.bottom-sections {
+/* Bottom Grid: خدمات ومهام */
+.bottom-details-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  background-color: #f0f4f8;
-  padding: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-top: 25px;
 }
 
-.info-column {
-  border-left: 1px solid #ddd;
-  padding: 0 15px;
-}
-
-.info-column:last-child {
-  border-left: none;
-}
-
-.column-title {
-  color: #1a237e;
-  font-size: 18px;
-  border-bottom: 2px solid #ffd700;
-  padding-bottom: 8px;
-  margin-bottom: 15px;
-}
-
-.check-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #1a237e;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.check-item mat-icon {
-  font-size: 20px;
-  color: #1a237e;
-}
-
-.view-all-btn {
-  background: white;
-  border: 1px solid #1a237e;
-  color: #1a237e;
-  padding: 5px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .top-section, .bottom-sections {
-    grid-template-columns: 1fr;
-    flex-direction: column;
-    align-items: center;
+.section-card {
+  border-radius: 25px !important;
+  padding: 25px !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.02) !important;
+  
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    h3 { margin: 0; color: var(--navy-deep); font-weight: 800; }
+    mat-icon.icon-blue { color: #047e78; }
+    mat-icon.icon-gold { color: #f9a825; }
   }
-  .info-column { border-left: none; border-bottom: 1px solid #ddd; padding-bottom: 20px; }
+}
+
+.list-item-modern {
+  padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 5px; color: #444;
+  mat-icon { color: var(--gold-main); }
+}
+
+.activity-pill {
+  background: #f8fafb;
+  margin-bottom: 10px; padding: 12px 15px;
+  border-radius: 12px; display: flex; align-items: center; gap: 10px;
+  color: var(--navy-deep); font-weight: 600;
+  mat-icon { color: #43a047; }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(67, 160, 71, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(67, 160, 71, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(67, 160, 71, 0); }
+}
+
+@media (max-width: 900px) {
+  .top-info-layout, .quick-data-grid, .bottom-details-grid { grid-template-columns: 1fr; }
+  .portal-main-header { height: 220px; }
+  .main-portal-title { font-size: 1.8rem; }
 }

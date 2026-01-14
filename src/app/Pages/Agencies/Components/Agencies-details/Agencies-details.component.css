@@ -1,150 +1,172 @@
-.agency-details-page {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
-  animation: fadeIn 0.8s ease-out;
+/* تعريف الألوان الأساسية لضمان ظهورها */
+:root {
+  --navy-deep: #0d124a;   /* كحلي غامق جداً للنصوص والأساسات */
+  --gold-main: #ffca28;   /* ذهبي صريح وواضح */
+  --bg-slate: #f1f4f8;    /* خلفية رمادية مزرقة لإبراز الكروت البيضاء */
+}
 
+.portal-container {
+  background-color: var(--bg-slate);
+  min-height: 100vh;
+  padding-bottom: 50px;
   &.rtl { direction: rtl; }
 }
 
-
-.hero-card {
-  background: linear-gradient(135deg, #1a2a44 0%, #0d1624 100%);
-  border-radius: 24px;
-  padding: 60px 40px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  margin-bottom: 40px;
-
-  .header-actions {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    
-    .back-circle {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: white;
-      width: 45px; height: 45px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.3s;
-      &:hover { background: rgba(255, 255, 255, 0.2); }
-    }
-  }
-
-  .logo-container {
-    width: 130px;
-    height: 130px;
-    background: white;
-    border-radius: 20px;
-    margin: 0 auto 25px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    img { max-width: 100%; object-fit: contain; }
-  }
-
-  .agency-title {
-    color: white;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-  }
-
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #38bdf8;
-    color: #0c4a6e;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-
-    .dot {
-      width: 8px; height: 8px;
-      background: #0c4a6e;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-  }
-}
-
-
-.details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.info-card {
-  background: white;
-  border-radius: 20px;
-  padding: 24px;
+/* Header: إصلاح تباين العنوان */
+.portal-main-header {
+  background: linear-gradient(135deg, #0d124a 0%, #1a777e 100%);
+  height: 280px;
   display: flex;
   align-items: center;
-  gap: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-  border: 1px solid #f1f5f9;
-  transition: 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  }
-
-  .card-icon {
-    width: 60px; height: 60px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    mat-icon { font-size: 28px; width: 28px; height: 28px; }
-
-    &.location { background: #f0fdf4; color: #22c55e; }
-    &.phone { background: #eff6ff; color: #3b82f6; }
-    &.email { background: #fdf2f8; color: #db2777; }
-  }
-
-  .card-body {
-    label { font-size: 0.85rem; color: #64748b; display: block; margin-bottom: 4px; }
-    p, a { font-size: 1.1rem; color: #1e293b; font-weight: 600; margin: 0; text-decoration: none; }
-    a:hover { color: #3b82f6; }
-  }
-}
-
-.page-footer {
-  margin-top: 50px;
+  justify-content: center;
   text-align: center;
-  .action-btn {
-    border-radius: 12px;
-    padding: 8px 24px;
-    color: #64748b;
+  color: white;
+  clip-path: ellipse(120% 100% at 50% 0%);
+}
+
+.main-portal-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-top: 10px;
+  color: #ffffff !important; /* ضمان اللون الأبيض */
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.sub-label { opacity: 0.8; letter-spacing: 1.5px; font-size: 0.9rem; }
+
+/* Layout Grid */
+.portal-content-wrapper {
+  max-width: 1200px;
+  margin: -60px auto 0;
+  padding: 0 20px;
+}
+
+.top-info-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 25px;
+}
+
+/* Executive Card: كارت المدير */
+.exec-profile-card {
+  background: white !important;
+  border-radius: 25px !important;
+  padding: 30px !important;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+}
+
+.profile-img-container {
+  width: 160px; height: 160px;
+  margin: 0 auto 20px;
+  border: 4px solid var(--gold-main);
+  border-radius: 50%;
+  padding: 5px;
+  img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+}
+
+.role-badge {
+  background: #e8eaf6;
+  color: var(--navy-deep);
+  padding: 4px 15px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.exec-name { color: var(--navy-deep); margin: 15px 0 5px; font-size: 1.4rem; font-weight: 800; }
+
+.status-indicator {
+  color: #43a047;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pulse-dot {
+  width: 8px; height: 8px; background: #43a047; border-radius: 50%;
+  box-shadow: 0 0 0 rgba(67, 160, 71, 0.4);
+  animation: pulse 2s infinite;
+}
+
+/* Quick Data Tiles: مربعات البيانات */
+.quick-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.data-tile {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid rgba(0,0,0,0.03);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.tile-icon {
+  width: 50px; height: 50px; border-radius: 15px;
+  display: flex; align-items: center; justify-content: center;
+  mat-icon { font-size: 26px; }
+  &.location { background: #e3f2fd; color: #1976d2; }
+  &.phone { background: #f1f8e9; color: #558b2f; }
+  &.email { background: #fff3e0; color: #ef6c00; }
+  &.web { background: #efebe9; color: #5d4037; }
+}
+
+.tile-details label { display: block; font-size: 0.8rem; color: #999; }
+.tile-details p { margin: 0; font-weight: 700; color: var(--navy-deep); font-size: 0.95rem; }
+
+/* Bottom Grid: خدمات ومهام */
+.bottom-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.section-card {
+  border-radius: 25px !important;
+  padding: 25px !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.02) !important;
+  
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    h3 { margin: 0; color: var(--navy-deep); font-weight: 800; }
+    mat-icon.icon-blue { color: #047e78; }
+    mat-icon.icon-gold { color: #f9a825; }
   }
 }
 
+.list-item-modern {
+  padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 5px; color: #444;
+  mat-icon { color: var(--gold-main); }
+}
+
+.activity-pill {
+  background: #f8fafb;
+  margin-bottom: 10px; padding: 12px 15px;
+  border-radius: 12px; display: flex; align-items: center; gap: 10px;
+  color: var(--navy-deep); font-weight: 600;
+  mat-icon { color: #43a047; }
+}
+
+/* Animations */
 @keyframes pulse {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  70% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(67, 160, 71, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(67, 160, 71, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(67, 160, 71, 0); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-
-@media (max-width: 768px) {
-  .hero-card { padding: 40px 20px; }
-  .hero-card .agency-title { font-size: 1.5rem; }
+@media (max-width: 900px) {
+  .top-info-layout, .quick-data-grid, .bottom-details-grid { grid-template-columns: 1fr; }
+  .portal-main-header { height: 220px; }
+  .main-portal-title { font-size: 1.8rem; }
 }

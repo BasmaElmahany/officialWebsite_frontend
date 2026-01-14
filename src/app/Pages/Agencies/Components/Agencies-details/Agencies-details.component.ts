@@ -3,6 +3,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LanguageService } from '../../../../Shared/Services/language.service';
 import { AgenciesService } from '../../../../Services/Agencies/Agencies.service';
@@ -16,6 +17,7 @@ import { Agency } from '../../Models/Agencies';
     MatIconModule, 
     MatProgressSpinnerModule,
     MatButtonModule,
+    MatCardModule,
     RouterModule
   ],
   templateUrl: './Agencies-details.component.html',

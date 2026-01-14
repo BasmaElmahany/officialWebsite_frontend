@@ -84,7 +84,21 @@
 
 
 
-
+   <a class="nav-item" [routerLink]="['/dashboard', 'society']" routerLinkActive="active"
+          [attr.title]="( 'MENU.SOCIETY' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
+          <span class="nav-text">{{ 'MENU.SOCIETY' | translate | async }}</span>
+          <span class="nav-badge">10</span>
+        </a>
+      <a class="nav-item" 
+   [routerLink]="['/dashboard', 'Center']" 
+   routerLinkActive="active"
+   [attr.title]="'MENU.CENTERS' | translate">
+   
+   <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
+   <span class="nav-text">{{ 'MENU.CENTERS' | translate }}</span>
+   <span class="nav-badge">10</span>
+</a>
 
 
         <a class="nav-item" [routerLink]="['/dashboard', 'companies']" routerLinkActive="active"

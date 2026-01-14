@@ -1,0 +1,140 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+  <!-- ===== Header ===== -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">info</mat-icon>
+      <h2>
+        {{ 'SOCIAL_SOCIETIES.DETAILS_TITLE' | translate | async }}
+      </h2>
+    </div>
+
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- ===== Scrollable Content ===== -->
+  <div class="dialog-body">
+    <div class="dialog-content scroll-area">
+      <!-- ===== Basic Info ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'SOCIAL_SOCIETIES.BASIC_INFO' | translate | async }}
+        </h3>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="society?.nameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="society?.nameEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.DIR_NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="society?.dirNameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.DIR_NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="society?.dirNameEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput [value]="society?.addressAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput [value]="society?.addressEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.EMAIL' | translate | async }}</mat-label>
+          <input matInput [value]="society?.email" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput [value]="society?.phoneNumber1" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput [value]="society?.phoneNumber2" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput [value]="society?.faxNumber" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.LINK' | translate | async }}</mat-label>
+          <input matInput [value]="society?.link" readonly>
+        </mat-form-field>
+      </div>
+
+      <!-- ===== Images ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'SOCIAL_SOCIETIES.IMAGES' | translate | async }}
+        </h3>
+
+        <div class="file-row">
+          <label>
+            {{ 'SOCIAL_SOCIETIES.LOGO' | translate | async }}
+            <div class="photo-box" *ngIf="society?.photoUrl">
+              <img [src]="getPhotoUrl(society?.photoUrl)" alt="صورة الشعار" />
+            </div>
+          </label>
+
+          <label>
+            {{ 'SOCIAL_SOCIETIES.DIR_PHOTO_URL' | translate | async }}
+            <div class="photo-box" *ngIf="society?.dirPhotoUrl">
+              <img [src]="getDirPhotoUrl(society?.dirPhotoUrl)" alt="صورة المدير" />
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===== Activities ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'SOCIAL_SOCIETIES.ACTIVITIES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let activity of society?.activities">
+            {{ i18n.currentLang === 'ar' ? activity.activityAr : activity.activityEn }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- ===== Services ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'SOCIAL_SOCIETIES.SERVICES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let service of society?.services">
+            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Actions ===== -->
+  <div class="dialog-actions">
+    <button mat-stroked-button color="primary" type="button" (click)="close()">
+      {{ 'COMMON.CLOSE' | translate | async }}
+    </button>
+  </div>
+
+</div>

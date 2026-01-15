@@ -6,7 +6,6 @@
       <mat-icon class="title-icon">account_balance</mat-icon>
       <h2>{{ 'CultureCenters.CREATE_TITLE' | translate | async }}</h2>
     </div>
-
     <button mat-icon-button class="close-btn" (click)="close()">
       <mat-icon>close</mat-icon>
     </button>
@@ -61,15 +60,15 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'SOCIAL_SOCIETIES.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <mat-label>{{ 'CultureCenters.PHONE_NUMBER_2' | translate | async }}</mat-label>
           <input matInput formControlName="phoneNumber2">
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>{{ 'SOCIAL_SOCIETIES.FAX_NUMBER' | translate | async }}</mat-label>
+          <mat-label>{{ 'CultureCenters.FAX_NUMBER' | translate | async }}</mat-label>
           <input matInput formControlName="faxNumber">
         </mat-form-field>
          <mat-form-field appearance="outline">
-          <mat-label>{{ 'SOCIAL_SOCIETIES.LINK' | translate | async }}</mat-label>
+          <mat-label>{{ 'CultureCenters.LINK' | translate | async }}</mat-label>
           <input matInput formControlName="link">
         </mat-form-field>
       </div>
@@ -77,22 +76,18 @@
       <!-- ===== Images ===== -->
       <div class="section">
         <h3 class="section-title">
-          {{ 'SOCIAL_SOCIETIES.IMAGES' | translate | async }}
+          {{ 'CultureCenters.IMAGES' | translate | async }}
         </h3>
 
         <div class="file-row">
           <label>
-            {{ 'SOCIAL_SOCIETIES.LOGO' | translate | async }}
+            {{ 'CultureCenters.LOGO' | translate | async }}
             <input type="file" (change)="onPhotoChange($event)">
           </label>
-
-         
         </div>
         <div class="file-row">
-          
-
           <label>
-            {{ 'SOCIAL_SOCIETIES.DIR_PHOTO_URL' | translate | async }}
+            {{ 'CultureCenters.DIR_PHOTO_URL' | translate | async }}
             <input type="file" (change)="onDirPhotoChange($event)">
           </label>
         </div>
@@ -102,7 +97,7 @@
       <!-- ===== Activities ===== -->
       <div class="section">
         <h3 class="section-title">
-          {{ 'SOCIAL_SOCIETIES.ACTIVITIES' | translate | async }}
+          {{ 'CultureCenters.ACTIVITIES' | translate | async }}
         </h3>
 
         <!-- 🔥 REQUIRED wrapper -->
@@ -112,14 +107,14 @@
 
             <mat-form-field appearance="outline">
               <mat-label>
-                {{ 'SOCIAL_SOCIETIES.ACTIVITY_NAME_AR' | translate | async }}
+                {{ 'CultureCenters.ACTIVITY_NAME_AR' | translate | async }}
               </mat-label>
               <textarea matInput formControlName="activityAr"></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>
-                {{ 'SOCIAL_SOCIETIES.ACTIVITY_NAME_EN' | translate | async }}
+                {{ 'CultureCenters.ACTIVITY_NAME_EN' | translate | async }}
               </mat-label>
               <textarea matInput formControlName="activityEn"></textarea>
             </mat-form-field>
@@ -142,7 +137,7 @@
       <!-- ===== Services ===== -->
       <div class="section">
         <h3 class="section-title">
-          {{ 'SOCIAL_SOCIETIES.SERVICES' | translate | async }}
+          {{ 'CultureCenters.SERVICES' | translate | async }}
         </h3>
 
         <!-- 🔥 REQUIRED wrapper -->
@@ -151,12 +146,12 @@
           <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
 
             <mat-form-field appearance="outline">
-              <mat-label>{{ 'SOCIAL_SOCIETIES.SERVICES' | translate | async }}</mat-label>
+              <mat-label>{{ 'CultureCenters.SERVICES' | translate | async }}</mat-label>
               <input matInput formControlName="serviceAr">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>{{ 'SOCIAL_SOCIETIES.SERVICES_EN' | translate | async }}</mat-label>
+              <mat-label>{{ 'CultureCenters.SERVICES_EN' | translate | async }}</mat-label>
               <input matInput formControlName="serviceEn">
             </mat-form-field>
 

@@ -5,7 +5,7 @@ import { CultureCenter } from '../../Models/Center';
 import { I18nService } from '../../../Shared/Services/i18n.service';
 
 @Component({
-  selector: 'app-delete',
+selector: 'app-center-create',
 
   templateUrl: './delete.component.html',
   styleUrl: '../create/create.component.scss'
@@ -15,7 +15,7 @@ export class DeleteComponent {
 loading = false;
 
   constructor(
-    private societyService: CenterService,
+    private centerService: CenterService,
     private dialogRef: MatDialogRef<DeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public society: CultureCenter,
     public i18n: I18nService
@@ -24,7 +24,7 @@ loading = false;
   confirm(): void {
     this.loading = true;
 
-    this.societyService.delete(this.society.id).subscribe({
+    this.centerService.delete(this.society.id).subscribe({
       next: () => {
         this.loading = false;
         this.dialogRef.close(true);

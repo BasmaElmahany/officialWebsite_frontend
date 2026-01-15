@@ -1,114 +1,136 @@
-<div class="details-dialog" [class.rtl]="i18n.isRTL">
-
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+  <!-- ===== Header ===== -->
   <div class="dialog-header">
     <div class="title-wrap">
       <mat-icon class="title-icon">info</mat-icon>
-      <h2>{{ 'CULTURE_CENTERS.DETAILS_TITLE' | translate | async }}</h2>
+      <h2>
+        {{ 'CULTURE_CENTERS.DETAILS_TITLE' | translate | async }}
+      </h2>
     </div>
-
     <button mat-icon-button class="close-btn" (click)="close()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
-  <div class="loading-shade" *ngIf="loading">
-    <mat-spinner diameter="40"></mat-spinner>
-  </div>
-
-  <div class="dialog-body" *ngIf="!loading">
+  <div class="dialog-body">
     <div class="dialog-content scroll-area">
-      
+      <!-- ===== Basic Info ===== -->
       <div class="section">
-        <h3 class="section-title">{{ 'CULTURE_CENTERS.BASIC_INFO' | translate | async }}</h3>
+        <h3 class="section-title">
+          {{ 'CULTURE_CENTERS.BASIC_INFO' | translate | async }}
+        </h3>
 
-        <div class="info-grid">
-          <mat-form-field appearance="outline">
-            <mat-label>{{ 'CULTURE_CENTERS.NAME_AR' | translate | async }}</mat-label>
-            <input matInput [value]="center?.nameAr" readonly>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>{{ 'CULTURE_CENTERS.NAME_EN' | translate | async }}</mat-label>
-            <input matInput [value]="center?.nameEn" readonly>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>{{ 'CULTURE_CENTERS.DIR_NAME_AR' | translate | async }}</mat-label>
-            <input matInput [value]="center?.dirNameAr" readonly>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>{{ 'CULTURE_CENTERS.DIR_NAME_EN' | translate | async }}</mat-label>
-            <input matInput [value]="center?.dirNameEn" readonly>
-          </mat-form-field>
-        </div>
-
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>{{ 'CULTURE_CENTERS.ADDRESS_AR' | translate | async }}</mat-label>
-          <textarea matInput [value]="center?.addressAr" readonly rows="2"></textarea>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="center?.nameAr" readonly>
         </mat-form-field>
 
-        <div class="info-grid">
-          <mat-form-field appearance="outline">
-            <mat-label>{{ 'CULTURE_CENTERS.PHONE_NUMBER_1' | translate | async }}</mat-label>
-            <input matInput [value]="center?.phoneNumber1" readonly>
-          </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="center?.nameEn" readonly>
+        </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>{{ 'CULTURE_CENTERS.EMAIL' | translate | async }}</mat-label>
-            <input matInput [value]="center?.email" readonly>
-          </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.DIR_NAME_AR' | translate | async }}</mat-label>
+          <input matInput [value]="center?.dirNameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.DIR_NAME_EN' | translate | async }}</mat-label>
+          <input matInput [value]="center?.dirNameEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput [value]="center?.addressAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput [value]="center?.addressEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.EMAIL' | translate | async }}</mat-label>
+          <input matInput [value]="center?.email" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput [value]="center?.phoneNumber1" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput [value]="center?.phoneNumber2" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput [value]="center?.faxNumber" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CULTURE_CENTERS.LINK' | translate | async }}</mat-label>
+          <input matInput [value]="center?.link" readonly>
+        </mat-form-field>
       </div>
 
+      <!-- ===== Images ===== -->
       <div class="section">
-        <h3 class="section-title">{{ 'CULTURE_CENTERS.IMAGES' | translate | async }}</h3>
-        <div class="images-container">
-          <div class="img-item">
-            <p>{{ 'CULTURE_CENTERS.LOGO' | translate | async }}</p>
-            <div class="photo-box">
-              <img [src]="formatImageUrl(center?.photoUrl)" alt="Center Logo" />
-            </div>
-          </div>
+        <h3 class="section-title">
+          {{ 'CULTURE_CENTERS.IMAGES' | translate | async }}
+        </h3>
 
-          <div class="img-item">
-            <p>{{ 'CULTURE_CENTERS.DIR_PHOTO' | translate | async }}</p>
-            <div class="photo-box">
-              <img [src]="formatImageUrl(center?.dirPhotoUrl)" alt="Director Photo" />
+        <div class="file-row">
+          <label>
+            {{ 'CULTURE_CENTERS.LOGO' | translate | async }}
+            <div class="photo-box" *ngIf="center?.photoUrl">
+              <img [src]="formatImageUrl(center?.photoUrl)" alt="صورة الشعار" />
             </div>
-          </div>
+          </label>
+
+          <label>
+            {{ 'CULTURE_CENTERS.DIR_PHOTO_URL' | translate | async }}
+            <div class="photo-box" *ngIf="center?.dirPhotoUrl">
+              <img [src]="formatImageUrl(center?.dirPhotoUrl)" alt="صورة المدير" />
+            </div>
+          </label>
         </div>
       </div>
 
-      <div class="lists-grid">
-        <div class="section">
-          <h3 class="section-title">{{ 'CULTURE_CENTERS.ACTIVITIES' | translate | async }}</h3>
-          <ul class="styled-list">
-            <li *ngFor="let activity of center?.activities">
-              {{ i18n.currentLang === 'ar' ? activity.activityAr : activity.activityEn }}
-            </li>
-            <li *ngIf="!center?.activities?.length" class="empty-msg">لا يوجد أنشطة مضافة</li>
-          </ul>
-        </div>
+      <!-- ===== Activities ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'CULTURE_CENTERS.ACTIVITIES' | translate | async }}
+        </h3>
 
-        <div class="section">
-          <h3 class="section-title">{{ 'CULTURE_CENTERS.SERVICES' | translate | async }}</h3>
-          <ul class="styled-list">
-            <li *ngFor="let service of center?.services">
-              {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
-            </li>
-            <li *ngIf="!center?.services?.length" class="empty-msg">لا يوجد خدمات مضافة</li>
-          </ul>
-        </div>
+        <ul>
+          <li *ngFor="let activity of center?.activities">
+            {{ i18n.currentLang === 'ar' ? activity.activityAr : activity.activityEn }}
+          </li>
+        </ul>
       </div>
 
+      <!-- ===== Services ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'CULTURE_CENTERS.SERVICES' | translate | async }}
+        </h3>
+
+        <ul>
+          <li *ngFor="let service of center?.services">
+            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
+  <!-- ===== Actions ===== -->
   <div class="dialog-actions">
-    <button mat-button color="primary" (click)="close()">
+    <button mat-stroked-button color="primary" type="button" (click)="close()">
       {{ 'COMMON.CLOSE' | translate | async }}
     </button>
   </div>
-
 </div>

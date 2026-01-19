@@ -6,7 +6,7 @@ import { I18nService } from '../../../Shared/Services/i18n.service';
 import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
-  selector: 'app-create',
+selector: 'app-center-create',
 
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -163,7 +163,7 @@ export class CreateComponent {
         }
       }
     });
-    console.group('📦 SocialSocieties FormData Payload');
+    console.group('📦 CultureCenters FormData Payload');
 
     formData.forEach((value, key) => {
       if (value instanceof File) {

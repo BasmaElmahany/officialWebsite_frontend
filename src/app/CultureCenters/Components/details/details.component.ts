@@ -30,7 +30,11 @@ export class DetailsComponent implements OnInit {
     // تحديد نوع res و err يدوياً لحل أخطاء الـ compiler
     this.centerService.getById(id).subscribe({
       next: (res: CultureCenter) => {
-        this.center = res;
+        // معالجة dirphotoUrl القادمة من الـ API
+        this.center = {
+          ...res,
+          dirPhotoUrl: (res as any).dirphotoUrl || (res as any).dirPhotoUrl
+        };
         this.loading = false;
       },
       error: (err: any) => {

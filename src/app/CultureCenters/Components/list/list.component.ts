@@ -1,4 +1,3 @@
-// ...existing code...
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CultureCenterRead } from '../../Models/Center';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,16 +15,13 @@ import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-list',
-
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit, AfterViewInit {
-  // دعم الاسم القديم في القالب
 
   displayedColumns: string[] = ['icon', 'name', 'managerName', 'phoneNumber', 'actions'];
   dataSource = new MatTableDataSource<CultureCenterRead>();
-
   loading = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -34,35 +30,34 @@ export class ListComponent implements OnInit, AfterViewInit {
   constructor(
     private centerService: CenterService,
     private router: Router,
-    public i18n: I18nService, private dialog: MatDialog, private toast: ToastService
+    public i18n: I18nService, 
+    private dialog: MatDialog, 
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
-    this.centerService.getAllSocialSocieties().subscribe({
-      next: data => {
-        this.dataSource.data = data;
-        this.loading = false;
-      },
-      error: () => this.loading = false
-    });
+    this.loadData();
 
-    // 🔥 Sorting based on language
+    // إعدادات الفرز (Sorting)
     this.dataSource.sortingDataAccessor = (item, property) => {
-      if (property === 'name' || property === 'managerName' || property === 'phoneNumber') {
-        return this.i18n.currentLang === 'ar'
-          ? item.nameAr
-          : item.nameEn || item.dirNameAr || item.dirNameEn || item.phoneNumber1 || '';
+      switch (property) {
+        case 'name':
+          return (this.i18n.currentLang === 'ar' ? item.nameAr : item.nameEn) ?? '';
+        case 'managerName':
+          return (this.i18n.currentLang === 'ar' ? item.dirNameAr : item.dirNameEn) ?? '';
+        case 'phoneNumber':
+          return item.phoneNumber1 ?? '';
+        default:
+          // fallback: always return string or number
+          const value = item[property as keyof typeof item];
+          return (typeof value === 'string' || typeof value === 'number') ? value : '';
       }
-      return '';
     };
 
-    // 🔎 Filtering based on language
-    this.dataSource.filterPredicate = (society, filter) => {
-      const value = this.i18n.currentLang === 'ar'
-        ? society.nameAr
-        : society.nameEn || society.dirNameEn || society.dirNameAr || society.phoneNumber1 || '';
-
-      return value.toLowerCase().includes(filter);
+    // إعدادات البحث (Filtering)
+    this.dataSource.filterPredicate = (data, filter) => {
+      const searchStr = `${data.nameAr} ${data.nameEn} ${data.dirNameAr} ${data.dirNameEn} ${data.phoneNumber1}`.toLowerCase();
+      return searchStr.includes(filter);
     };
   }
 
@@ -71,31 +66,44 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  loadData(): void {
+    this.loading = true;
+    this.centerService.getAllCultureCenters().subscribe({
+      next: (data) => {
+        this.dataSource.data = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+        this.toast.error(this.i18n.currentLang === 'ar' ? 'حدث خطأ في تحميل البيانات' : 'Error loading data');
+      }
+    });
+  }
+
   applyFilter(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  getCenterName(center: CultureCenterRead): string {
-    return this.i18n.currentLang === 'ar'
-      ? center.nameAr
-      : center.nameEn;
+  // دالة موحدة للحصول على الاسم
+  getDisplayName(center: CultureCenterRead): string {
+    if (!center) return '';
+    return this.i18n.currentLang === 'ar' 
+      ? (center.nameAr || center.nameEn) 
+      : (center.nameEn || center.nameAr);
   }
-  getManagerName(center: CultureCenterRead): string {
-    const ar = center.dirNameAr?.trim() ?? '';
-    const en = center.dirNameEn?.trim() ?? '';
-    return (
-      this.i18n.currentLang === 'ar'
-        ? ar || en
-        : en || ar
-    ) || '—';
+
+  // دالة موحدة للحصول على اسم المدير
+  getDisplayManager(center: CultureCenterRead): string {
+    if (!center) return '';
+    const ar = center.dirNameAr?.trim();
+    const en = center.dirNameEn?.trim();
+    return (this.i18n.currentLang === 'ar' ? (ar || en) : (en || ar)) || '—';
   }
 
   getPhoneNumber(center: CultureCenterRead): string {
-    return center.phoneNumber1 ? center.phoneNumber1 : 'N/A';
+    return center.phoneNumber1 || 'N/A';
   }
-
-
 
   goToCreate(): void {
     const dialogRef = this.dialog.open(CreateComponent, {
@@ -104,20 +112,7 @@ export class ListComponent implements OnInit, AfterViewInit {
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.reloadCenters();
-      }
-    });
-  }
-
-  reloadCenters(): void {
-    this.loading = true;
-    this.centerService.getAllSocialSocieties().subscribe({
-      next: data => {
-        this.dataSource.data = data;
-        this.loading = false;
-      },
-      error: () => this.loading = false
+      if (result) this.loadData();
     });
   }
 
@@ -128,14 +123,14 @@ export class ListComponent implements OnInit, AfterViewInit {
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadCenters();
+      if (ok) this.loadData();
     });
   }
 
   openDetails(center: CultureCenterRead): void {
     this.dialog.open(DetailsComponent, {
       width: '520px',
-      data: { id: center.id } as any,
+      data: { id: center.id },
       direction: this.i18n.isRTL ? 'rtl' : 'ltr',
       autoFocus: false
     });
@@ -148,12 +143,7 @@ export class ListComponent implements OnInit, AfterViewInit {
       direction: this.i18n.isRTL ? 'rtl' : 'ltr'
     });
     ref.afterClosed().subscribe(ok => {
-      if (ok) this.reloadCenters();
+      if (ok) this.loadData();
     });
-  }
-
-  // دعم الاسم القديم في القالب
-  getSocietyName(center: CultureCenterRead): string {
-    return this.getCenterName(center);
   }
 }

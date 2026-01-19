@@ -1,0 +1,158 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">devices_other</mat-icon>
+      <h2>{{ 'ADMIN_DEVICES.CREATE_TITLE' | translate | async }}</h2>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-body">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content scroll-area">
+      
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'ADMIN_DEVICES.BASIC_INFO' | translate | async }}
+        </h3>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.NAME_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="nameAr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.NAME_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="nameEn">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.SERIAL_NUMBER' | translate | async }}</mat-label>
+          <input matInput formControlName="serialNumber">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.TYPE' | translate | async }}</mat-label>
+          <input matInput formControlName="type">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.STATUS' | translate | async }}</mat-label>
+          <input matInput formControlName="status">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.LOCATION' | translate | async }}</mat-label>
+          <input matInput formControlName="location">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.PURCHASE_DATE' | translate | async }}</mat-label>
+          <input matInput formControlName="purchaseDate" type="date">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'ADMIN_DEVICES.WARRANTY_END' | translate | async }}</mat-label>
+          <input matInput formControlName="warrantyEndDate" type="date">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'ADMIN_DEVICES.NOTES' | translate | async }}</mat-label>
+          <textarea matInput formControlName="notes" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'ADMIN_DEVICES.PHOTO' | translate | async }}
+        </h3>
+        <div class="file-row">
+          <label>
+            {{ 'ADMIN_DEVICES.PHOTO' | translate | async }}
+            <input type="file" accept="image/*" (change)="onPhotoChange($event)">
+          </label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'ADMIN_DEVICES.ACTIVITIES' | translate | async }}
+        </h3>
+
+        <div formArrayName="activities">
+          <div class="repeat-card" *ngFor="let a of activities.controls; let i = index" [formGroupName]="i">
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'ADMIN_DEVICES.ACTIVITY_AR' | translate | async }}</mat-label>
+              <textarea matInput formControlName="activityAr"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'ADMIN_DEVICES.ACTIVITY_EN' | translate | async }}</mat-label>
+              <textarea matInput formControlName="activityEn"></textarea>
+            </mat-form-field>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeActivity(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <button mat-stroked-button type="button" (click)="addActivity()">
+          <mat-icon>add</mat-icon>
+          {{ 'COMMON.ADD' | translate | async }}
+        </button>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'ADMIN_DEVICES.SERVICES' | translate | async }}
+        </h3>
+
+        <div formArrayName="services">
+          <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'ADMIN_DEVICES.SERVICE_AR' | translate | async }}</mat-label>
+              <input matInput formControlName="serviceAr">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'ADMIN_DEVICES.SERVICE_EN' | translate | async }}</mat-label>
+              <input matInput formControlName="serviceEn">
+            </mat-form-field>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeService(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <button mat-stroked-button type="button" (click)="addService()">
+          <mat-icon>add</mat-icon>
+          {{ 'COMMON.ADD' | translate | async }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="dialog-actions">
+    <button mat-stroked-button type="button" (click)="close()">
+      {{ 'COMMON.CANCEL' | translate | async }}
+    </button>
+
+    <button mat-raised-button color="primary" (click)="submit()" [disabled]="loading || form.invalid">
+      <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      <span>
+        {{ loading 
+            ? ('COMMON.SAVING' | translate | async) 
+            : ('COMMON.CREATE' | translate | async) 
+        }}
+      </span>
+    </button>
+  </div>
+
+</div>

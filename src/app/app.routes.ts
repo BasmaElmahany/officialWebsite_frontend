@@ -62,10 +62,15 @@ export const routes: Routes = [
           import('./socialSocieties/society.module').then(m => m.SocietyModule)
       },
         {
-        path: 'Center',
-        loadChildren: () =>
-          import('./CultureCenters/center.module').then(m => m.CenterModule)
-      }
+          path: 'Center',
+          loadChildren: () =>
+            import('./CultureCenters/center.module').then(m => m.CenterModule)
+        },
+        {
+          path: 'administrative-devices',
+          loadChildren: () =>
+            import('./Administrative_devices/administrative-devices.module').then(m => m.AdministrativeDevicesModule)
+        }
     ]
   }
 ];

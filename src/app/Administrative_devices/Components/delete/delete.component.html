@@ -1,0 +1,23 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+	<div class="dialog-header warn">
+		<div class="title-wrap">
+			<mat-icon class="title-icon">warning</mat-icon>
+			<h2>
+				{{ i18n.currentLang === 'ar' ? 'حذف الجهاز الإداري؟' : 'Delete Administrative Device?' }}
+			</h2>
+		</div>
+	</div>
+	<div class="dialog-content">
+		<p>
+			{{ i18n.currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا الجهاز الإداري؟' : 'Are you sure you want to delete this administrative device?' }}
+		</p>
+	</div>
+	<div class="dialog-actions">
+		<button mat-stroked-button (click)="close()">
+			{{ i18n.currentLang === 'ar' ? 'إلغاء' : 'Cancel' }}
+		</button>
+		<button mat-raised-button color="warn" (click)="confirm()" [disabled]="loading">
+			{{ i18n.currentLang === 'ar' ? 'حذف' : 'Delete' }}
+		</button>
+	</div>
+</div>

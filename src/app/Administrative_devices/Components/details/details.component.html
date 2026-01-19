@@ -1,0 +1,75 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+	<!-- ===== Header ===== -->
+	<div class="dialog-header">
+		<div class="title-wrap">
+			<mat-icon class="title-icon">info</mat-icon>
+			<h2>
+				{{ i18n.currentLang === 'ar' ? 'تفاصيل الجهاز الإداري' : 'Administrative Device Details' }}
+			</h2>
+		</div>
+		<button mat-icon-button class="close-btn" (click)="close()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
+
+	<div class="dialog-body">
+		<div class="dialog-content scroll-area">
+			<!-- ===== Basic Info ===== -->
+			<div class="section">
+				<h3 class="section-title">
+					{{ i18n.currentLang === 'ar' ? 'البيانات الأساسية' : 'Basic Info' }}
+				</h3>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الجهاز (عربي)' : 'Device Name (AR)' }}</mat-label>
+					<input matInput [value]="device?.nameAr" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الجهاز (إنجليزي)' : 'Device Name (EN)' }}</mat-label>
+					<input matInput [value]="device?.nameEn" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'الرقم التسلسلي' : 'Serial Number' }}</mat-label>
+					<input matInput [value]="device?.serialNumber" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'النوع' : 'Type' }}</mat-label>
+					<input matInput [value]="device?.type" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'الحالة' : 'Status' }}</mat-label>
+					<input matInput [value]="device?.status" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'الموقع' : 'Location' }}</mat-label>
+					<input matInput [value]="device?.location" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'تاريخ الشراء' : 'Purchase Date' }}</mat-label>
+					<input matInput [value]="device?.purchaseDate" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'نهاية الضمان' : 'Warranty End Date' }}</mat-label>
+					<input matInput [value]="device?.warrantyEndDate" readonly>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'ملاحظات' : 'Notes' }}</mat-label>
+					<textarea matInput [value]="device?.notes" readonly></textarea>
+				</mat-form-field>
+
+				<div *ngIf="device?.photoUrl" class="device-photo">
+					<label>{{ i18n.currentLang === 'ar' ? 'صورة الجهاز' : 'Device Photo' }}</label>
+					<img [src]="device?.photoUrl" alt="device photo" style="max-width: 100%; max-height: 200px;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

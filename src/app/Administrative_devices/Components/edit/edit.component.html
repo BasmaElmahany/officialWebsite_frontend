@@ -1,0 +1,73 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+	<div class="dialog-header">
+		<div class="title-wrap">
+			<mat-icon class="title-icon">edit</mat-icon>
+			<h2>
+				{{ i18n.currentLang === 'ar' ? 'تعديل الجهاز الإداري' : 'Edit Administrative Device' }}
+			</h2>
+		</div>
+		<button mat-icon-button class="close-btn" (click)="close()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
+	<div class="dialog-body">
+		<form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content scroll-area">
+			<div class="section">
+				<h3 class="section-title">
+					{{ i18n.currentLang === 'ar' ? 'البيانات الأساسية' : 'Basic Info' }}
+				</h3>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الجهاز (عربي)' : 'Device Name (AR)' }}</mat-label>
+					<input matInput formControlName="nameAr">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'اسم الجهاز (إنجليزي)' : 'Device Name (EN)' }}</mat-label>
+					<input matInput formControlName="nameEn">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'الرقم التسلسلي' : 'Serial Number' }}</mat-label>
+					<input matInput formControlName="serialNumber">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'النوع' : 'Type' }}</mat-label>
+					<input matInput formControlName="type">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'الحالة' : 'Status' }}</mat-label>
+					<input matInput formControlName="status">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'الموقع' : 'Location' }}</mat-label>
+					<input matInput formControlName="location">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'تاريخ الشراء' : 'Purchase Date' }}</mat-label>
+					<input matInput formControlName="purchaseDate" type="date">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'نهاية الضمان' : 'Warranty End Date' }}</mat-label>
+					<input matInput formControlName="warrantyEndDate" type="date">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>{{ i18n.currentLang === 'ar' ? 'ملاحظات' : 'Notes' }}</mat-label>
+					<textarea matInput formControlName="notes"></textarea>
+				</mat-form-field>
+				<div class="file-upload">
+					<label>{{ i18n.currentLang === 'ar' ? 'صورة الجهاز' : 'Device Photo' }}</label>
+					<input type="file" (change)="onPhotoChange($event)" accept="image/*">
+					<div *ngIf="photoUrl">
+						<img [src]="photoUrl" alt="device photo" style="max-width: 100%; max-height: 200px;">
+					</div>
+				</div>
+			</div>
+			<div class="dialog-actions">
+				<button mat-stroked-button type="button" (click)="close()">
+					{{ i18n.currentLang === 'ar' ? 'إلغاء' : 'Cancel' }}
+				</button>
+				<button mat-raised-button color="primary" type="submit" [disabled]="loading">
+					{{ i18n.currentLang === 'ar' ? 'حفظ' : 'Save' }}
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

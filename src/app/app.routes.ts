@@ -55,6 +55,16 @@ export const routes: Routes = [
         path: 'news',
         loadChildren: () =>
           import('./News/news.module').then(m => m.NewsModule)
+      },
+       {
+        path: 'society',
+        loadChildren: () =>
+          import('./socialSocieties/society.module').then(m => m.SocietyModule)
+      },
+        {
+        path: 'Center',
+        loadChildren: () =>
+          import('./CultureCenters/center.module').then(m => m.CenterModule)
       }
     ]
   }

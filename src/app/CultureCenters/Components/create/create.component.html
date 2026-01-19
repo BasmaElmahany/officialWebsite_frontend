@@ -1,0 +1,201 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+  <!-- ===== Header (Sticky) ===== -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">account_balance</mat-icon>
+      <h2>{{ 'CultureCenters.CREATE_TITLE' | translate | async }}</h2>
+    </div>
+
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- ===== Scrollable Content ===== -->
+  <div class="dialog-body">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content scroll-area">
+      <!-- ===== Basic Info ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'CultureCenters.BASIC_INFO' | translate | async }}
+        </h3>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.NAME_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="nameAr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.NAME_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="nameEn">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.DIR_NAME_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="dirNameAr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.DIR_NAME_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="dirNameEn">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.ADDRESS_AR' | translate | async }}</mat-label>
+          <input matInput formControlName="addressAr">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.ADDRESS_EN' | translate | async }}</mat-label>
+          <input matInput formControlName="addressEn">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.EMAIL' | translate | async }}</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CultureCenters.PHONE_NUMBER_1' | translate | async }}</mat-label>
+          <input matInput formControlName="phoneNumber1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.PHONE_NUMBER_2' | translate | async }}</mat-label>
+          <input matInput formControlName="phoneNumber2">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.FAX_NUMBER' | translate | async }}</mat-label>
+          <input matInput formControlName="faxNumber">
+        </mat-form-field>
+         <mat-form-field appearance="outline">
+          <mat-label>{{ 'SOCIAL_SOCIETIES.LINK' | translate | async }}</mat-label>
+          <input matInput formControlName="link">
+        </mat-form-field>
+      </div>
+
+      <!-- ===== Images ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'SOCIAL_SOCIETIES.IMAGES' | translate | async }}
+        </h3>
+
+        <div class="file-row">
+          <label>
+            {{ 'SOCIAL_SOCIETIES.LOGO' | translate | async }}
+            <input type="file" (change)="onPhotoChange($event)">
+          </label>
+
+         
+        </div>
+        <div class="file-row">
+          
+
+          <label>
+            {{ 'SOCIAL_SOCIETIES.DIR_PHOTO_URL' | translate | async }}
+            <input type="file" (change)="onDirPhotoChange($event)">
+          </label>
+        </div>
+      </div>
+
+      <!-- ===== Activities ===== -->
+      <!-- ===== Activities ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'SOCIAL_SOCIETIES.ACTIVITIES' | translate | async }}
+        </h3>
+
+        <!-- 🔥 REQUIRED wrapper -->
+        <div formArrayName="activities">
+
+          <div class="repeat-card" *ngFor="let a of activities.controls; let i = index" [formGroupName]="i">
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'SOCIAL_SOCIETIES.ACTIVITY_NAME_AR' | translate | async }}
+              </mat-label>
+              <textarea matInput formControlName="activityAr"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'SOCIAL_SOCIETIES.ACTIVITY_NAME_EN' | translate | async }}
+              </mat-label>
+              <textarea matInput formControlName="activityEn"></textarea>
+            </mat-form-field>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeActivity(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
+        </div>
+
+        <button mat-stroked-button type="button" (click)="addActivity()">
+          <mat-icon>add</mat-icon>
+          {{ 'COMMON.ADD' | translate | async }}
+        </button>
+      </div>
+
+
+      <!-- ===== Services ===== -->
+      <!-- ===== Services ===== -->
+      <div class="section">
+        <h3 class="section-title">
+          {{ 'SOCIAL_SOCIETIES.SERVICES' | translate | async }}
+        </h3>
+
+        <!-- 🔥 REQUIRED wrapper -->
+        <div formArrayName="services">
+
+          <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'SOCIAL_SOCIETIES.SERVICES' | translate | async }}</mat-label>
+              <input matInput formControlName="serviceAr">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'SOCIAL_SOCIETIES.SERVICES_EN' | translate | async }}</mat-label>
+              <input matInput formControlName="serviceEn">
+            </mat-form-field>
+
+            <input type="file" accept="application/pdf" (change)="onServiceFileChange($event, i)">
+
+            <button mat-icon-button color="warn" type="button" (click)="removeService(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </div>
+        </div>
+
+        <button mat-stroked-button type="button" (click)="addService()">
+          <mat-icon>add</mat-icon>
+          {{ 'COMMON.ADD' | translate | async }}
+        </button>
+      </div>
+
+
+    </form>
+  </div>
+
+  <!-- ===== Actions (Sticky) ===== -->
+  <div class="dialog-actions">
+    <button mat-stroked-button type="button" (click)="close()">
+      {{ 'COMMON.CANCEL' | translate | async }}
+    </button>
+
+    <button mat-raised-button color="primary" (click)="submit()" [disabled]="loading">
+      <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate">
+      </mat-progress-spinner>
+
+      <span>
+        {{ loading
+        ? ('COMMON.SAVING' | translate | async)
+        : ('COMMON.CREATE' | translate | async)
+        }}
+      </span>
+    </button>
+  </div>
+
+</div>

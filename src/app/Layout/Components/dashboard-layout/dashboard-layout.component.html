@@ -34,13 +34,22 @@
           {{ i18n.currentLang === 'ar' ? 'عام' : 'General' }}
         </div>
 
+
+
+
+
         <a class="nav-item" [routerLink]="['/dashboard']" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }" [attr.title]="( 'MENU.DASHBOARD' | translate | async )">
           <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
           <span class="nav-text">{{ 'MENU.DASHBOARD' | translate | async }}</span>
         </a>
 
-      
+
+        <a class="nav-item" [routerLink]="['/dashboard', 'centers']" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" [attr.title]="( 'MENU.CENTERS' | translate | async )">
+          <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
+          <span class="nav-text">{{ 'MENU.CENTERS' | translate | async }}</span>
+        </a>
 
 
         <a class="nav-item" [routerLink]="['/dashboard', 'agencies']" routerLinkActive="active"
@@ -79,21 +88,19 @@
 
 
 
-   <a class="nav-item" [routerLink]="['/dashboard', 'society']" routerLinkActive="active"
+        <a class="nav-item" [routerLink]="['/dashboard', 'society']" routerLinkActive="active"
           [attr.title]="( 'MENU.SOCIETY' | translate | async )">
           <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
           <span class="nav-text">{{ 'MENU.SOCIETY' | translate | async }}</span>
           <span class="nav-badge">10</span>
         </a>
-  <a class="nav-item" 
-   [routerLink]="['/dashboard', 'Center']" 
-   routerLinkActive="active"
-    [attr.title]="( 'MENU.CENTERSS' | translate | async )">
+        <a class="nav-item" [routerLink]="['/dashboard', 'Center']" routerLinkActive="active"
+          [attr.title]="( 'MENU.CENTERSS' | translate | async )">
           <span class="nav-icon"><i class="fas fa-building"></i></span>
           <span class="nav-text">{{ 'MENU.CENTERSS' | translate | async }}</span>
         </a>
-   
- 
+
+
 
         <a class="nav-item" [routerLink]="['/dashboard', 'companies']" routerLinkActive="active"
           [attr.title]="( 'MENU.COMPANIES' | translate | async )">

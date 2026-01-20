@@ -1,9 +1,16 @@
+/* =====================================================
+   THEME VARIABLES
+===================================================== */
 $primary: #002D62;
 $accent: #D4AF37;
 $bg: #f7f9fc;
 $radius: 18px;
 
-.center-dialog {
+
+/* =====================================================
+   ROOT
+===================================================== */
+.create-dialog {
   width: 100%;
   max-width: 420px;
   background: #fff;
@@ -17,11 +24,19 @@ $radius: 18px;
   }
 }
 
-/* ===== Header ===== */
+
+/* =====================================================
+   HEADER
+===================================================== */
 .dialog-header {
-  background: linear-gradient(135deg, $primary, darken($primary, 10%));
+  background: linear-gradient(
+    135deg,
+    $primary,
+    darken($primary, 10%)
+  );
   color: #fff;
   padding: 16px 20px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,6 +50,7 @@ $radius: 18px;
       font-size: 18px;
       font-weight: 700;
       margin: 0;
+      letter-spacing: .3px;
     }
   }
 
@@ -44,15 +60,47 @@ $radius: 18px;
 
   .close-btn {
     color: #fff;
+    transition: transform .2s ease;
+
+    &:hover {
+      transform: rotate(90deg);
+    }
   }
 }
 
-/* ===== Content ===== */
+
+/* =====================================================
+   CONTENT
+===================================================== */
 .dialog-content {
   padding: 24px;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
   gap: 16px;
+
+  /* 🔥 Enable scrolling */
+  max-height: calc(100vh - 220px); 
+  overflow-y: auto;
+
+  /* Smooth scrolling */
+  scrollbar-width: thin;
+  scrollbar-color: $primary transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba($primary, 0.35);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+ 
 
   mat-form-field {
     width: 100%;
@@ -63,56 +111,66 @@ $radius: 18px;
   }
 }
 
+
 /* =====================================================
-   DIALOG ACTIONS – PREMIUM STYLE
+   ACTIONS (Sticky Footer)
 ===================================================== */
 .dialog-actions {
   position: sticky;
   bottom: 0;
-  background: linear-gradient(180deg, rgba(247, 249, 252, 0.85), #f7f9fc);
+
+  background: linear-gradient(
+    180deg,
+    rgba(247, 249, 252, 0.85),
+    $bg
+  );
   backdrop-filter: blur(6px);
+
   padding: 14px 20px;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 $radius $radius;
+
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 12px;
-  border-top: 1px solid #e5e7eb;
-  border-radius: 0 0 18px 18px;
 
   button {
     min-width: 130px;
     height: 42px;
     border-radius: 12px;
     font-weight: 600;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.25s ease;
+
+    transition: all .25s ease;
   }
 
-  /* Cancel Button */
+  /* Cancel */
   button[mat-stroked-button] {
     background: transparent;
 
     &:hover {
-      background: rgba(0, 45, 98, 0.05);
+      background: rgba($primary, 0.05);
       transform: translateY(-1px);
     }
   }
 
-  /* Primary Action */
+  /* Primary */
   button[mat-raised-button] {
-    box-shadow: 0 10px 25px rgba(0, 45, 98, 0.25);
+    box-shadow: 0 10px 25px rgba($primary, .25);
 
     &:hover {
-      box-shadow: 0 14px 35px rgba(0, 45, 98, 0.35);
+      box-shadow: 0 14px 35px rgba($primary, .35);
       transform: translateY(-2px);
     }
 
     &:active {
       transform: translateY(0);
-      box-shadow: 0 8px 18px rgba(0, 45, 98, 0.2);
+      box-shadow: 0 8px 18px rgba($primary, .2);
     }
 
     mat-icon {
@@ -120,7 +178,7 @@ $radius: 18px;
     }
   }
 
-  /* Loading Spinner */
+  /* Loader */
   mat-progress-spinner {
     width: 20px !important;
     height: 20px !important;
@@ -131,15 +189,88 @@ $radius: 18px;
   }
 }
 
-/* RTL SUPPORT */
-.center-dialog.rtl {
+
+
+/* =====================================================
+   ADD BUTTONS – UNIFIED STYLE
+===================================================== */
+
+button[mat-stroked-button],
+button[mat-button] {
+
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: .3px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: all .25s ease;
+
+  color: $primary;
+
+  /* Icon style (if added later) */
+  mat-icon {
+    font-size: 18px;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* ===== Stroked Buttons ===== */
+button[mat-stroked-button] {
+  border: 1px dashed $primary;
+  background: rgba($primary, .03);
+
+  &:hover {
+    background: rgba($primary, .08);
+  }
+}
+
+/* ===== Flat Buttons ===== */
+button[mat-button] {
+  background: transparent;
+  color: $primary;
+
+  &:hover {
+    background: rgba($primary, .06);
+  }
+}
+
+/* ===== Hierarchy spacing ===== */
+.box > button,
+.inner-box > button {
+  margin-top: 8px;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  button[mat-stroked-button],
+  button[mat-button] {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* =====================================================
+   RTL SUPPORT
+===================================================== */
+.create-dialog.rtl {
   .dialog-actions {
     justify-content: flex-start;
   }
 }
 
-/* RESPONSIVE */
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 @media (max-width: 480px) {
+
   .dialog-actions {
     flex-direction: column-reverse;
     align-items: stretch;
@@ -148,14 +279,19 @@ $radius: 18px;
       width: 100%;
     }
   }
+
 }
 
-/* Animation */
+
+/* =====================================================
+   ANIMATION
+===================================================== */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.97);
+    transform: translateY(20px) scale(.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);

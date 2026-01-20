@@ -27,7 +27,7 @@ export class CenterService {
 
 
   // 🔹 Create
-  createCenter(payload: CreateCenter): Observable<Center> {
+  createCenter(payload: CreateCenter) {
     return this.http
       .post<ApiResponse<Center>>(this.apiUrl, payload)
       .pipe(map(res => res.data));

@@ -1,81 +1,286 @@
-<div class="center-dialog" [class.rtl]="i18n.isRTL">
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
 
-  <!-- ===== Header ===== -->
+  <!-- ================= HEADER ================= -->
   <div class="dialog-header">
+
     <div class="title-wrap">
-      <mat-icon class="title-icon">edit_location_alt</mat-icon>
+      <mat-icon class="title-icon">add_location_alt</mat-icon>
       <h2>
-        {{ 'CENTERS.EDIT_TITLE' | translate | async }}
+        {{ 'CENTERS.CREATE_TITLE' | translate | async }}
       </h2>
     </div>
 
     <button mat-icon-button class="close-btn" (click)="close()">
       <mat-icon>close</mat-icon>
     </button>
+
   </div>
 
-  <!-- ===== Content ===== -->
-  <form [formGroup]="form" (ngSubmit)="submit()" class="dialog-content">
+  <mat-dialog-content class="dialog-content">
+    <!-- ================= FORM ================= -->
+    <form [formGroup]="form" (ngSubmit)="submit()">
 
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>language</mat-icon>
-      <mat-label>
-        {{ 'CENTERS.NAME_AR' | translate | async }}
-      </mat-label>
-      <input matInput formControlName="nameAr">
-      <mat-error *ngIf="form.get('nameAr')?.touched && form.get('nameAr')?.invalid">
-        {{ 'VALIDATION.REQUIRED' | translate | async }}
-      </mat-error>
-    </mat-form-field>
+      <!-- ================= BASIC INFO ================= -->
 
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>public</mat-icon>
-      <mat-label>
-        {{ 'CENTERS.NAME_EN' | translate | async }}
-      </mat-label>
-      <input matInput formControlName="nameEn">
-      <mat-error *ngIf="form.get('nameEn')?.touched && form.get('nameEn')?.invalid">
-        {{ 'VALIDATION.REQUIRED' | translate | async }}
-      </mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>language</mat-icon>
+        <mat-label>
+          {{ 'CENTERS.NAME_AR' | translate | async }}
+        </mat-label>
+        <input matInput formControlName="nameAr">
+        <mat-error *ngIf="form.get('nameAr')?.invalid">
+          {{ 'VALIDATION.REQUIRED' | translate | async }}
+        </mat-error>
+      </mat-form-field>
 
-  </form>
 
-  <!-- ===== Actions ===== -->
-  <div class="dialog-actions">
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>public</mat-icon>
+        <mat-label>
+          {{ 'CENTERS.NAME_EN' | translate | async }}
+        </mat-label>
+        <input matInput formControlName="nameEn">
+        <mat-error *ngIf="form.get('nameEn')?.invalid">
+          {{ 'VALIDATION.REQUIRED' | translate | async }}
+        </mat-error>
+      </mat-form-field>
 
-    <button
-      mat-stroked-button
-      color="primary"
-      type="button"
-      (click)="close()">
 
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.ABOUTAR' | translate | async }}
+        </mat-label>
+        <textarea matInput rows="3" formControlName="aboutAr">
+      </textarea>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.ABOUTEN' | translate | async }}
+        </mat-label>
+        <textarea matInput rows="3" formControlName="aboutEn">
+      </textarea>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.POPULATION_NUMBER' | translate | async }}
+        </mat-label>
+        <input matInput type="number" formControlName="populationNumber">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.DIR_NAME_AR' | translate | async }}
+        </mat-label>
+        <textarea matInput rows="3" formControlName="dirNameAr">
+      </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.DIR_NAME_EN' | translate | async }}
+        </mat-label>
+        <textarea matInput rows="3" formControlName="dirNameEn">
+      </textarea>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.dirPositionAr' | translate | async }}
+        </mat-label>
+        <textarea matInput rows="3" formControlName="dirPositionAr">
+      </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.dirPositionEn' | translate | async }}
+        </mat-label>
+        <textarea matInput rows="3" formControlName="dirPositionEn">
+      </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.PHONE_NUMBER' | translate | async }}
+        </mat-label>
+        <input matInput type="number" formControlName="phoneNumber">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.FAX_NUMBER' | translate | async }}
+        </mat-label>
+        <input matInput type="number" formControlName="faxNumber">
+      </mat-form-field>
+
+       <mat-form-field appearance="outline">
+        <mat-label>
+          {{ 'CENTERS.MAP_LINK' | translate | async }}
+        </mat-label>
+        <textarea matInput rows="3" formControlName="mapLink">
+      </textarea>
+      </mat-form-field>
+      <!-- ================= INVESTMENT FACTORS ================= -->
+
+      <h3 class="section-title">
+        {{ 'CENTERS.INVESTMENT_FACTORS' | translate | async }}
+      </h3>
+
+      <div formArrayName="investmentFactors">
+
+        <div *ngFor="let f of investmentFactors.controls; let i = index" [formGroupName]="i" class="box">
+
+          <mat-form-field appearance="outline">
+            <mat-label> {{ 'CENTERS.Title (AR)' | translate | async }}</mat-label>
+            <input matInput formControlName="titleAr">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'CENTERS.Title (EN)' | translate | async }}</mat-label>
+            <input matInput formControlName="titleEn">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'CENTERS.Article (AR)' | translate | async }}</mat-label>
+            <textarea matInput rows="2" formControlName="articleAr">
+          </textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'CENTERS.Article (EN)' | translate | async }}</mat-label>
+            <textarea matInput rows="2" formControlName="articleEn">
+          </textarea>
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" type="button" (click)="removeFactor(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </div>
+      </div>
+
+      <button mat-stroked-button type="button" (click)="addFactor()">
+        + {{ 'CENTERS.ADD_INVESTMENT_FACTOR' | translate | async }}
+      </button>
+
+
+      <!-- ================= VILLAGES ================= -->
+
+      <h3 class="section-title">
+        {{ 'CENTERS.VILLAGES' | translate | async }}
+      </h3>
+
+      <div formArrayName="villages">
+
+        <div *ngFor="let v of villages.controls; let i = index" [formGroupName]="i" class="box">
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'CENTERS.Village(AR)' | translate | async }}</mat-label>
+            <input matInput formControlName="nameAr">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'CENTERS.Village(EN)' | translate | async }}</mat-label>
+            <input matInput formControlName="nameEn">
+          </mat-form-field>
+          <button mat-icon-button color="warn" type="button" (click)="removeVillage(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <!-- ===== MINI VILLAGES ===== -->
+
+          <div formArrayName="miniVillages">
+
+            <div *ngFor="let m of miniVillages(i).controls; let j = index" [formGroupName]="j" class="inner-box">
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'CENTERS.MiniVillage(AR)' | translate | async }}</mat-label>
+                <input matInput formControlName="nameAr">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'CENTERS.MiniVillage(EN)' | translate | async }}</mat-label>
+                <input matInput formControlName="nameEn">
+              </mat-form-field>
+              <button mat-icon-button color="warn" type="button" (click)="removeMiniVillage(i,j)">
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <!-- ===== SETTLEMENTS ===== -->
+
+              <div formArrayName="settlements">
+
+                <div *ngFor="let s of settlements(i,j).controls; let k = index" [formGroupName]="k" class="mini-box">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'CENTERS.Settlement(AR)' | translate | async }}</mat-label>
+                    <input matInput formControlName="nameAr">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'CENTERS.Settlement(EN)' | translate | async }}</mat-label>
+                    <input matInput formControlName="nameEn">
+                  </mat-form-field>
+
+                  <button mat-icon-button color="warn" type="button" (click)="removeSettlement(i,j,k)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+
+                </div>
+              </div>
+
+              <button mat-button type="button" (click)="addSettlement(i,j)">
+                + {{ 'CENTERS.Add_Settlement' | translate | async }}
+              </button>
+
+            </div>
+          </div>
+
+          <button mat-button type="button" (click)="addMiniVillage(i)">
+            + {{ 'CENTERS.ADD_MINI_VILLAGE' | translate | async }}
+          </button>
+
+        </div>
+      </div>
+
+      <button mat-stroked-button type="button" (click)="addVillage()">
+        + {{ 'CENTERS.ADD_VILLAGE' | translate | async }}
+      </button>
+
+    </form>
+
+  </mat-dialog-content>
+  <!-- ================= ACTIONS ================= -->
+
+  <mat-dialog-actions class="dialog-actions">
+
+    <button mat-stroked-button color="primary" type="button" (click)="close()">
       {{ 'COMMON.CANCEL' | translate | async }}
     </button>
 
-    <button
-      mat-raised-button
-      color="primary"
-      type="button"
-      (click)="submit()"
-      [disabled]="loading || form.invalid">
+    <button mat-raised-button color="primary" (click)="submit()" [disabled]="loading">
 
-      <mat-icon *ngIf="!loading">save</mat-icon>
+      <mat-icon *ngIf="!loading">check</mat-icon>
 
-      <mat-progress-spinner
-        *ngIf="loading"
-        diameter="20"
-        mode="indeterminate">
+      <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate">
       </mat-progress-spinner>
 
       <span>
-        {{ loading
-          ? ('COMMON.SAVING' | translate | async)
-          : ('COMMON.SAVE' | translate | async)
+        {{
+        loading
+        ? ('COMMON.SAVING' | translate | async)
+        : ('COMMON.CREATE' | translate | async)
         }}
       </span>
 
     </button>
 
-  </div>
+  </mat-dialog-actions>
+
 </div>

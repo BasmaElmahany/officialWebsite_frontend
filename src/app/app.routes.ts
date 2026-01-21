@@ -71,6 +71,15 @@ export const routes: Routes = [
           loadChildren: () =>
             import('./Administrative_devices/administrative-devices.module').then(m => m.AdministrativeDevicesModule)
         }
+        path: 'Center',
+        loadChildren: () =>
+          import('./CultureCenters/center.module').then(m => m.CenterModule)
+      },
+       {
+        path: 'videos',
+        loadChildren: () =>
+          import('./Videos/video.module').then(m => m.VideoModule)
+      }
     ]
   }
 ];

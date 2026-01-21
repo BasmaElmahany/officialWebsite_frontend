@@ -37,6 +37,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.centerService.getAllCenters().subscribe({
       next: data => {
         this.dataSource.data = data;
+        console.log(data);
         this.loading = false;
       },
       error: () => this.loading = false

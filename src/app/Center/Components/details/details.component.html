@@ -17,41 +17,148 @@
   <!-- ===== Content ===== -->
   <div class="dialog-content">
 
+    <!-- LOADING -->
     <div class="loading-box" *ngIf="loading">
       <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
       <span>{{ i18n.currentLang === 'ar' ? 'جاري التحميل...' : 'Loading...' }}</span>
     </div>
 
+    <!-- DATA -->
     <ng-container *ngIf="!loading && center">
 
+      <!-- BASIC INFO -->
       <mat-form-field appearance="outline">
-        <mat-icon matPrefix>language</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم المركز (عربي)' : 'Name (Arabic)' }}</mat-label>
-        <input matInput [value]="center.nameAr" readonly />
+        <mat-label>   {{ 'CENTERS.NAME_AR' | translate | async }}</mat-label>
+        <input matInput [value]="center.nameAr" readonly>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-icon matPrefix>public</mat-icon>
-        <mat-label>{{ i18n.currentLang === 'ar' ? 'اسم المركز (إنجليزي)' : 'Name (English)' }}</mat-label>
-        <input matInput [value]="center.nameEn" readonly />
+        <mat-label> {{ 'CENTERS.NAME_EN' | translate | async }}</mat-label>
+        <input matInput [value]="center.nameEn" readonly>
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label> {{ 'CENTERS.ABOUTAR' | translate | async }}</mat-label>
+        <textarea matInput rows="3" [value]="center.aboutAr" readonly></textarea>
+      </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>  {{ 'CENTERS.ABOUTEN' | translate | async }}</mat-label>
+        <textarea matInput rows="3" [value]="center.aboutEn" readonly></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>   {{ 'CENTERS.POPULATION_NUMBER' | translate | async }}</mat-label>
+        <input matInput [value]="center.populationNumber" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'CENTERS.DIR_NAME_AR' | translate | async }}</mat-label>
+        <input matInput [value]="center.dirNameAr" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'CENTERS.DIR_NAME_EN' | translate | async }}</mat-label>
+        <input matInput [value]="center.dirNameEn" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>  {{ 'CENTERS.dirPositionAr' | translate | async }}</mat-label>
+        <input matInput [value]="center.dirPositionAr" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'CENTERS.dirPositionEn' | translate | async }}</mat-label>
+        <input matInput [value]="center.dirPositionEn" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'CENTERS.PHONE_NUMBER' | translate | async }}</mat-label>
+        <input matInput [value]="center.phoneNumber" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'CENTERS.FAX_NUMBER' | translate | async }}</mat-label>
+        <input matInput [value]="center.faxNumber" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label> {{ 'CENTERS.MAP_LINK' | translate | async }}</mat-label>
+        <input matInput [value]="center.mapLink" readonly>
+      </mat-form-field>
+
+      <!-- ================= INVESTMENT FACTORS ================= -->
+      <h3 class="section-title"> {{ 'CENTERS.INVESTMENT_FACTORS' | translate | async }}</h3>
+
+      <div *ngFor="let f of center.investmentFactors" class="box">
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CENTERS.Title (AR)' | translate | async }}</mat-label>
+          <input matInput [value]="f.titleAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CENTERS.Title (EN)' | translate | async }}</mat-label>
+          <input matInput [value]="f.titleEn" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CENTERS.Article (AR)' | translate | async }}</mat-label>
+          <textarea matInput rows="2" [value]="f.articleAr" readonly></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CENTERS.Article (EN)' | translate | async }}</mat-label>
+          <textarea matInput rows="2" [value]="f.articleEn" readonly></textarea>
+        </mat-form-field>
+
+      </div>
+
+      <!-- ================= VILLAGES ================= -->
+      <h3 class="section-title"> {{ 'CENTERS.VILLAGES' | translate | async }}</h3>
+
+      <div *ngFor="let v of center.villages" class="box">
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CENTERS.Village(AR)' | translate | async }}</mat-label>
+          <input matInput [value]="v.nameAr" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'CENTERS.Village(EN)' | translate | async }}</mat-label>
+          <input matInput [value]="v.nameEn" readonly>
+        </mat-form-field>
+
+        <!-- MINI VILLAGES -->
+        <div *ngFor="let m of v.miniVillages" class="inner-box">
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'CENTERS.MiniVillage(AR)' | translate | async }}</mat-label>
+            <input matInput [value]="m.nameAr" readonly>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'CENTERS.MiniVillage(EN)' | translate | async }}</mat-label>
+            <input matInput [value]="m.nameEn" readonly>
+          </mat-form-field>
+
+          <!-- SETTLEMENTS -->
+          <div *ngFor="let s of m.settlements" class="mini-box">
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CENTERS.Settlement(AR)' | translate | async }}</mat-label>
+              <input matInput [value]="s.nameAr" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CENTERS.Settlement(EN)' | translate | async }}</mat-label>
+              <input matInput [value]="s.nameEn" readonly>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
 
     </ng-container>
 
-    <div class="error-box" *ngIf="!loading && !center">
-      <mat-icon>error_outline</mat-icon>
-      <span>{{ i18n.currentLang === 'ar' ? 'تعذر تحميل التفاصيل' : 'Unable to load details' }}</span>
-    </div>
-
-  </div>
-
-  <!-- ===== Actions ===== -->
-  <div class="dialog-actions">
-    <button mat-stroked-button color="primary" type="button" (click)="close()">
-      {{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}
-    </button>
-  </div>
-
-</div>
+    <!-- ERROR -->

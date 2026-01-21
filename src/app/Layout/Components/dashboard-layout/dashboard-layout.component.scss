@@ -173,7 +173,18 @@ $transition: 0.3s ease;
   padding: 8px 8px 6px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
+  margin-bottom: 18px;
 }
+.section-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin: 10px 16px;
+  letter-spacing: .5px;
+}
+
 
 .nav-item {
   text-decoration: none;

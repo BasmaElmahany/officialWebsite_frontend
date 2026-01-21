@@ -320,7 +320,6 @@
   "TOAST.ADMIN_DEVICE_CREATE_SUCCESS": "تم إضافة الجهاز بنجاح",
   "TOAST.ADMIN_DEVICE_UPDATE_SUCCESS": "تم تحديث بيانات الجهاز بنجاح",
   "TOAST.ADMIN_DEVICE_DELETE_SUCCESS": "تم حذف الجهاز من النظام بنجاح",
-  "COMMON.SAVING": "جاري الحفظ",
   "AdministrativeDevices.CREATE_TITLE": "إضافة جهاز إداري جديد",
   "AdministrativeDevices.EDIT_TITLE": "تعديل بيانات الجهاز",
   "AdministrativeDevices.DETAILS_TITLE": "تفاصيل الجهاز الإداري",
@@ -334,18 +333,15 @@
   "AdministrativeDevices.WARRANTY_END": "تاريخ انتهاء الضمان",
   "AdministrativeDevices.PHOTO": "صورة الجهاز",
   "AdministrativeDevices.NOTES": "ملاحظات إضافية",
-  "AdministrativeDevices.ACTIVITIES": "المهام / الأنشطة",
   "AdministrativeDevices.ADD_ACTIVITY": "إضافة مهمة",
   "AdministrativeDevices.ACTIVITY_AR": "المهمة (عربي)",
   "AdministrativeDevices.ACTIVITY_EN": "المهمة (إنجليزي)",
-  "AdministrativeDevices.SERVICES": "الخدمات المرتبطة",
   "AdministrativeDevices.ADD_SERVICE": "إضافة خدمة",
   "AdministrativeDevices.SERVICE_AR": "الخدمة (عربي)",
   "AdministrativeDevices.SERVICE_EN": "الخدمة (إنجليزي)",
   "TOAST.AdministrativeDevice_CREATE_SUCCESS": "تم إضافة الجهاز بنجاح",
   "TOAST.AdministrativeDevice_UPDATE_SUCCESS": "تم تحديث بيانات الجهاز بنجاح",
   "TOAST.AdministrativeDevice_DELETE_SUCCESS": "تم حذف الجهاز من النظام بنجاح",
-  "COMMON.SAVING": "جاري الحفظ",
   "COMMON.FILE_UPLOAD_INSTRUCTIONS": "اسحب وأفلت الملف هنا أو انقر للتحميل",
   "COMMON.MAX_FILE_SIZE_MB": "الحد الأقصى لحجم الملف: {{size}} ميغابايت",
   "COMMON.ALLOWED_FILE_TYPES": "أنواع الملفات المسموح بها: {{types}}",
@@ -353,7 +349,6 @@
   "COMMON.REMOVE_UPLOADED_FILE": "إزالة الملف المرفوع",
   "COMMON.FILE_UPLOADED_SUCCESS": "تم رفع الملف بنجاح",
   "COMMON.NO_FILE_UPLOADED": "لم يتم رفع أي ملف بعد",
-  "VALIDATION.FILE_REQUIRED": "يرجى رفع ملف",
   "VALIDATION.FILE_SIZE_EXCEEDED_MB": "حجم الملف يتجاوز الحد المسموح به: {{size}} ميغابايت",
   "VALIDATION.INVALID_FILE_TYPE": "نوع الملف غير صالح. الأنواع المسموح بها: {{types}}",
   "AdministrativeDevices.BASIC_INFO": "المعلومات الأساسية",
@@ -361,10 +356,7 @@
   "AdministrativeDevices.SERVICES": "الخدمات المرتبطة",
   "AdministrativeDevices.IMAGES": "الصور",
   "AdministrativeDevices.LOGO": "الشعار",
-  "AdministrativeDevices.DIR_PHOTO_URL": "رابط صورة المدير"
-
-
-
+  "AdministrativeDevices.DIR_PHOTO_URL": "رابط صورة المدير",
   "CENTERS.ABOUTAR": "حول المركز (عربي)",
   "CENTERS.ABOUTEN": "حول المركز (إنجليزي)",
   "CENTERS.DIR_NAME_AR": "اسم المدير (عربي)",
@@ -401,5 +393,6 @@
   "VIDEO.TITLE_EN": "العنوان (إنجليزي)",
   "VIDEO.ARTICLE_AR": "المقال (عربي)",
   "VIDEO.ARTICLE_EN": "المقال (إنجليزي)",
-  "VIDEO.UPLOAD_VIDEO": "رفع الفيديو"
+  "VIDEO.UPLOAD_VIDEO": "رفع الفيديو",
+  "MENU.CultureCenter": "المراكز الثقافية"
 }

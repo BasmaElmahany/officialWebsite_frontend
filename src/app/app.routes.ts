@@ -46,36 +46,37 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./GovTours/govtours.module').then(m => m.GovtoursModule)
       },
-       {
+      {
         path: 'newstypes',
         loadChildren: () =>
           import('./NewsTypes/news-type.module').then(m => m.NewsTypeModule)
       },
-       {
+      {
         path: 'news',
         loadChildren: () =>
           import('./News/news.module').then(m => m.NewsModule)
       },
-       {
+      {
         path: 'society',
         loadChildren: () =>
           import('./socialSocieties/society.module').then(m => m.SocietyModule)
       },
-        {
-          path: 'Center',
-          loadChildren: () =>
-            import('./CultureCenters/center.module').then(m => m.CenterModule)
-        },
-        {
-          path: 'administrative-devices',
-          loadChildren: () =>
-            import('./Administrative_devices/administrative-devices.module').then(m => m.AdministrativeDevicesModule)
-        }
+      {
         path: 'Center',
         loadChildren: () =>
           import('./CultureCenters/center.module').then(m => m.CenterModule)
       },
-       {
+      {
+        path: 'administrative-devices',
+        loadChildren: () =>
+          import('./Administrative_devices/administrative-devices.module').then(m => m.AdministrativeDevicesModule)
+      },
+      {
+        path: 'CultureCenter',
+        loadChildren: () =>
+          import('./CultureCenters/center.module').then(m => m.CenterModule)
+      },
+      {
         path: 'videos',
         loadChildren: () =>
           import('./Videos/video.module').then(m => m.VideoModule)

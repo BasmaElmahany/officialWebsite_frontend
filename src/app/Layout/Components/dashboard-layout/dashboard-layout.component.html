@@ -62,20 +62,26 @@
             <span class="nav-icon"><i class="fas fa-sitemap"></i></span>
             <span class="nav-text">{{ 'MENU.DIRECTORATES' | translate | async }}</span>
           </a>
-           <a class="nav-item" [routerLink]="['/dashboard','companies']" routerLinkActive="active">
+          <a class="nav-item" [routerLink]="['/dashboard','companies']" routerLinkActive="active">
             <span class="nav-icon"><i class="fas fa-building"></i></span>
             <span class="nav-text">{{ 'MENU.COMPANIES' | translate | async }}</span>
           </a>
-              <a class="nav-item" [routerLink]="['/dashboard','society']" routerLinkActive="active">
+          <a class="nav-item" [routerLink]="['/dashboard','society']" routerLinkActive="active">
             <span class="nav-icon"><i class="fas fa-users"></i></span>
             <span class="nav-text">{{ 'MENU.SOCIETY' | translate | async }}</span>
           </a>
-            <a class="nav-item" [routerLink]="['/dashboard', 'administrative-devices']" routerLinkActive="active"
-    [attr.title]="( 'MENU.ADMIN_DEVICES' | translate | async )">
-    <span class="nav-icon"><i class="fas fa-desktop"></i></span>
-    <span class="nav-text">{{ 'MENU.ADMIN_DEVICES' | translate | async }}</span>
-  </a>
-          
+          <a class="nav-item" [routerLink]="['/dashboard', 'administrative-devices']" routerLinkActive="active"
+            [attr.title]="( 'MENU.ADMIN_DEVICES' | translate | async )">
+            <span class="nav-icon"><i class="fas fa-desktop"></i></span>
+            <span class="nav-text">{{ 'MENU.ADMIN_DEVICES' | translate | async }}</span>
+          </a>
+            <a class="nav-item" [routerLink]="['/dashboard', 'CultureCenter']" routerLinkActive="active"
+            [attr.title]="( 'MENU.CultureCenter' | translate | async )">
+           <span class="nav-icon"><i class="fas fa-map"></i></span>
+            <span class="nav-text">{{ 'MENU.CultureCenter' | translate | async }}</span>
+          </a>
+
+
         </div>
 
 
@@ -83,9 +89,9 @@
         <div class="nav-section">
           <span class="section-title">{{ 'MENU.Tourism' | translate | async }}</span>
 
-          
 
-         
+
+
         </div>
 
 
@@ -99,11 +105,11 @@
           </a>
 
 
-   
- 
 
 
-        <a class="nav-item" [routerLink]="['/dashboard','govtours']" routerLinkActive="active">
+
+
+          <a class="nav-item" [routerLink]="['/dashboard','govtours']" routerLinkActive="active">
             <span class="nav-icon"><i class="fas fa-route"></i></span>
             <span class="nav-text">{{ 'MENU.GOVTOURS' | translate | async }}</span>
           </a>
@@ -112,7 +118,7 @@
             <span class="nav-icon"><i class="fas fa-video"></i></span>
             <span class="nav-text">{{ 'MENU.VIDEOS' | translate | async }}</span>
           </a>
-        
+
         </div>
 
 

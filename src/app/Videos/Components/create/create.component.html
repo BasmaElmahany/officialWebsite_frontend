@@ -1,1 +1,114 @@
-<p>create works!</p>
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+    <!-- ===== Header ===== -->
+    <div class="dialog-header">
+        <div class="title-wrap">
+            <mat-icon class="title-icon">tour</mat-icon>
+            <h2>
+                {{ i18n.currentLang === 'ar'
+                ? 'إضافة فيديو '
+                : 'Create Video' }}
+            </h2>
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- ===== Content ===== -->
+    <form [formGroup]="form" class="dialog-content">
+
+        <!-- Date -->
+        <mat-form-field appearance="outline">
+            <mat-label>
+                {{ 'VIDEO.DATE' | translate | async }} *
+            </mat-label>
+
+            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="شهر / يوم / سنة">
+
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Title AR -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>title</mat-icon>
+            <mat-label>
+                {{ 'VIDEO.TITLE_AR' | translate | async }}
+            </mat-label>
+            <input matInput formControlName="TitleAr">
+        </mat-form-field>
+
+        <!-- Title EN -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>title</mat-icon>
+            <mat-label>
+                {{ 'VIDEO.TITLE_EN' | translate | async }}
+            </mat-label>
+            <input matInput formControlName="TitleEn">
+        </mat-form-field>
+
+        <!-- Article AR -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>description</mat-icon>
+            <mat-label>
+                {{ 'VIDEO.ARTICLE_AR' | translate | async }}
+            </mat-label>
+            <textarea matInput rows="3" formControlName="ArticleAr"></textarea>
+        </mat-form-field>
+
+        <!-- Article EN -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>description</mat-icon>
+            <mat-label>
+                {{ 'VIDEO.ARTICLE_EN' | translate | async }}
+            </mat-label>
+            <textarea matInput rows="3" formControlName="ArticleEn"></textarea>
+        </mat-form-field>
+
+        <!-- Upload Video -->
+        <div class="upload-box" (click)="videoInput.click()">
+
+            <mat-icon>videocam</mat-icon>
+            <span>
+                {{ 'VIDEO.UPLOAD_VIDEO' | translate | async }}
+            </span>
+
+            <input #videoInput type="file" accept="video/*" hidden (change)="onVideoSelected($event)">
+        </div>
+
+        <!-- Video Preview -->
+        <div class="video-preview" *ngIf="videoPreview">
+            <video [src]="videoPreview" controls muted playsinline>
+            </video>
+        </div>
+
+
+    </form>
+
+    <!-- Actions -->
+    <div class="dialog-actions">
+
+        <button mat-stroked-button color="primary" (click)="close()">
+            {{ 'GOV_TOURS.CANCEL' | translate | async }}
+        </button>
+
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="loading">
+
+            <mat-icon *ngIf="!loading">check</mat-icon>
+
+            <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate">
+            </mat-progress-spinner>
+
+            <span>
+                {{ loading
+                ? ('GOV_TOURS.SAVING' | translate | async)
+                : ('GOV_TOURS.CREATE' | translate | async)
+                }}
+            </span>
+
+        </button>
+    </div>
+
+</div>

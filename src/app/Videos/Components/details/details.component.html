@@ -1,0 +1,83 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">info</mat-icon>
+      <h2>
+        {{ i18n.currentLang === 'ar'
+        ? 'تفاصيل الفيديو'
+        : 'Video Details' }}
+      </h2>
+    </div>
+
+    <button mat-icon-button class="close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="dialog-content">
+
+    <!-- Loader -->
+    <div *ngIf="loading" class="loading-box">
+      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <ng-container *ngIf="!loading && video">
+
+      <!-- Date -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'VIDEO.DATE' | translate | async }}</mat-label>
+        <input matInput [value]="video.date | date" readonly>
+      </mat-form-field>
+
+      <!-- Title AR -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>title</mat-icon>
+        <mat-label>{{ 'VIDEO.TITLE_AR' | translate | async }}</mat-label>
+        <input matInput [value]="video.titleAr" readonly>
+      </mat-form-field>
+
+      <!-- Title EN -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>title</mat-icon>
+        <mat-label>{{ 'VIDEO.TITLE_EN' | translate | async }}</mat-label>
+        <input matInput [value]="video.titleEn" readonly>
+      </mat-form-field>
+
+      <!-- Article AR -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ 'VIDEO.ARTICLE_AR' | translate | async }}</mat-label>
+        <textarea matInput rows="4" [value]="video.articleAr" readonly></textarea>
+      </mat-form-field>
+
+      <!-- Article EN -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>description</mat-icon>
+        <mat-label>{{ 'VIDEO.ARTICLE_EN' | translate | async }}</mat-label>
+        <textarea matInput rows="4" [value]="video.articleEn" readonly></textarea>
+      </mat-form-field>
+
+      <!-- Video Preview -->
+      <div class="video-preview" *ngIf="video.videoUrl">
+        <video
+          [src]="getVideoUrl(video.videoUrl)"
+          controls
+          playsinline>
+        </video>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+    <button mat-stroked-button color="primary" (click)="close()">
+      {{ i18n.currentLang === 'ar' ? 'إغلاق' : 'Close' }}
+    </button>
+  </div>
+
+</div>

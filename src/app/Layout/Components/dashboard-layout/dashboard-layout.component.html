@@ -70,6 +70,11 @@
             <span class="nav-icon"><i class="fas fa-users"></i></span>
             <span class="nav-text">{{ 'MENU.SOCIETY' | translate | async }}</span>
           </a>
+            <a class="nav-item" [routerLink]="['/dashboard', 'administrative-devices']" routerLinkActive="active"
+    [attr.title]="( 'MENU.ADMIN_DEVICES' | translate | async )">
+    <span class="nav-icon"><i class="fas fa-desktop"></i></span>
+    <span class="nav-text">{{ 'MENU.ADMIN_DEVICES' | translate | async }}</span>
+  </a>
           
         </div>
 
@@ -93,10 +98,10 @@
             <span class="nav-text">{{ 'MENU.NEWSTYPES' | translate | async }}</span>
           </a>
 
-          <a class="nav-item" [routerLink]="['/dashboard','news']" routerLinkActive="active">
-            <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
-            <span class="nav-text">{{ 'MENU.NEWS' | translate | async }}</span>
-          </a>
+
+   
+ 
+
 
         <a class="nav-item" [routerLink]="['/dashboard','govtours']" routerLinkActive="active">
             <span class="nav-icon"><i class="fas fa-route"></i></span>

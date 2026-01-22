@@ -60,6 +60,21 @@
         <mat-label>{{ 'GOV_TOURS.ARTICLE_EN' | translate | async }}</mat-label>
         <textarea matInput rows="3" [value]="tour.articleEn" readonly></textarea>
       </mat-form-field>
+      <!-- Source AR -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.SOURCE_AR' | translate | async }}</mat-label>
+        <input matInput [value]="tour.sourceAr" readonly />
+      </mat-form-field>
+
+      <!-- Source EN -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.SOURCE_EN' | translate | async }}</mat-label>
+        <input matInput [value]="tour.sourceEn" readonly />
+      </mat-form-field>
+
+
 
       <!-- Images -->
       <div class="images-section" *ngIf="tour.photos?.length">
@@ -68,10 +83,7 @@
         </h4>
 
         <div class="images-grid">
-          <img
-            *ngFor="let img of tour.photos"
-            [src]="'https://shusha.minya.gov.eg:93' + img.photoUrl"
-            alt="tour image">
+          <img *ngFor="let img of tour.photos" [src]="'https://shusha.minya.gov.eg:93' + img.photoUrl" alt="tour image">
         </div>
       </div>
 

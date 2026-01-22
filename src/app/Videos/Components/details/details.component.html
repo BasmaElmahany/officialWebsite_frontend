@@ -60,6 +60,21 @@
         <textarea matInput rows="4" [value]="video.articleEn" readonly></textarea>
       </mat-form-field>
 
+
+       <!-- Source AR -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.SOURCE_AR' | translate | async }}</mat-label>
+        <textarea matInput rows="4" [value]="video.sourceAr" readonly></textarea>
+      </mat-form-field>
+
+      <!-- Article EN -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.SOURCE_EN' | translate | async }}</mat-label>
+        <textarea matInput rows="4" [value]="video.sourceEn" readonly></textarea>
+      </mat-form-field>
+
       <!-- Video Preview -->
       <div class="video-preview" *ngIf="video.videoUrl">
         <video

@@ -66,6 +66,23 @@
         <textarea matInput rows="3" [value]="news.articleEn" readonly></textarea>
       </mat-form-field>
 
+
+
+      
+      <!-- Article AR -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.SOURCE_AR' | translate | async }}</mat-label>
+        <textarea matInput rows="3" [value]="news.sourceAr" readonly></textarea>
+      </mat-form-field>
+
+      <!-- Article EN -->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>{{ 'GOV_TOURS.SOURCE_EN' | translate | async }}</mat-label>
+        <textarea matInput rows="3" [value]="news.sourceEn" readonly></textarea>
+      </mat-form-field>
+
       <!-- Images -->
       <div class="images-section" *ngIf="news.photos?.length">
         <h4 class="images-title">

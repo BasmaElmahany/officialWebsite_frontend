@@ -261,7 +261,9 @@
   "VIDEO.ARTICLE_AR": "Article (Arabic)",
   "VIDEO.ARTICLE_EN": "Article (English)",
   "VIDEO.UPLOAD_VIDEO": "Upload Video",
-  "MENU.CultureCenter": "Culture Centers"
+  "MENU.CultureCenter": "Culture Centers",
+  "GOV_TOURS.SOURCE_AR": "Source (Arabic)",
+  "GOV_TOURS.SOURCE_EN": "Source (English)"
   
 
 }

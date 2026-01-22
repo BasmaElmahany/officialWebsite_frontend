@@ -28,7 +28,9 @@ export class CreateComponent {
       TitleAr: ['', Validators.required],
       TitleEn: ['', Validators.required],
       ArticleAr: [''],
-      ArticleEn: ['']
+      ArticleEn: [''],
+      SourceAr: [''],
+      SourceEn: ['']
     });
   }
 
@@ -60,6 +62,8 @@ export class CreateComponent {
     formData.append('TitleEn', this.form.value.TitleEn);
     formData.append('ArticleAr', this.form.value.ArticleAr || '');
     formData.append('ArticleEn', this.form.value.ArticleEn || '');
+    formData.append('SourceAr', this.form.value.SourceAr || '');
+    formData.append('SourceEn', this.form.value.SourceEn || '');
     formData.append('Date', d.toISOString().split('T')[0]);
     formData.append('videoUrl', this.selectedVideo);
 

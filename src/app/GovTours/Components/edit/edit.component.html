@@ -6,8 +6,8 @@
       <mat-icon class="title-icon">edit</mat-icon>
       <h2>
         {{ i18n.currentLang === 'ar'
-          ? 'تعديل الجولة الحكومية'
-          : 'Edit Government Tour' }}
+        ? 'تعديل الجولة الحكومية'
+        : 'Edit Government Tour' }}
       </h2>
     </div>
 
@@ -54,13 +54,26 @@
       <mat-label>{{ 'GOV_TOURS.ARTICLE_EN' | translate | async }}</mat-label>
       <textarea matInput rows="3" formControlName="articleEn"></textarea>
     </mat-form-field>
+    <!-- Source AR -->
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-label>
+        {{ 'GOV_TOURS.SOURCE_AR' | translate | async }}
+      </mat-label>
+      <textarea matInput rows="3" formControlName="sourceAr"></textarea>
+    </mat-form-field>
 
+    <!-- Source EN -->
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-label>
+        {{ 'GOV_TOURS.SOURCE_EN' | translate | async }}
+      </mat-label>
+      <textarea matInput rows="3" formControlName="sourceEn"></textarea>
+    </mat-form-field>
     <!-- Existing Images -->
     <div class="images-grid" *ngIf="existingPhotos.length">
-      <img
-        *ngFor="let img of existingPhotos"
-        [src]="getImageUrl(img.photoUrl)"
-        alt="tour image">
+      <img *ngFor="let img of existingPhotos" [src]="getImageUrl(img.photoUrl)" alt="tour image">
     </div>
 
     <!-- Upload New -->
@@ -84,8 +97,8 @@
       <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
       <span>
         {{ loading
-          ? ('GOV_TOURS.SAVING' | translate | async)
-          : ('GOV_TOURS.UPDATE' | translate | async)
+        ? ('GOV_TOURS.SAVING' | translate | async)
+        : ('GOV_TOURS.UPDATE' | translate | async)
         }}
       </span>
     </button>

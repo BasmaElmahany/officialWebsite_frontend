@@ -394,5 +394,7 @@
   "VIDEO.ARTICLE_AR": "المقال (عربي)",
   "VIDEO.ARTICLE_EN": "المقال (إنجليزي)",
   "VIDEO.UPLOAD_VIDEO": "رفع الفيديو",
-  "MENU.CultureCenter": "المراكز الثقافية"
+  "MENU.CultureCenter": "المراكز الثقافية",
+  "GOV_TOURS.SOURCE_AR": "مصدر الخبر (عربي)",
+  "GOV_TOURS.SOURCE_EN": "مصدر الخبر (إنجليزي)"
 }

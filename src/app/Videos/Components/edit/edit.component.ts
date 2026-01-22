@@ -31,7 +31,9 @@ export class EditComponent {
       TitleAr: ['', Validators.required],
       TitleEn: ['', Validators.required],
       ArticleAr: [''],
-      ArticleEn: ['']
+      ArticleEn: [''],
+      SourceAr: [''],
+      SourceEn: ['']
     });
 
     this.patchForm(data);
@@ -46,7 +48,10 @@ export class EditComponent {
       TitleAr: video.titleAr,
       TitleEn: video.titleEn,
       ArticleAr: video.articleAr,
-      ArticleEn: video.articleEn
+      ArticleEn: video.articleEn,
+      SourceAr: video.sourceAr || '',
+      SourceEn: video.sourceEn || ''
+
     });
 
     // existing video preview
@@ -80,6 +85,8 @@ export class EditComponent {
     fd.append('TitleEn', this.form.value.TitleEn);
     fd.append('ArticleAr', this.form.value.ArticleAr || '');
     fd.append('ArticleEn', this.form.value.ArticleEn || '');
+    fd.append('SourceAr', this.form.value.SourceAr || '');
+    fd.append('SourceEn', this.form.value.SourceEn || '');
 
     // convert date to yyyy-MM-dd (DateOnly)
     const d = new Date(this.form.value.date);

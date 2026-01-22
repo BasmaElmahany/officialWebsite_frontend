@@ -20,6 +20,8 @@ export interface GetGovTours {
   titleEn: string;
   articleAr: string;
   articleEn: string;
+  sourceAr?: string;
+  sourceEn?: string;
   photos: GovTourPhoto[];
 }
 
@@ -30,6 +32,8 @@ export interface CreateGovTour {
   titleEn: string;
   articleAr: string;
   articleEn: string;
+  sourceAr?: string;
+  sourceEn?: string;
   photos?: File[]; // multipart upload
 }
 

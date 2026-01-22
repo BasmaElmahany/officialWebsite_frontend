@@ -49,6 +49,28 @@
       <textarea matInput rows="3" formControlName="ArticleEn"></textarea>
     </mat-form-field>
 
+
+
+    <!-- Source AR -->
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-label>
+        {{ 'GOV_TOURS.SOURCE_AR' | translate | async }}
+      </mat-label>
+      <textarea matInput rows="3" formControlName="SourceAr"></textarea>
+    </mat-form-field>
+
+    <!-- Source EN -->
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-label>
+        {{ 'GOV_TOURS.SOURCE_EN' | translate | async }}
+      </mat-label>
+      <textarea matInput rows="3" formControlName="SourceEn"></textarea>
+    </mat-form-field>
+
+
+    
     <!-- Upload New Video -->
     <div class="upload-box" (click)="fileInput.click()">
       <mat-icon>videocam</mat-icon>
@@ -74,15 +96,13 @@
 
       <mat-icon *ngIf="!loading">check</mat-icon>
 
-      <mat-progress-spinner *ngIf="loading"
-                             diameter="20"
-                             mode="indeterminate">
+      <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate">
       </mat-progress-spinner>
 
       <span>
         {{ loading
-          ? ('GOV_TOURS.SAVING' | translate | async)
-          : ('GOV_TOURS.UPDATE' | translate | async)
+        ? ('GOV_TOURS.SAVING' | translate | async)
+        : ('GOV_TOURS.UPDATE' | translate | async)
         }}
       </span>
     </button>

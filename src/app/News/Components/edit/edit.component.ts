@@ -34,7 +34,9 @@ export class EditComponent implements OnInit {
       titleAr: ['', Validators.required],
       titleEn: ['', Validators.required],
       articleAr: ['', Validators.required],
-      articleEn: ['', Validators.required]
+      articleEn: ['', Validators.required],
+      sourceAr: [''],
+      sourceEn: ['']
     });
 
     this.patchForm(data);

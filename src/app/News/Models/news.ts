@@ -21,6 +21,8 @@ export interface GetNews {
   titleEn: string;
   articleAr: string;
   articleEn: string;
+  sourceAr?: string;
+  sourceEn?: string;
   photos: NewsPhoto[];
 }
 
@@ -32,6 +34,8 @@ export interface CreateNews {
   titleEn: string;
   articleAr: string;
   articleEn: string;
+  sourceAr?: string;
+  sourceEn?: string;
   photos?: File[]; // multipart upload
 }
 

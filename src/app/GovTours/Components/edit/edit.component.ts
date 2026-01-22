@@ -32,7 +32,9 @@ export class EditComponent {
       titleAr: ['', Validators.required],
       titleEn: ['', Validators.required],
       articleAr: ['', Validators.required],
-      articleEn: ['', Validators.required]
+      articleEn: ['', Validators.required],
+      sourceAr: [''],
+      sourceEn: ['']
     });
 
     this.patchForm(data);
@@ -44,7 +46,9 @@ export class EditComponent {
       titleAr: tour.titleAr,
       titleEn: tour.titleEn,
       articleAr: tour.articleAr,
-      articleEn: tour.articleEn
+      articleEn: tour.articleEn,
+      sourceAr: tour.sourceAr,
+      sourceEn: tour.sourceEn
     });
 
     this.existingPhotos = tour.photos ?? [];

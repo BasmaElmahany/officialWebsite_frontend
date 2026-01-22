@@ -67,6 +67,24 @@
             <textarea matInput rows="3" formControlName="articleEn"></textarea>
         </mat-form-field>
 
+           <!-- Source AR -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-label>
+                {{ 'GOV_TOURS.SOURCE_AR' | translate | async }}
+            </mat-label>
+            <textarea matInput rows="3" formControlName="sourceAr"></textarea>
+        </mat-form-field>
+
+        <!-- Source EN -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-label>
+                {{ 'GOV_TOURS.SOURCE_EN' | translate | async }}
+            </mat-label>
+            <textarea matInput rows="3" formControlName="sourceEn"></textarea>
+        </mat-form-field>
+
         <!-- Upload -->
         <div class="upload-box" (click)="fileInput.click()">
 

@@ -4,6 +4,8 @@ export interface Video {
     TitleEn: string;
     ArticleAr: string;
     ArticleEn: string;
+    SourceAr?: string;
+    SourceEn?: string;
     Date: Date;
     videoUrl: File;
 }
@@ -14,6 +16,8 @@ export interface VideoRead {
     titleEn: string;
     articleAr: string;
     articleEn: string;
+    sourceAr?: string;
+    sourceEn?: string;
     date: string;
     videoUrl: string;
 }

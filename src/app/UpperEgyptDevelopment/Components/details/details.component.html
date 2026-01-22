@@ -1,0 +1,73 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL" *ngIf="!loading">
+
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="title-wrap">
+      <mat-icon class="title-icon">visibility</mat-icon>
+      <h2>
+        {{ i18n.currentLang==='ar'
+        ? 'تفاصيل الملف'
+        : 'File Details' }}
+      </h2>
+    </div>
+
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="dialog-content">
+
+    <!-- Center -->
+    <mat-form-field appearance="outline">
+      <mat-label>
+        {{ 'MENU.CENTERS' | translate | async }}
+      </mat-label>
+
+      <input matInput
+             [value]="getCenterName(dataObj.centerId)"
+             readonly>
+    </mat-form-field>
+
+    <!-- Title AR -->
+    <mat-form-field appearance="outline">
+      <mat-label>العنوان عربي</mat-label>
+      <input matInput
+             [value]="dataObj.titleAr"
+             readonly>
+    </mat-form-field>
+
+    <!-- Title EN -->
+    <mat-form-field appearance="outline">
+      <mat-label>العنوان انجليزي</mat-label>
+      <input matInput
+             [value]="dataObj.titleEn"
+             readonly>
+    </mat-form-field>
+
+    <!-- File -->
+    <div class="upload-box readonly">
+      <mat-icon>picture_as_pdf</mat-icon>
+      <span>{{ fileName }}</span>
+    </div>
+
+    <!-- PDF Preview -->
+    <div class="pdf-preview" *ngIf="pdfPreview">
+
+      <iframe [src]="pdfPreview"></iframe>
+
+    </div>
+
+  </div>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+
+    <button mat-raised-button color="primary" (click)="close()">
+      {{ 'GOV_TOURS.CLOSE' | translate | async }}
+    </button>
+
+  </div>
+
+</div>

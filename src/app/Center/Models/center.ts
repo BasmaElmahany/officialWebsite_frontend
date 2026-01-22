@@ -18,6 +18,13 @@ export interface Center {
   villages?: Village[];
 }
 
+
+export interface CenterList {
+  id: string;
+  nameAr: string;
+  nameEn: string;
+}
+
 // ================= CREATE =================
 export interface CreateCenter {
   nameAr: string;

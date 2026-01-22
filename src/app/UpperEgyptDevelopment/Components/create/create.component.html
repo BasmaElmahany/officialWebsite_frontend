@@ -1,0 +1,116 @@
+<div class="create-dialog" [class.rtl]="i18n.isRTL">
+
+    <!-- ===== Header ===== -->
+    <div class="dialog-header">
+        <div class="title-wrap">
+            <mat-icon class="title-icon">tour</mat-icon>
+            <h2>
+                {{ i18n.currentLang === 'ar'
+                ? 'إضافة ملف '
+                : 'Create File' }}
+            </h2>
+        </div>
+
+        <button mat-icon-button class="close-btn" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- ===== Content ===== -->
+    <form [formGroup]="form" class="dialog-content">
+
+        <!-- News Type -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>category</mat-icon>
+
+            <mat-label>
+                {{ 'MENU.CENTERS' | translate | async }}
+            </mat-label>
+
+            <mat-select formControlName="centerId">
+                <mat-option *ngFor="let center of centersList" [value]="center.id">
+                    {{ i18n.currentLang === 'ar' ? center.nameAr : center.nameEn }}
+                </mat-option>
+            </mat-select>
+
+
+        </mat-form-field>
+        <!-- Title AR -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>title</mat-icon>
+            <mat-label>
+                {{ 'VIDEO.TITLE_AR' | translate | async }}
+            </mat-label>
+            <input matInput formControlName="titleAr">
+        </mat-form-field>
+
+        <!-- Title EN -->
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>title</mat-icon>
+            <mat-label>
+                {{ 'VIDEO.TITLE_EN' | translate | async }}
+            </mat-label>
+            <input matInput formControlName="titleEn">
+        </mat-form-field>
+
+
+
+
+
+        <!-- Upload File -->
+        <!-- Upload Box -->
+        <div class="upload-box" (click)="pdfInput.click()">
+
+            <mat-icon class="pdf-icon">picture_as_pdf</mat-icon>
+
+            <span>
+                {{ 'UPLOAD_FILE' | translate | async }}
+            </span>
+
+            <input #pdfInput type="file" accept="application/pdf" hidden (change)="onPdfSelected($event)" />
+        </div>
+
+        <!-- File Preview -->
+        <div class="pdf-preview" *ngIf="pdfPreview">
+
+            <div class="file-info">
+                <mat-icon color="warn">picture_as_pdf</mat-icon>
+                <span>{{ fileName }}</span>
+                <small>{{ fileSize }}</small>
+            </div>
+
+            <!-- PDF Viewer -->
+            <iframe [src]="pdfPreview" frameborder="0">
+            </iframe>
+
+        </div>
+
+
+
+    </form>
+
+    <!-- Actions -->
+    <div class="dialog-actions">
+
+        <button mat-stroked-button color="primary" (click)="close()">
+            {{ 'GOV_TOURS.CANCEL' | translate | async }}
+        </button>
+
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="loading">
+
+            <mat-icon *ngIf="!loading">check</mat-icon>
+
+            <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate">
+            </mat-progress-spinner>
+
+            <span>
+                {{ loading
+                ? ('GOV_TOURS.SAVING' | translate | async)
+                : ('GOV_TOURS.CREATE' | translate | async)
+                }}
+            </span>
+
+        </button>
+    </div>
+
+</div>

@@ -263,7 +263,9 @@
   "VIDEO.UPLOAD_VIDEO": "Upload Video",
   "MENU.CultureCenter": "Culture Centers",
   "GOV_TOURS.SOURCE_AR": "Source (Arabic)",
-  "GOV_TOURS.SOURCE_EN": "Source (English)"
+  "GOV_TOURS.SOURCE_EN": "Source (English)",
+  "MENU.upper-egypt-development": "Upper Egypt Development",
+  "UPLOAD_FILE": "Upload File"
   
 
 }

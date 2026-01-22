@@ -75,12 +75,16 @@
             <span class="nav-icon"><i class="fas fa-desktop"></i></span>
             <span class="nav-text">{{ 'MENU.ADMIN_DEVICES' | translate | async }}</span>
           </a>
-            <a class="nav-item" [routerLink]="['/dashboard', 'CultureCenter']" routerLinkActive="active"
+          <a class="nav-item" [routerLink]="['/dashboard', 'CultureCenter']" routerLinkActive="active"
             [attr.title]="( 'MENU.CultureCenter' | translate | async )">
-           <span class="nav-icon"><i class="fas fa-map"></i></span>
+            <span class="nav-icon"><i class="fas fa-map"></i></span>
             <span class="nav-text">{{ 'MENU.CultureCenter' | translate | async }}</span>
           </a>
-
+          <a class="nav-item" [routerLink]="['/dashboard', 'upper-egypt-development']" routerLinkActive="active"
+            [attr.title]="( 'MENU.upper-egypt-development' | translate | async )">
+            <span class="nav-icon"><i class="fas fa-map-marked-alt"></i></span>
+            <span class="nav-text">{{ 'MENU.upper-egypt-development' | translate | async }}</span>
+          </a>
 
         </div>
 
@@ -107,7 +111,10 @@
 
 
 
-
+          <a class="nav-item" [routerLink]="['/dashboard','news']" routerLinkActive="active">
+            <span class="nav-icon"><i class="fas fa-layer-group"></i></span>
+            <span class="nav-text">{{ 'MENU.NEWS' | translate | async }}</span>
+          </a>
 
           <a class="nav-item" [routerLink]="['/dashboard','govtours']" routerLinkActive="active">
             <span class="nav-icon"><i class="fas fa-route"></i></span>

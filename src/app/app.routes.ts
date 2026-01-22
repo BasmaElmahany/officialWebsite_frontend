@@ -80,6 +80,11 @@ export const routes: Routes = [
         path: 'videos',
         loadChildren: () =>
           import('./Videos/video.module').then(m => m.VideoModule)
+      },
+      {
+        path: 'upper-egypt-development',
+        loadChildren: () =>
+          import('./UpperEgyptDevelopment/upper-dev.module').then(m => m.UpperDevModule)
       }
     ]
   }

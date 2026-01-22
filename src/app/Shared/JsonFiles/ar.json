@@ -396,5 +396,7 @@
   "VIDEO.UPLOAD_VIDEO": "رفع الفيديو",
   "MENU.CultureCenter": "المراكز الثقافية",
   "GOV_TOURS.SOURCE_AR": "مصدر الخبر (عربي)",
-  "GOV_TOURS.SOURCE_EN": "مصدر الخبر (إنجليزي)"
+  "GOV_TOURS.SOURCE_EN": "مصدر الخبر (إنجليزي)",
+  "MENU.upper-egypt-development": "تنمية صعيد مصر",
+  "UPLOAD_FILE": "رفع الملف"
 }

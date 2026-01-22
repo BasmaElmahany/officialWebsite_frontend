@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Center, ApiResponse, CreateCenter } from '../Models/center';
+import { Center, ApiResponse, CreateCenter, CenterList } from '../Models/center';
 import { baseAPI } from '../../../Environment/env';
 
 @Injectable({
@@ -15,6 +15,11 @@ export class CenterService {
   getAllCenters(): Observable<Center[]> {
     return this.http
       .get<ApiResponse<Center[]>>(this.apiUrl)
+      .pipe(map(res => res.data));
+  }
+  getListCenters(): Observable<CenterList[]> {
+    return this.http
+      .get<ApiResponse<CenterList[]>>(this.apiUrl)
       .pipe(map(res => res.data));
   }
 

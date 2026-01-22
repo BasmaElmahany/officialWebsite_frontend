@@ -25,8 +25,7 @@ export class CreateComponent implements OnInit {
     public i18n: I18nService
   ) {
     this.form = this.fb.group({
-      typeId: ['', Validators.required],
-      date: ['', Validators.required],
+      centerId: ['',],
       titleAr: ['', Validators.required],
       titleEn: ['', Validators.required],
       articleAr: ['', Validators.required],

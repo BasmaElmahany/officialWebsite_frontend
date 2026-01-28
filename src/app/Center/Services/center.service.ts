@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Center, ApiResponse, CreateCenter, CenterList } from '../Models/center';
+import { Center, ApiResponse, CreateCenter, CenterList, UpdateCenter } from '../Models/center';
 import { baseAPI } from '../../../Environment/env';
 
 @Injectable({
@@ -45,13 +45,12 @@ export class CenterService {
   ============================== */
   updateCenter(
     id: string,
-    payload: CreateCenter
+    payload: UpdateCenter
   ): Observable<Center> {
     return this.http
       .put<ApiResponse<Center>>(`${this.apiUrl}/${id}`, payload)
       .pipe(map(res => res.data));
   }
-
   /* =============================
      DELETE
      API returns: data: true

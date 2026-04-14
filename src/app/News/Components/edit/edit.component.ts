@@ -53,7 +53,9 @@ export class EditComponent implements OnInit {
       titleAr: news.titleAr,
       titleEn: news.titleEn,
       articleAr: news.articleAr,
-      articleEn: news.articleEn
+      articleEn: news.articleEn,
+      sourceAr: news.sourceAr || '',
+      sourceEn: news.sourceEn || ''
     });
 
     this.existingPhotos = news.photos ?? [];

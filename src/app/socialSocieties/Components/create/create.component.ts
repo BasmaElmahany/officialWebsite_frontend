@@ -72,14 +72,23 @@ export class CreateComponent {
   /* =====================================================
      SERVICES
   ===================================================== */
-  addService(): void {
-    this.services.push(
-      this.fb.group({
-        serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
-      })
-    );
-  }
+// تأكدي إن دالة إضافة الخدمة فيها كل الحقول دي
+addService() {
+  const group = this.fb.group({
+    id: [0],
+    societyId: [''], // أو الـ ID الحالي
+    serviceAr: [''],
+    serviceEn: [''],
+    descriptionAr: [''],
+    descriptionEn: [''],
+    fees: [0],
+    placeAr: [''],
+    placeEn: [''],
+    link: [''],
+    file: ['']
+  });
+  this.services.push(group);
+}
 
   removeService(index: number): void {
     this.services.removeAt(index);

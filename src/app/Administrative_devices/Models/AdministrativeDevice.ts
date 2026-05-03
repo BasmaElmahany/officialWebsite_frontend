@@ -1,7 +1,15 @@
-export interface ApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T;
+export interface AdministrativeDeviceService {
+  id: number;
+  deviceId: string;
+  serviceAr: string;
+  serviceEn: string;
+  descriptionAr: string;
+  descriptionEn: string;
+  fees: number;
+  placeAr: string;
+  placeEn: string;
+  link: string;
+  file: string;
 }
 
 export interface AdministrativeDevice {
@@ -17,8 +25,13 @@ export interface AdministrativeDevice {
   notes?: string;
   photoUrl?: string;
   activities?: any[];
-  services?: any[];
+  services?: AdministrativeDeviceService[]; // الربط هنا
 }
 
-// السطر ده هو اللي بسببه بتطلع أخطاء الـ List والـ Edit والـ Service
 export interface AdministrativeDeviceRead extends AdministrativeDevice {}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}

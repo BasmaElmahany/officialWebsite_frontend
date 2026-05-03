@@ -72,14 +72,23 @@ export class CreateComponent  {
   /* =====================================================
      SERVICES
   ===================================================== */
-  addService(): void {
-    this.services.push(
-      this.fb.group({
-        serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
-      })
-    );
-  }
+addService(): void {
+  this.services.push(
+    this.fb.group({
+      id: [0],
+      agencyId: [''], // أو مرري الـ ID لو متاح عندك
+      serviceAr: ['', Validators.required],
+      serviceEn: ['', Validators.required],
+      descriptionAr: [''],
+      descriptionEn: [''],
+      fees: [0],
+      placeAr: [''],
+      placeEn: [''],
+      link: [''],
+      file: ['']
+    })
+  );
+}
 
   removeService(index: number): void {
     this.services.removeAt(index);

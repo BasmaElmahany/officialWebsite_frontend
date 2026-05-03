@@ -46,9 +46,17 @@ export interface CompanyActivity {
 }
 
 export interface CompanyService {
+  id: number;
   serviceAr: string;
   serviceEn: string;
-  file?: File;
+  descriptionAr: string;
+  descriptionEn: string;
+  fees: number;
+  placeAr: string;
+  placeEn: string;
+  link: string;
+  file: string;
+  companyId: string;
 }
 
 export interface ApiResponse<T> {

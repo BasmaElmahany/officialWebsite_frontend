@@ -14,7 +14,7 @@ export interface socialSocieties {
   photoUrl?: string;
   dirPhotoUrl?: string;
   activities?: socialSocietiesActivity[];
-  services?: socialSocietiesService[];
+  services?: SocialSocietiesService[];
   managerName?: {
     ar: string;
     en: string;
@@ -37,7 +37,7 @@ export interface socialSocietiesRead {
   faxNumber?: string;
   link?: string;
   activities?: socialSocietiesActivity[];
-  services?: socialSocietiesService[];
+  services?: SocialSocietiesService[];
 }
 
 export interface socialSocietiesActivity {
@@ -45,10 +45,18 @@ export interface socialSocietiesActivity {
   activityEn: string;
 }
 
-export interface socialSocietiesService {
+export interface SocialSocietiesService {
+  id: number;
+  societyId: string;
   serviceAr: string;
   serviceEn: string;
-  file?: File;
+  descriptionAr: string;
+  descriptionEn: string;
+  fees: number;
+  placeAr: string;
+  placeEn: string;
+  link: string;
+  file: string; // هنا string لأن السيرفر بيتعامل معاها كـ Path أو URL
 }
 
 export interface ApiResponse<T> {

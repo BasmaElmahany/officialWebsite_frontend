@@ -63,15 +63,34 @@ export class CreateComponent implements OnInit {
     this.activities.removeAt(index);
   }
 
-  addService() {
-    this.services.push(this.fb.group({
-      serviceAr: ['', Validators.required],
-      serviceEn: ['', Validators.required]
-    }));
+  addService(): void {
+    this.services.push(
+      this.fb.group({
+        id: [0],
+        deviceId: [''], 
+        serviceAr: ['', Validators.required],
+        serviceEn: ['', Validators.required],
+        descriptionAr: [''],
+        descriptionEn: [''],
+        fees: [0],
+        placeAr: [''],
+        placeEn: [''],
+        link: [''],
+        file: [null] // يتم تخزين كائن الملف هنا
+      })
+    );
   }
 
   removeService(index: number) {
     this.services.removeAt(index);
+  }
+
+  // 🔥 الدالة التي كانت مفقودة وتسببت في الخطأ
+  onServiceFileChange(event: any, index: number): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.services.at(index).patchValue({ file: file });
+    }
   }
 
   onPhotoChange(event: any) {
@@ -98,25 +117,34 @@ export class CreateComponent implements OnInit {
       }
     });
 
-    // 2. إضافة الأنشطة بتنسيق Index-based (لتتوافق مع الـ API)
+    // 2. إضافة الأنشطة
     this.activities.controls.forEach((ctrl, i) => {
       formData.append(`Activities[${i}].ActivityAr`, ctrl.value.activityAr);
       formData.append(`Activities[${i}].ActivityEn`, ctrl.value.activityEn);
     });
 
-    // 3. إضافة الخدمات بتنسيق Index-based
+    // 3. إضافة الخدمات (تم التحديث ليشمل كافة الحقول الجديدة)
     this.services.controls.forEach((ctrl, i) => {
-      formData.append(`Services[${i}].ServiceAr`, ctrl.value.serviceAr);
-      formData.append(`Services[${i}].ServiceEn`, ctrl.value.serviceEn);
+      const s = ctrl.value;
+      formData.append(`Services[${i}].ServiceAr`, s.serviceAr || '');
+      formData.append(`Services[${i}].ServiceEn`, s.serviceEn || '');
+      formData.append(`Services[${i}].DescriptionAr`, s.descriptionAr || '');
+      formData.append(`Services[${i}].DescriptionEn`, s.descriptionEn || '');
+      formData.append(`Services[${i}].Fees`, s.fees?.toString() || '0');
+      formData.append(`Services[${i}].PlaceAr`, s.placeAr || '');
+      formData.append(`Services[${i}].PlaceEn`, s.placeEn || '');
+      formData.append(`Services[${i}].Link`, s.link || '');
+      
+      // إضافة ملف الخدمة إذا وُجد
+      if (s.file instanceof File) {
+        formData.append(`Services[${i}].File`, s.file);
+      }
     });
 
-    // 4. إضافة الصورة
+    // 4. إضافة صورة الجهاز الأساسية
     if (this.selectedFile) {
       formData.append('Photo', this.selectedFile);
     }
-
-    // سجل البيانات للتأكد قبل الإرسال (اختياري)
-    console.log('Sending FormData for Admin Device...');
 
     this.deviceService.create(formData).subscribe({
       next: () => {

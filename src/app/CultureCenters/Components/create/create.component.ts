@@ -6,7 +6,7 @@ import { I18nService } from '../../../Shared/Services/i18n.service';
 import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
-selector: 'app-center-create',
+  selector: 'app-center-create',
 
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -164,6 +164,12 @@ export class CreateComponent {
       if (serviceAr && serviceEn) {
         formData.append(`Services[${i}].ServiceAr`, serviceAr);
         formData.append(`Services[${i}].ServiceEn`, serviceEn);
+        formData.append(`Services[${i}].DescriptionAr`, ctrl.value.descriptionAr);
+        formData.append(`Services[${i}].DescriptionEn`, ctrl.value.descriptionEn);
+        formData.append(`Services[${i}].Fees`, ctrl.value.fees);
+        formData.append(`Services[${i}].PlaceAr`, ctrl.value.placeAr);
+        formData.append(`Services[${i}].PlaceEn`, ctrl.value.placeEn);
+        formData.append(`Services[${i}].Link`, ctrl.value.link);
 
         if (this.serviceFiles[i]) {
           formData.append(`Services[${i}].File`, this.serviceFiles[i]);

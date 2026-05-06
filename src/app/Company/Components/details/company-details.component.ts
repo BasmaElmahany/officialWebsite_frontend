@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Company, CompanyRead } from '../../Models/company';
+import { Company } from '../../Models/company';
 import { CompanyService } from '../../Services/company.service';
 
 @Component({
@@ -9,73 +9,66 @@ import { CompanyService } from '../../Services/company.service';
   templateUrl: './company-details.component.html',
   styleUrls: ['./company-details.component.scss']
 })
-export class CompanyDetailsComponent {
+export class CompanyDetailsComponent implements OnInit {
   loading = true;
-  company?: Company;
+  company?: any; // تم استخدام any أو CompanyRead لضمان قراءة الحقول الجديدة
+  readonly baseUrl = 'https://shusha.minya.gov.eg:93';
 
   constructor(
     private companyService: CompanyService,
     private dialogRef: MatDialogRef<CompanyDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Company,
     public i18n: I18nService
-  ) {
-    // ✅ Always re-fetch by id to ensure you have the latest/full entity
-    const id = (data as any)?.id;
+  ) { }
+
+  ngOnInit() {
+    this.loadCompanyDetails();
+  }
+
+  loadCompanyDetails() {
+    const id = (this.data as any)?.id;
 
     if (!id) {
+      this.company = this.data;
       this.loading = false;
-      this.company = data;
       return;
     }
 
     this.companyService.getbyId(id).subscribe({
       next: (c) => {
-        console.log('API Response:', c); // Log the API response
         this.company = c;
-        const raw = c as any;
-
-        c.dirPhotoUrl = this.getDirPhotoUrl(
-          raw.dirPhotoUrl ?? raw.dirphotoUrl
-        );// Assign the API response to the `company` property
-        console.log('Company Data:', this.company); // Verify the assignment
-        console.log('Company DirPhotoUrl:', this.company?.dirPhotoUrl); // Verify the `dirPhotoUrl`
         this.loading = false;
+        console.log('Detailed Company Data:', this.company);
       },
-      error: () => {
-        // Fallback to passed data if API fails
-        this.company = this.data;
-        console.log('Fallback Data:', this.company); // Log fallback data
+      error: (err) => {
+        console.error('Error fetching details:', err);
+        this.company = this.data; // Fallback
         this.loading = false;
       }
     });
   }
 
+  /**
+   * دالة موحدة لمعالجة الروابط (صور، ملفات PDF، إلخ)
+   */
+  getFormatUrl(path?: string | { fileName: string }): string {
+    if (!path) return '';
+    
+    // إذا كان الكائن يحتوي على fileName
+    const fileName = typeof path === 'object' ? path.fileName : path;
+
+    if (fileName.startsWith('http')) return fileName;
+    
+    // التأكد من وجود / في البداية
+    const normalizedPath = fileName.startsWith('/') ? fileName : `/${fileName}`;
+    return `${this.baseUrl}${normalizedPath}`;
+  }
+
+  // دوال مساعدة لسهولة الاستخدام في الـ HTML
+  getPhotoUrl(path: any) { return this.getFormatUrl(path); }
+  getDirPhotoUrl(path: any) { return this.getFormatUrl(path); }
+
   close(): void {
     this.dialogRef.close(false);
-  }
-
-  ngOnInit() {
-    console.log('Company Data:', this.company);
-    console.log('Company DirPhotoUrl:', this.company?.dirPhotoUrl);
-  }
-
-  getPhotoUrl(photoData?: string | { fileName: string }): string {
-    if (!photoData) return '';
-    if (typeof photoData === 'string') {
-      if (photoData.startsWith('http')) return photoData;
-      return 'https://shusha.minya.gov.eg:93' + photoData;
-    }
-    // Construct URL using fileName
-    return `https://shusha.minya.gov.eg:93${photoData.fileName}`;
-  }
-
-  getDirPhotoUrl(dirphotoUrl?: string | { fileName: string }): string {
-    if (!dirphotoUrl) return '';
-    if (typeof dirphotoUrl === 'string') {
-      if (dirphotoUrl.startsWith('http')) return dirphotoUrl;
-      return 'https://shusha.minya.gov.eg:93' + dirphotoUrl; // Prepend base URL
-    }
-    // Construct URL using fileName
-    return `https://shusha.minya.gov.eg:93${dirphotoUrl.fileName}`;
   }
 }

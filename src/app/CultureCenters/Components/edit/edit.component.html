@@ -128,6 +128,7 @@
         </button>
       </div>
 
+      <!-- ===== Services (Edit Mode) ===== -->
       <div class="section">
         <h3 class="section-title">
           {{ 'CULTURE_CENTERS.SERVICES' | translate | async }}
@@ -135,6 +136,7 @@
 
         <div formArrayName="services">
           <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
+            
             <mat-form-field appearance="outline">
               <mat-label>{{ 'CULTURE_CENTERS.SERVICE_NAME_AR' | translate | async }}</mat-label>
               <input matInput formControlName="serviceAr">
@@ -145,19 +147,56 @@
               <input matInput formControlName="serviceEn">
             </mat-form-field>
 
-            <a *ngIf="serviceFileUrls[i]" [href]="serviceFileUrls[i]" target="_blank" class="pdf-link">
-              {{ 'COMMON.VIEW_CURRENT_FILE' | translate | async }}
-            </a>
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CULTURE_CENTERS.DESCRIPTION_AR' | translate | async }}</mat-label>
+              <textarea matInput formControlName="descriptionAr"></textarea>
+            </mat-form-field>
 
-            <input type="file" accept="application/pdf" (change)="onServiceFileChange($event, i)">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CULTURE_CENTERS.DESCRIPTION_EN' | translate | async }}</mat-label>
+              <textarea matInput formControlName="descriptionEn"></textarea>
+            </mat-form-field>
 
-            <button mat-icon-button color="warn" type="button" (click)="removeService(i)">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CULTURE_CENTERS.FEES' | translate | async }}</mat-label>
+              <input matInput type="number" formControlName="fees">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CULTURE_CENTERS.PLACE_AR' | translate | async }}</mat-label>
+              <input matInput formControlName="placeAr">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CULTURE_CENTERS.PLACE_EN' | translate | async }}</mat-label>
+              <input matInput formControlName="placeEn">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'CULTURE_CENTERS.LINK' | translate | async }}</mat-label>
+              <input matInput formControlName="link">
+            </mat-form-field>
+
+            <!-- عرض الملف الحالي إن وجد -->
+            <div class="file-management" *ngIf="serviceFileUrls[i]">
+              <a [href]="serviceFileUrls[i]" target="_blank" class="pdf-link">
+                <mat-icon>visibility</mat-icon>
+                {{ 'COMMON.VIEW_CURRENT_FILE' | translate | async }}
+              </a>
+            </div>
+
+            <div class="file-upload">
+              <label>{{ 'COMMON.UPLOAD_NEW_FILE' | translate | async }}</label>
+              <input type="file" accept="application/pdf" (change)="onServiceFileChange($event, i)">
+            </div>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeService(i)" class="remove-btn">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
         </div>
 
-        <button mat-stroked-button type="button" (click)="addService()">
+        <button mat-stroked-button type="button" (click)="addService()" class="add-btn">
           <mat-icon>add</mat-icon>
           {{ 'COMMON.ADD' | translate | async }}
         </button>

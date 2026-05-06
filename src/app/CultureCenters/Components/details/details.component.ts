@@ -27,14 +27,19 @@ export class DetailsComponent implements OnInit {
       return;
     }
 
-    // تحديد نوع res و err يدوياً لحل أخطاء الـ compiler
     this.centerService.getById(id).subscribe({
       next: (res: CultureCenter) => {
-        // معالجة dirphotoUrl القادمة من الـ API
+        // نضمن أن كائن الـ center يحتوي على كل الحقول الجديدة القادمة من الـ API
         this.center = {
           ...res,
-          dirPhotoUrl: (res as any).dirphotoUrl || (res as any).dirPhotoUrl
+          // معالجة مشكلة الـ Case sensitivity في رابط صورة المدير
+          dirPhotoUrl: (res as any).dirphotoUrl || (res as any).dirPhotoUrl,
+          // نضمن أن المصفوفات موجودة حتى لو كانت فارغة لتجنب أخطاء الـ *ngFor
+          services: res.services || [],
+          activities: res.activities || []
         };
+        
+        console.log('Center Details Loaded:', this.center);
         this.loading = false;
       },
       error: (err: any) => {
@@ -48,9 +53,18 @@ export class DetailsComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  /**
+   * تنسيق روابط الصور والملفات
+   * سيعمل هذا مع الصور الشخصية وأيضاً مع ملفات الـ PDF الخاصة بالخدمات
+   */
   formatImageUrl(url?: string): string {
     if (!url) return 'assets/images/default-placeholder.png';
     if (url.startsWith('http')) return url;
-    return `https://shusha.minya.gov.eg:93${url.startsWith('/') ? '' : '/'}${url}`;
+    
+    // تأكد من وجود الـ Base URL الصحيح للملفات
+    const baseUrl = 'https://shusha.minya.gov.eg:93';
+    const separator = url.startsWith('/') ? '' : '/';
+    
+    return `${baseUrl}${separator}${url}`;
   }
 }

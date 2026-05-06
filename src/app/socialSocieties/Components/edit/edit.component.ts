@@ -118,7 +118,14 @@ export class EditComponent implements OnInit {
       this.services.push(
         this.fb.group({
           serviceAr: [s.serviceAr, Validators.required],
-          serviceEn: [s.serviceEn, Validators.required]
+          serviceEn: [s.serviceEn, Validators.required],
+          descriptionAr: [s.descriptionAr || ''],
+          descriptionEn: [s.descriptionEn || ''],
+          fees: [s.fees ?? 0],
+          placeAr: [s.placeAr || ''],
+          placeEn: [s.placeEn || ''],
+          link: [s.link || ''],
+          file: [null]
         })
       );
 
@@ -149,7 +156,14 @@ export class EditComponent implements OnInit {
     this.services.push(
       this.fb.group({
         serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
+        serviceEn: ['', Validators.required],
+        descriptionAr: [''],
+        descriptionEn: [''],
+        fees: [0],
+        placeAr: [''],
+        placeEn: [''],
+        link: [''],
+        file: [null]
       })
     );
   }

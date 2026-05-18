@@ -53,9 +53,10 @@ export class CreateComponent implements OnInit {
   }
 
   addActivity() {
+    // جعلنا الحقول هنا اختيارية لضمان عدم تعطيل زر الحفظ إذا لم يتم ملؤها
     this.activities.push(this.fb.group({
-      activityAr: ['', Validators.required],
-      activityEn: ['', Validators.required]
+      activityAr: [''], 
+      activityEn: ['']
     }));
   }
 
@@ -68,15 +69,15 @@ export class CreateComponent implements OnInit {
       this.fb.group({
         id: [0],
         deviceId: [''], 
-        serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required],
+        serviceAr: ['', Validators.required], // تأكد من ملء هذا الحقل عند إضافة خدمة
+        serviceEn: ['', Validators.required], // تأكد من ملء هذا الحقل عند إضافة خدمة
         descriptionAr: [''],
         descriptionEn: [''],
         fees: [0],
         placeAr: [''],
         placeEn: [''],
         link: [''],
-        file: [null] // يتم تخزين كائن الملف هنا
+        file: [null]
       })
     );
   }
@@ -85,7 +86,6 @@ export class CreateComponent implements OnInit {
     this.services.removeAt(index);
   }
 
-  // 🔥 الدالة التي كانت مفقودة وتسببت في الخطأ
   onServiceFileChange(event: any, index: number): void {
     const file = event.target.files[0];
     if (file) {
@@ -103,45 +103,53 @@ export class CreateComponent implements OnInit {
   submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      // تنبيه المستخدم للحقول الناقصة إذا كان الزر مفعلاً والنموذج غير صالح
+      this.toast.error(this.i18n.currentLang === 'ar' ? 'يرجى ملء الحقول المطلوبة' : 'Please fill required fields');
       return;
     }
+    
     this.loading = true;
-
     const formData = new FormData();
     const rawValues = this.form.getRawValue();
 
-    // 1. إضافة الحقول الأساسية
-    Object.keys(rawValues).forEach(key => {
-      if (key !== 'activities' && key !== 'services' && rawValues[key] != null) {
-        formData.append(key, rawValues[key]);
-      }
-    });
+    // 1. إضافة الحقول الأساسية مع ضمان التنسيق الصحيح للسيرفر
+    formData.append('NameAr', rawValues.nameAr);
+    formData.append('NameEn', rawValues.nameEn);
+    formData.append('SerialNumber', rawValues.serialNumber || '');
+    formData.append('Type', rawValues.type || '');
+    formData.append('Status', rawValues.status || '');
+    formData.append('Location', rawValues.location || '');
+    formData.append('PurchaseDate', rawValues.purchaseDate || '');
+    formData.append('WarrantyEndDate', rawValues.warrantyEndDate || '');
+    formData.append('Notes', rawValues.notes || '');
 
     // 2. إضافة الأنشطة
     this.activities.controls.forEach((ctrl, i) => {
-      formData.append(`Activities[${i}].ActivityAr`, ctrl.value.activityAr);
-      formData.append(`Activities[${i}].ActivityEn`, ctrl.value.activityEn);
+      formData.append(`Activities[${i}].ActivityAr`, ctrl.value.activityAr || '');
+      formData.append(`Activities[${i}].ActivityEn`, ctrl.value.activityEn || '');
     });
 
-    // 3. إضافة الخدمات (تم التحديث ليشمل كافة الحقول الجديدة)
+    // 3. إضافة الخدمات
     this.services.controls.forEach((ctrl, i) => {
       const s = ctrl.value;
       formData.append(`Services[${i}].ServiceAr`, s.serviceAr || '');
       formData.append(`Services[${i}].ServiceEn`, s.serviceEn || '');
       formData.append(`Services[${i}].DescriptionAr`, s.descriptionAr || '');
       formData.append(`Services[${i}].DescriptionEn`, s.descriptionEn || '');
-      formData.append(`Services[${i}].Fees`, s.fees?.toString() || '0');
+      
+      const feesValue = (s.fees !== null && s.fees !== undefined) ? s.fees.toString() : "0";
+      formData.append(`Services[${i}].Fees`, feesValue);
+      
       formData.append(`Services[${i}].PlaceAr`, s.placeAr || '');
       formData.append(`Services[${i}].PlaceEn`, s.placeEn || '');
       formData.append(`Services[${i}].Link`, s.link || '');
       
-      // إضافة ملف الخدمة إذا وُجد
       if (s.file instanceof File) {
         formData.append(`Services[${i}].File`, s.file);
       }
     });
 
-    // 4. إضافة صورة الجهاز الأساسية
+    // 4. الصورة الأساسية
     if (this.selectedFile) {
       formData.append('Photo', this.selectedFile);
     }
@@ -154,7 +162,8 @@ export class CreateComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false;
-        this.toast.error(this.i18n.currentLang === 'ar' ? 'فشل في الحفظ' : 'Save Failed');
+        // راجع الـ Network Tab لمعرفة سبب الـ 500 بالتحديد
+        this.toast.error(this.i18n.currentLang === 'ar' ? 'فشل في الحفظ (خطأ من السيرفر)' : 'Save Failed (Server Error)');
         console.error('Create failed', err);
       }
     });

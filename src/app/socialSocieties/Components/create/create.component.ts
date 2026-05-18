@@ -77,15 +77,15 @@ addService() {
   const group = this.fb.group({
     id: [0],
     societyId: [''], // أو الـ ID الحالي
-    serviceAr: [''],
-    serviceEn: [''],
+    serviceAr: ['', Validators.required],
+    serviceEn: ['', Validators.required],
     descriptionAr: [''],
     descriptionEn: [''],
     fees: [0],
     placeAr: [''],
     placeEn: [''],
     link: [''],
-    file: ['']
+    file: [null]
   });
   this.services.push(group);
 }

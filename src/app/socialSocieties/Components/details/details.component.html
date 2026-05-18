@@ -121,11 +121,47 @@
           {{ 'SOCIAL_SOCIETIES.SERVICES' | translate | async }}
         </h3>
 
-        <ul>
-          <li *ngFor="let service of society?.services">
-            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
-          </li>
-        </ul>
+        <div *ngFor="let service of society?.services" class="service-details-box">
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.SERVICE_AR' | translate | async }}:</b>
+            <span>{{ service.serviceAr }}</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.SERVICE_EN' | translate | async }}:</b>
+            <span>{{ service.serviceEn }}</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.DESCRIPTION_AR' | translate | async }}:</b>
+            <span>{{ service.descriptionAr }}</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.DESCRIPTION_EN' | translate | async }}:</b>
+            <span>{{ service.descriptionEn }}</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.FEES' | translate | async }}:</b>
+            <span>{{ service.fees }}</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.PLACE_AR' | translate | async }}:</b>
+            <span>{{ service.placeAr }}</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.PLACE_EN' | translate | async }}:</b>
+            <span>{{ service.placeEn }}</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.LINK' | translate | async }}:</b>
+            <a *ngIf="service.link" [href]="service.link" target="_blank">{{ service.link }}</a>
+            <span *ngIf="!service.link">-</span>
+          </div>
+          <div class="service-row">
+            <b>{{ 'SOCIAL_SOCIETIES.UPLOAD_FILE' | translate | async }}:</b>
+            <a *ngIf="service.file" [href]="getServiceFileUrl(service.file)" target="_blank">📄 {{ 'SOCIAL_SOCIETIES.VIEW_FILE' | translate | async }}</a>
+            <span *ngIf="!service.file">-</span>
+          </div>
+          <hr>
+        </div>
       </div>
     </div>
   </div>

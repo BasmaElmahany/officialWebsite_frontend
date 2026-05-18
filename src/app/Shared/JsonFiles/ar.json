@@ -509,7 +509,39 @@
 "ADMIN_DEVICES.LINK": "رابط الموقع الإلكتروني",
 "ADMIN_DEVICES.FEES": "الرسوم",
 "ADMIN_DEVICES.UPLOAD_FILE": "رفع ملف",
-"ADMIN_DEVICES.REMOVE_FILE": "إزالة الملف"
+"ADMIN_DEVICES.REMOVE_FILE": "إزالة الملف",
+"DESCRIPTION": "وصف الخدمة",
+"PLACE": "مكان تقديم الخدمة",
+"COMMON.UPLOAD_NEW_FILE": "رفع ملف جديد",
+"COMMON.ADDITIONAL_FILES": "ملفات إضافية",
+"COMMON.ADD_SERVICE": "إضافة خدمة جديدة",
+"COMMON.VIEW_CURRENT_FILE": "عرض الملف الحالي",
+"COMMON.REMOVE_CURRENT_FILE": "إزالة الملف الحالي",
+"CULTURE_CENTERS.PLACE_AR": "مكان تقديم الخدمة (عربي)",
+"CULTURE_CENTERS.PLACE_EN": "مكان تقديم الخدمة (إنجليزي)",
+"CULTURE_CENTERS.DESCRIPTION_AR": "وصف المركز الثقافي (عربي)",
+"CULTURE_CENTERS.DESCRIPTION_EN": "وصف المركز الثقافي (إنجليزي)",
+"CULTURE_CENTERS.FEES_AR": "الرسوم (عربي)",
+"CULTURE_CENTERS.FEES_EN": "الرسوم (إنجليزي)",
+"CULTURE_CENTERS.LINK": "رابط الموقع الإلكتروني",
+"CULTURE_CENTERS.FEES": "الرسوم",
+"CULTURE_CENTERS.UPLOAD_FILE": "رفع ملف",
+"COMMON.VIEW_FILE": "عرض الملف",
+"COMMON.REMOVE_FILE": "إزالة الملف",
+"CULTURE_CENTERS.PLACE": "مكان تقديم الخدمة",
+"CULTURE_CENTERS.DESCRIPTION": "وصف المركز الثقافي",
+"CULTURE_CENTERS.FEES": "الرسوم",
+"CULTURE_CENTERS.LINK": "رابط الموقع الإلكتروني",
+"COMMON.ATTACHMENTS": "المرفقات",
+"COMMON.ADD_ATTACHMENT": "إضافة مرفق",
+"COMMON.REMOVE_ATTACHMENT": "إزالة المرفق",
+"COMMON.VIEW_ATTACHMENT": "عرض المرفق"
+
+
+
+
+
+
 
 
 

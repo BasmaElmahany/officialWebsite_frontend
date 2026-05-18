@@ -1,82 +1,72 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { I18nService } from '../../../Shared/Services/i18n.service';
-import { Directorate } from '../../Models/directorate';
+import { DirectorateRead } from '../../Models/directorate';
 import { DirectorateService } from '../../Services/directorate.service';
 
 @Component({
   selector: 'app-details',
-
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit {
   loading = true;
-  directorate?: Directorate;
+  directorate?: DirectorateRead;
 
   constructor(
     private directorateService: DirectorateService,
     private dialogRef: MatDialogRef<DetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Directorate,
+    @Inject(MAT_DIALOG_DATA) public data: { id: string }, // نتوقع استقبال الـ ID فقط لجلب البيانات الطازجة
     public i18n: I18nService
-  ) {
-    // ✅ Always re-fetch by id to ensure you have the latest/full entity
-    const id = (data as any)?.id;
+  ) {}
 
-    if (!id) {
-      this.loading = false;
-      this.directorate = data;
-      return;
-    }
+  ngOnInit(): void {
+    this.loadDetails();
+  }
 
-    this.directorateService.getbyId(id).subscribe({
-      next: (c) => {
-        console.log('API Response:', c); // Log the API response
-        this.directorate = c;
-        const raw = c as any;
-
-        c.dirPhotoUrl = this.getDirPhotoUrl(
-          raw.dirPhotoUrl ?? raw.dirphotoUrl
-        );// Assign the API response to the `directorate` property
-        console.log('Directorate Data:', this.directorate); // Verify the assignment
-        console.log('Directorate DirPhotoUrl:', this.directorate?.dirPhotoUrl); // Verify the `dirPhotoUrl`
+  /**
+   * جلب تفاصيل المديرية بالكامل لضمان ظهور كافة الحقول (الخدمات، الرسوم، إلخ)
+   */
+  loadDetails(): void {
+    this.loading = true;
+    this.directorateService.getbyId(this.data.id).subscribe({
+      next: (res) => {
+        // معالجة البيانات القادمة لضمان مطابقة أسماء الحقول
+        const raw = res as any;
+        res.dirPhotoUrl = raw.dirPhotoUrl ?? raw.dirphotoUrl;
+        
+        this.directorate = res;
         this.loading = false;
+        console.log('Final Details Data:', this.directorate);
       },
-      error: () => {
-        // Fallback to passed data if API fails
-        this.directorate = this.data;
-        console.log('Fallback Data:', this.directorate); // Log fallback data
+      error: (err) => {
+        console.error('Error loading details:', err);
         this.loading = false;
+        this.dialogRef.close();
       }
     });
   }
 
+  /**
+   * دالة موحدة لجلب الروابط الكاملة للصور والملفات (PDF)
+   */
+  getPhotoUrl(path?: string): string {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    
+    // تأكد من استخدام الـ Base URL الصحيح الخاص بسيرفر المنيا
+    const baseUrl = 'https://shusha.minya.gov.eg:93';
+    return `${baseUrl}${path}`;
+  }
+
+  /**
+   * رابط صورة المدير (تستخدم نفس منطق الصور العام)
+   */
+  getDirPhotoUrl(path?: string): string {
+    return this.getPhotoUrl(path);
+  }
+
   close(): void {
     this.dialogRef.close(false);
-  }
-
-  ngOnInit() {
-    console.log('Directorate Data:', this.directorate);
-    console.log('Directorate DirPhotoUrl:', this.directorate?.dirPhotoUrl);
-  }
-
-  getPhotoUrl(photoData?: string | { fileName: string }): string {
-    if (!photoData) return '';
-    if (typeof photoData === 'string') {
-      if (photoData.startsWith('http')) return photoData;
-      return 'https://shusha.minya.gov.eg:93' + photoData;
-    }
-    // Construct URL using fileName
-    return `https://shusha.minya.gov.eg:93${photoData.fileName}`;
-  }
-
-  getDirPhotoUrl(dirphotoUrl?: string | { fileName: string }): string {
-    if (!dirphotoUrl) return '';
-    if (typeof dirphotoUrl === 'string') {
-      if (dirphotoUrl.startsWith('http')) return dirphotoUrl;
-      return 'https://shusha.minya.gov.eg:93' + dirphotoUrl; // Prepend base URL
-    }
-    // Construct URL using fileName
-    return `https://shusha.minya.gov.eg:93${dirphotoUrl.fileName}`;
   }
 }

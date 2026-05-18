@@ -1,14 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Agency, AgencyRead, CreateAgency } from '../../Models/agency';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AgncyService } from '../../Services/agncy.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AgencyRead } from '../../Models/agency';
+import { AgncyService } from '../../Services/agncy.service';
 import { I18nService } from '../../../Shared/Services/i18n.service';
 import { ToastService } from '../../../Shared/Services/toast/toast.service';
 
 @Component({
   selector: 'app-edit',
-
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
@@ -20,7 +19,7 @@ export class EditComponent implements OnInit {
   photoUrl?: string;
   dirPhotoUrl?: string;
   serviceFileUrls: string[] = [];
-  // files
+  
   mainPhoto?: File;
   dirPhoto?: File;
   serviceFiles: File[] = [];
@@ -30,7 +29,8 @@ export class EditComponent implements OnInit {
     private agencyService: AgncyService,
     private dialogRef: MatDialogRef<EditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
-    public i18n: I18nService, private toast: ToastService
+    public i18n: I18nService, 
+    private toast: ToastService
   ) {
     this.form = this.fb.group({
       nameAr: ['', Validators.required],
@@ -47,22 +47,17 @@ export class EditComponent implements OnInit {
       activities: this.fb.array([]),
       services: this.fb.array([])
     });
-
-
   }
 
   ngOnInit(): void {
     this.loadDirectorate();
   }
 
-
   loadDirectorate(): void {
     this.agencyService.getbyId(this.data.id).subscribe({
-      next: d => {
+      next: (d: AgencyRead) => {
         this.agency = d;
         this.patchData(d);
-        console.log('Agency API response:', d);
-        console.log('dirPhotoUrl value:', d.dirPhotoUrl);
       },
       error: () => {
         this.toast.error('TOAST.OPERATION_FAILED');
@@ -70,16 +65,10 @@ export class EditComponent implements OnInit {
       }
     });
   }
-  /* ================= GETTERS ================= */
-  get activities(): FormArray {
-    return this.form.get('activities') as FormArray;
-  }
 
-  get services(): FormArray {
-    return this.form.get('services') as FormArray;
-  }
+  get activities(): FormArray { return this.form.get('activities') as FormArray; }
+  get services(): FormArray { return this.form.get('services') as FormArray; }
 
-  /* ================= PATCH OLD DATA ================= */
   patchData(d: AgencyRead): void {
     this.form.patchValue({
       nameAr: d.nameAr,
@@ -95,72 +84,64 @@ export class EditComponent implements OnInit {
       link: d.link
     });
 
-    // images URLs
-    this.photoUrl = d.photoUrl
-      ? `https://shusha.minya.gov.eg:93${d.photoUrl}`
-      : undefined;
-    console.log(this.photoUrl);
-    this.dirPhotoUrl = (d as any).dirphotoUrl
-      ? `https://shusha.minya.gov.eg:93${(d as any).dirphotoUrl}`
+    this.photoUrl = d.photoUrl ? `https://shusha.minya.gov.eg:93${d.photoUrl}` : undefined;
+    const rawData = d as any;
+    this.dirPhotoUrl = (rawData.dirphotoUrl || rawData.dirPhotoUrl) 
+      ? `https://shusha.minya.gov.eg:93${rawData.dirphotoUrl || rawData.dirPhotoUrl}` 
       : undefined;
 
-    // activities
     d.activities?.forEach(a => {
-      this.activities.push(
-        this.fb.group({
-          activityAr: [a.activityAr, Validators.required],
-          activityEn: [a.activityEn, Validators.required]
-        })
-      );
+      this.activities.push(this.fb.group({
+        activityAr: [a.activityAr, Validators.required],
+        activityEn: [a.activityEn, Validators.required]
+      }));
     });
 
-    // services
-    d.services?.forEach(s => {
-      this.services.push(
-        this.fb.group({
-          serviceAr: [s.serviceAr, Validators.required],
-          serviceEn: [s.serviceEn, Validators.required]
-        })
-      );
-
-      this.serviceFileUrls.push(
-        s.file
-          ? `https://shusha.minya.gov.eg:93${s.file}`
-          : ''
-      );
+    d.services?.forEach((s: any, index: number) => {
+      this.services.push(this.fb.group({
+        id: [s.id || 0],
+        serviceAr: [s.serviceAr, Validators.required],
+        serviceEn: [s.serviceEn, Validators.required],
+        descriptionAr: [s.descriptionAr || ''],
+        descriptionEn: [s.descriptionEn || ''],
+        fees: [s.fees || 0],
+        placeAr: [s.placeAr || ''],
+        placeEn: [s.placeEn || ''],
+        link: [s.link || '']
+      }));
+      this.serviceFileUrls[index] = s.file ? `https://shusha.minya.gov.eg:93${s.file}` : '';
     });
-    console.log(this.form.value);
-  }
-
-  /* ================= ADD / REMOVE ================= */
-  addActivity() {
-    this.activities.push(
-      this.fb.group({
-        activityAr: ['', Validators.required],
-        activityEn: ['', Validators.required]
-      })
-    );
-  }
-
-  removeActivity(i: number) {
-    this.activities.removeAt(i);
   }
 
   addService() {
-    this.services.push(
-      this.fb.group({
-        serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
-      })
-    );
+    this.services.push(this.fb.group({
+      id: [0],
+      serviceAr: ['', Validators.required],
+      serviceEn: ['', Validators.required],
+      descriptionAr: [''],
+      descriptionEn: [''],
+      fees: [0],
+      placeAr: [''],
+      placeEn: [''],
+      link: ['']
+    }));
   }
+
+  addActivity() {
+    this.activities.push(this.fb.group({
+      activityAr: ['', Validators.required],
+      activityEn: ['', Validators.required]
+    }));
+  }
+
+  removeActivity(i: number) { this.activities.removeAt(i); }
 
   removeService(i: number) {
     this.services.removeAt(i);
+    this.serviceFileUrls.splice(i, 1);
     this.serviceFiles.splice(i, 1);
   }
 
-  /* ================= FILE HANDLERS ================= */
   onPhotoChange(e: Event) {
     const f = (e.target as HTMLInputElement).files;
     if (f?.length) this.mainPhoto = f[0];
@@ -176,58 +157,64 @@ export class EditComponent implements OnInit {
     if (f?.length) this.serviceFiles[i] = f[0];
   }
 
-  /* ================= SUBMIT ================= */
   submit(): void {
     if (this.form.invalid) {
-      
+      this.form.markAllAsTouched();
       return;
     }
 
     this.loading = true;
     const formData = new FormData();
+    const val = this.form.value;
 
-    // basic
-    Object.entries(this.form.value).forEach(([key, value]) => {
-      if (key !== 'activities' && key !== 'services' && value != null) {
-        formData.append(key, String(value));
-      }
-    });
+    formData.append('Id', this.agency.id);
+    formData.append('NameAr', val.nameAr);
+    formData.append('NameEn', val.nameEn);
+    formData.append('DirNameAr', val.dirNameAr || '');
+    formData.append('DirNameEn', val.dirNameEn || '');
+    formData.append('AddressAr', val.addressAr || '');
+    formData.append('AddressEn', val.addressEn || '');
+    formData.append('PhoneNumber1', val.phoneNumber1 || '');
+    formData.append('PhoneNumber2', val.phoneNumber2 || '');
+    formData.append('Email', val.email || '');
+    formData.append('FaxNumber', val.faxNumber || '');
+    formData.append('Link', val.link || '');
 
-    // images
     if (this.mainPhoto) formData.append('PhotoUrl', this.mainPhoto);
     if (this.dirPhoto) formData.append('DirPhotoUrl', this.dirPhoto);
 
-    // activities
-    this.activities.controls.forEach((c, i) => {
-      const { activityAr, activityEn } = c.value;
-      formData.append(`Activities[${i}].ActivityAr`, activityAr);
-      formData.append(`Activities[${i}].ActivityEn`, activityEn);
+    val.activities.forEach((a: any, i: number) => {
+      formData.append(`Activities[${i}].ActivityAr`, a.activityAr);
+      formData.append(`Activities[${i}].ActivityEn`, a.activityEn);
     });
 
-    // services
-    this.services.controls.forEach((c, i) => {
-      const { serviceAr, serviceEn } = c.value;
-      formData.append(`Services[${i}].ServiceAr`, serviceAr);
-      formData.append(`Services[${i}].ServiceEn`, serviceEn);
+    val.services.forEach((s: any, i: number) => {
+      formData.append(`Services[${i}].Id`, s.id.toString());
+      formData.append(`Services[${i}].AgencyId`, this.agency.id);
+      formData.append(`Services[${i}].ServiceAr`, s.serviceAr);
+      formData.append(`Services[${i}].ServiceEn`, s.serviceEn);
+      formData.append(`Services[${i}].DescriptionAr`, s.descriptionAr || '');
+      formData.append(`Services[${i}].DescriptionEn`, s.descriptionEn || '');
+      formData.append(`Services[${i}].Fees`, (s.fees || 0).toString());
+      formData.append(`Services[${i}].PlaceAr`, s.placeAr || '');
+      formData.append(`Services[${i}].PlaceEn`, s.placeEn || '');
+      formData.append(`Services[${i}].Link`, s.link || '');
 
       if (this.serviceFiles[i]) {
-        formData.append(`Services[${i}].File`, this.serviceFiles[i]);
+        formData.append(`Services[${i}].File`, this.serviceFiles[i], this.serviceFiles[i].name);
       }
     });
 
-    this.agencyService
-      .updateAgency(this.agency.id, formData)
-      .subscribe({
-        next: () => {
-          this.loading = true;
-          this.toast.success('TOAST.UPDATE_SUCCESS');
-          this.dialogRef.close(true);
-        },
-        error: () => {
-          this.loading = false;
-          this.toast.error('TOAST.UPDATE_FAIL');
-        }
-      });
+    this.agencyService.updateAgency(this.agency.id, formData).subscribe({
+      next: () => {
+        this.toast.success('TOAST.UPDATE_SUCCESS');
+        this.dialogRef.close(true);
+      },
+      error: () => {
+        this.loading = false;
+        this.toast.error('TOAST.UPDATE_FAIL');
+      }
+    });
   }
 
   close(): void {

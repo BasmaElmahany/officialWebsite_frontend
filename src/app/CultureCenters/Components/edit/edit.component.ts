@@ -19,6 +19,7 @@ export class EditComponent implements OnInit {
   photoUrl?: string;
   dirPhotoUrl?: string;
   serviceFileUrls: string[] = [];
+  
   // files
   mainPhoto?: File;
   dirPhoto?: File;
@@ -29,8 +30,10 @@ export class EditComponent implements OnInit {
     private centerService: CenterService,
     private dialogRef: MatDialogRef<EditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
-    public i18n: I18nService, private toast: ToastService
+    public i18n: I18nService, 
+    private toast: ToastService
   ) {
+    // بناء النموذج الأساسي
     this.form = this.fb.group({
       nameAr: ['', Validators.required],
       nameEn: ['', Validators.required],
@@ -46,22 +49,17 @@ export class EditComponent implements OnInit {
       activities: this.fb.array([]),
       services: this.fb.array([])
     });
-
-
   }
 
   ngOnInit(): void {
     this.loadSociety();
   }
 
-
   loadSociety(): void {
     this.centerService.getById(this.data.id).subscribe({
       next: (d: CultureCenterRead) => {
         this.center = d;
         this.patchData(d);
-        console.log('Center API response:', d);
-        console.log('dirPhotoUrl value:', d.dirPhotoUrl);
       },
       error: () => {
         this.toast.error('TOAST.OPERATION_FAILED');
@@ -69,6 +67,7 @@ export class EditComponent implements OnInit {
       }
     });
   }
+
   /* ================= GETTERS ================= */
   get activities(): FormArray {
     return this.form.get('activities') as FormArray;
@@ -94,16 +93,12 @@ export class EditComponent implements OnInit {
       link: d.link
     });
 
-    // images URLs
-    this.photoUrl = d.photoUrl
-      ? `https://shusha.minya.gov.eg:93${d.photoUrl}`
-      : undefined;
-    console.log(this.photoUrl);
-    this.dirPhotoUrl = (d as any).dirphotoUrl
-      ? `https://shusha.minya.gov.eg:93${(d as any).dirphotoUrl}`
-      : undefined;
+    // الصور الأساسية
+    const baseUrl = 'https://shusha.minya.gov.eg:93';
+    this.photoUrl = d.photoUrl ? `${baseUrl}${d.photoUrl}` : undefined;
+    this.dirPhotoUrl = (d as any).dirphotoUrl ? `${baseUrl}${(d as any).dirphotoUrl}` : undefined;
 
-    // activities
+    // Activities
     d.activities?.forEach((a: any) => {
       this.activities.push(
         this.fb.group({
@@ -113,22 +108,23 @@ export class EditComponent implements OnInit {
       );
     });
 
-    // services
+    // Services (تم تحديثها لإضافة الحقول الجديدة وتجنب خطأ الكونسول)
     d.services?.forEach((s: any) => {
       this.services.push(
         this.fb.group({
           serviceAr: [s.serviceAr, Validators.required],
-          serviceEn: [s.serviceEn, Validators.required]
+          serviceEn: [s.serviceEn, Validators.required],
+          descriptionAr: [s.descriptionAr || ''],
+          descriptionEn: [s.descriptionEn || ''],
+          fees: [s.fees || 0],
+          placeAr: [s.placeAr || ''],
+          placeEn: [s.placeEn || ''],
+          link: [s.link || '']
         })
       );
 
-      this.serviceFileUrls.push(
-        s.file
-          ? `https://shusha.minya.gov.eg:93${s.file}`
-          : ''
-      );
+      this.serviceFileUrls.push(s.file ? `${baseUrl}${s.file}` : '');
     });
-    console.log(this.form.value);
   }
 
   /* ================= ADD / REMOVE ================= */
@@ -149,13 +145,20 @@ export class EditComponent implements OnInit {
     this.services.push(
       this.fb.group({
         serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
+        serviceEn: ['', Validators.required],
+        descriptionAr: [''],
+        descriptionEn: [''],
+        fees: [0],
+        placeAr: [''],
+        placeEn: [''],
+        link: ['']
       })
     );
   }
 
   removeService(i: number) {
     this.services.removeAt(i);
+    this.serviceFileUrls.splice(i, 1);
     this.serviceFiles.splice(i, 1);
   }
 
@@ -177,56 +180,55 @@ export class EditComponent implements OnInit {
 
   /* ================= SUBMIT ================= */
   submit(): void {
-    if (this.form.invalid) {
-      // this.form.markAllAsTouched();
-      return;
-    }
+    if (this.form.invalid) return;
 
     this.loading = true;
     const formData = new FormData();
 
-    // basic
+    // Basic Info
     Object.entries(this.form.value).forEach(([key, value]) => {
       if (key !== 'activities' && key !== 'services' && value != null) {
         formData.append(key, String(value));
       }
     });
 
-    // images
+    // Images
     if (this.mainPhoto) formData.append('PhotoUrl', this.mainPhoto);
     if (this.dirPhoto) formData.append('DirPhotoUrl', this.dirPhoto);
 
-    // activities
+    // Activities
     this.activities.controls.forEach((c, i) => {
-      const { activityAr, activityEn } = c.value;
-      formData.append(`Activities[${i}].ActivityAr`, activityAr);
-      formData.append(`Activities[${i}].ActivityEn`, activityEn);
+      formData.append(`Activities[${i}].ActivityAr`, c.value.activityAr);
+      formData.append(`Activities[${i}].ActivityEn`, c.value.activityEn);
     });
 
-    // services
+    // Services (إرسال كافة الحقول الجديدة للسيرفر)
     this.services.controls.forEach((c, i) => {
-      const { serviceAr, serviceEn } = c.value;
-      formData.append(`Services[${i}].ServiceAr`, serviceAr);
-      formData.append(`Services[${i}].ServiceEn`, serviceEn);
+      const v = c.value;
+      formData.append(`Services[${i}].ServiceAr`, v.serviceAr);
+      formData.append(`Services[${i}].ServiceEn`, v.serviceEn);
+      formData.append(`Services[${i}].DescriptionAr`, v.descriptionAr);
+      formData.append(`Services[${i}].DescriptionEn`, v.descriptionEn);
+      formData.append(`Services[${i}].Fees`, String(v.fees));
+      formData.append(`Services[${i}].PlaceAr`, v.placeAr);
+      formData.append(`Services[${i}].PlaceEn`, v.placeEn);
+      formData.append(`Services[${i}].Link`, v.link);
 
       if (this.serviceFiles[i]) {
         formData.append(`Services[${i}].File`, this.serviceFiles[i]);
       }
     });
 
-    this.centerService
-      .update(this.center.id, formData)
-      .subscribe({
-        next: () => {
-          this.loading = true;
-          this.toast.success('TOAST.UPDATE_SUCCESS');
-          this.dialogRef.close(true);
-        },
-        error: () => {
-          this.loading = false;
-          this.toast.error('TOAST.UPDATE_FAIL');
-        }
-      });
+    this.centerService.update(this.center.id, formData).subscribe({
+      next: () => {
+        this.toast.success('TOAST.UPDATE_SUCCESS');
+        this.dialogRef.close(true);
+      },
+      error: () => {
+        this.loading = false;
+        this.toast.error('TOAST.UPDATE_FAIL');
+      }
+    });
   }
 
   close(): void {

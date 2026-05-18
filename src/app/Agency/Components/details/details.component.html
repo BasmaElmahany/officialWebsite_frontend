@@ -4,9 +4,7 @@
   <div class="dialog-header">
     <div class="title-wrap">
       <mat-icon class="title-icon">info</mat-icon>
-      <h2>
-        {{ 'AGENCY.DETAILS_TITLE' | translate | async }}
-      </h2>
+      <h2>{{ 'AGENCY.DETAILS_TITLE' | translate | async }}</h2>
     </div>
 
     <button mat-icon-button class="close-btn" (click)="close()">
@@ -17,122 +15,146 @@
   <!-- ===== Scrollable Content ===== -->
   <div class="dialog-body">
     <div class="dialog-content scroll-area">
+      
       <!-- ===== Basic Info ===== -->
       <div class="section">
         <h3 class="section-title">
           {{ 'AGENCY.BASIC_INFO' | translate | async }}
         </h3>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.NAME_AR' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.nameAr" readonly>
-        </mat-form-field>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{ 'AGENCY.NAME_AR' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.nameAr" readonly>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.NAME_EN' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.nameEn" readonly>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{ 'AGENCY.NAME_EN' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.nameEn" readonly>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.DIR_NAME_AR' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.dirNameAr" readonly>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{ 'AGENCY.DIR_NAME_AR' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.dirNameAr" readonly>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.DIR_NAME_EN' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.dirNameEn" readonly>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{ 'AGENCY.DIR_NAME_EN' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.dirNameEn" readonly>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.ADDRESS_AR' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.addressAr" readonly>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>{{ 'AGENCY.ADDRESS_AR' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.addressAr" readonly>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.ADDRESS_EN' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.addressEn" readonly>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{ 'AGENCY.EMAIL' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.email" readonly>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.EMAIL' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.email" readonly>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.PHONE_NUMBER_1' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.phoneNumber1" readonly>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.PHONE_NUMBER_2' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.phoneNumber2" readonly>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.FAX_NUMBER' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.faxNumber" readonly>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>{{ 'AGENCY.LINK' | translate | async }}</mat-label>
-          <input matInput [value]="agency?.link" readonly>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>{{ 'AGENCY.PHONE_NUMBER_1' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.phoneNumber1" readonly>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>{{ 'AGENCY.LINK' | translate | async }}</mat-label>
+            <input matInput [value]="agency?.link" readonly>
+          </mat-form-field>
+        </div>
       </div>
 
       <!-- ===== Images ===== -->
       <div class="section">
-        <h3 class="section-title">
-          {{ 'AGENCY.IMAGES' | translate | async }}
-        </h3>
-
-        <div class="file-row">
-          <label>
-            {{ 'AGENCY.LOGO' | translate | async }}
-            <div class="photo-box" *ngIf="agency?.photoUrl">
-              <img [src]="getPhotoUrl(agency?.photoUrl)" alt="صورة الشعار" />
+        <h3 class="section-title">{{ 'AGENCY.IMAGES' | translate | async }}</h3>
+        <div class="file-row d-flex gap-4">
+          <div class="preview-container" *ngIf="agency?.photoUrl">
+            <span class="d-block mb-2 small fw-bold">{{ 'AGENCY.LOGO' | translate | async }}</span>
+            <div class="photo-box">
+              <img [src]="getPhotoUrl(agency?.photoUrl)" alt="Logo" />
             </div>
-          </label>
+          </div>
 
-          <label>
-            {{ 'DIRECTORATE.DIR_PHOTO_URL' | translate | async }}
-            <div class="photo-box" *ngIf="agency?.dirPhotoUrl">
-              <img [src]="getDirPhotoUrl(agency?.dirPhotoUrl)" alt="صورة المدير" />
+          <div class="preview-container" *ngIf="agency?.dirPhotoUrl">
+            <span class="d-block mb-2 small fw-bold">{{ 'DIRECTORATE.DIR_PHOTO_URL' | translate | async }}</span>
+            <div class="photo-box">
+              <img [src]="getDirPhotoUrl(agency?.dirPhotoUrl)" alt="Director" />
             </div>
-          </label>
+          </div>
         </div>
       </div>
 
       <!-- ===== Activities ===== -->
       <div class="section">
-        <h3 class="section-title">
-          {{ 'AGENCY.ACTIVITIES' | translate | async }}
-        </h3>
-
-        <ul>
-          <li *ngFor="let activity of agency?.activities">
+        <h3 class="section-title">{{ 'AGENCY.ACTIVITIES' | translate | async }}</h3>
+        <div class="activities-list">
+          <div class="activity-item shadow-sm border p-2 mb-2 rounded" *ngFor="let activity of agency?.activities">
+            <mat-icon class="text-primary">arrow_left</mat-icon>
             {{ i18n.currentLang === 'ar' ? activity.activityAr : activity.activityEn }}
-          </li>
-        </ul>
+          </div>
+          <p *ngIf="!agency?.activities?.length" class="text-muted italic">لا توجد أنشطة مضافة</p>
+        </div>
       </div>
 
-      <!-- ===== Services ===== -->
+      <!-- ===== Services (Expanded View) ===== -->
       <div class="section">
         <h3 class="section-title">
+          <mat-icon>settings_suggest</mat-icon>
           {{ 'AGENCY.SERVICES' | translate | async }}
         </h3>
 
-        <ul>
-          <li *ngFor="let service of agency?.services">
-            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
-          </li>
-        </ul>
+        <div class="services-grid">
+          <div class="repeat-card mb-3 p-3 border rounded shadow-sm" *ngFor="let service of agency?.services; let i = index">
+            <div class="card-header d-flex justify-content-between border-bottom pb-2 mb-2">
+              <span class="fw-bold text-primary">
+                {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
+              </span>
+              <span class="badge bg-light text-dark" *ngIf="service.fees">
+                 {{ service.fees }} جنيه
+              </span>
+            </div>
+
+            <div class="service-details small">
+              <!-- الوصف -->
+              <p class="mb-2 text-secondary">
+                <strong>{{ 'DIRECTORATE.DESCRIPTION' | translate | async }}: </strong>
+                <!-- استخدام $any للهروب من خطأ Property does not exist -->
+                {{ i18n.currentLang === 'ar' ? $any(service).descriptionAr : $any(service).descriptionEn }}
+              </p>
+              
+              <div class="row">
+                <!-- المكان -->
+                <div class="col-md-6 mb-1" *ngIf="$any(service).placeAr">
+                  <strong>{{ 'DIRECTORATE.PLACE' | translate | async }}: </strong>
+                  {{ i18n.currentLang === 'ar' ? $any(service).placeAr : $any(service).placeEn }}
+                </div>
+                <!-- الرابط -->
+                <div class="col-md-6 mb-1" *ngIf="service.link">
+                  <strong>{{ 'DIRECTORATE.LINK' | translate | async }}: </strong>
+                  <a [href]="service.link" target="_blank" class="text-truncate d-inline-block shadow-none" style="max-width: 150px;">اضغط هنا</a>
+                </div>
+              </div>
+
+              <!-- ملف الخدمة - تم إضافة $any هنا لحل خطأ الـ Compiler -->
+              <div class="mt-2" *ngIf="$any(service).fileUrl">
+                <a [href]="getServiceFileUrl($any(service).fileUrl)" target="_blank" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
+                  <mat-icon class="s-18">picture_as_pdf</mat-icon>
+                  تحميل ملف الخدمة
+                </a>
+              </div>
+            </div>
+          </div>
+          <p *ngIf="!agency?.services?.length" class="text-muted italic">لا توجد خدمات مضافة</p>
+        </div>
       </div>
+
     </div>
   </div>
 
   <!-- ===== Actions ===== -->
   <div class="dialog-actions">
-    <button mat-stroked-button color="primary" type="button" (click)="close()">
+    <button mat-raised-button color="primary" type="button" (click)="close()">
       {{ 'COMMON.CLOSE' | translate | async }}
     </button>
   </div>

@@ -115,17 +115,52 @@
         </ul>
       </div>
 
-      <!-- ===== Services ===== -->
+      <!-- ===== Services (Updated to show all fields) ===== -->
       <div class="section">
         <h3 class="section-title">
           {{ 'DIRECTORATE.SERVICES' | translate | async }}
         </h3>
 
-        <ul>
-          <li *ngFor="let service of directorate?.services">
-            {{ i18n.currentLang === 'ar' ? service.serviceAr : service.serviceEn }}
-          </li>
-        </ul>
+        <div *ngFor="let service of directorate?.services" class="repeat-card mb-4 p-3 border rounded bg-light">
+          <div class="row">
+            <mat-form-field appearance="outline" class="col-md-6">
+              <mat-label>{{ 'DIRECTORATE.SERVICES_AR' | translate | async }}</mat-label>
+              <input matInput [value]="service.serviceAr" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-md-6">
+              <mat-label>{{ 'DIRECTORATE.SERVICES_EN' | translate | async }}</mat-label>
+              <input matInput [value]="service.serviceEn" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-md-4">
+              <mat-label>{{ 'DIRECTORATE.FEES' | translate | async }}</mat-label>
+              <input matInput [value]="service.fees" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-md-4">
+              <mat-label>{{ 'DIRECTORATE.PLACE_AR' | translate | async }}</mat-label>
+              <input matInput [value]="service.placeAr" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-md-4">
+              <mat-label>{{ 'DIRECTORATE.PLACE_EN' | translate | async }}</mat-label>
+              <input matInput [value]="service.placeEn" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-label>{{ 'DIRECTORATE.DESCRIPTION_AR' | translate | async }}</mat-label>
+              <textarea matInput [value]="service.descriptionAr" rows="2" readonly></textarea>
+            </mat-form-field>
+
+            <div class="col-12 mt-2" *ngIf="service.file">
+              <a [href]="getPhotoUrl(service.file)" target="_blank" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-2">
+                <mat-icon>picture_as_pdf</mat-icon>
+                {{ 'COMMON.VIEW_SERVICE_FILE' | translate | async }}
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { baseAPI } from '../../../Environment/env';
-import { Observable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { ApiResponse, CreateNews, GetNews } from '../Models/news';
 
 @Injectable({
@@ -54,6 +54,8 @@ export class NewsService {
     formData.append('titleEn', model.titleEn);
     formData.append('articleAr', model.articleAr);
     formData.append('articleEn', model.articleEn);
+    formData.append('sourceAr', model.sourceAr || '');
+    formData.append('sourceEn', model.sourceEn || '');
 
     if (model.photos?.length) {
       model.photos.forEach(file => {

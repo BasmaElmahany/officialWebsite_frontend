@@ -55,6 +55,8 @@ export class GovtoursService {
     formData.append('titleEn', model.titleEn);
     formData.append('articleAr', model.articleAr);
     formData.append('articleEn', model.articleEn);
+    formData.append('sourceAr', model.sourceAr||'');
+    formData.append('sourceEn', model.sourceEn||'');
 
     if (model.photos?.length) {
       model.photos.forEach(file => {

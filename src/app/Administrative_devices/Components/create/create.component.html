@@ -106,35 +106,80 @@
         </button>
       </div>
 
-      <div class="section">
-        <h3 class="section-title">
-          {{ 'ADMIN_DEVICES.SERVICES' | translate | async }}
-        </h3>
+     <div class="section">
+  <h3 class="section-title">
+    {{ 'ADMIN_DEVICES.SERVICES' | translate | async }}
+  </h3>
 
-        <div formArrayName="services">
-          <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
+  <!-- 🔥 Form Array Wrapper -->
+  <div formArrayName="services">
+    <div class="repeat-card" *ngFor="let s of services.controls; let i = index" [formGroupName]="i">
 
-            <mat-form-field appearance="outline">
-              <mat-label>{{ 'ADMIN_DEVICES.SERVICE_AR' | translate | async }}</mat-label>
-              <input matInput formControlName="serviceAr">
-            </mat-form-field>
+      <!-- اسم الخدمة (عربي / انجليزي) -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.SERVICE_AR' | translate | async }}</mat-label>
+        <input matInput formControlName="serviceAr">
+      </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>{{ 'ADMIN_DEVICES.SERVICE_EN' | translate | async }}</mat-label>
-              <input matInput formControlName="serviceEn">
-            </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.SERVICE_EN' | translate | async }}</mat-label>
+        <input matInput formControlName="serviceEn">
+      </mat-form-field>
 
-            <button mat-icon-button color="warn" type="button" (click)="removeService(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </div>
+      <!-- وصف الخدمة (عربي / انجليزي) -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.DESCRIPTION_AR' | translate | async }}</mat-label>
+        <textarea matInput formControlName="descriptionAr" rows="2"></textarea>
+      </mat-form-field>
 
-        <button mat-stroked-button type="button" (click)="addService()">
-          <mat-icon>add</mat-icon>
-          {{ 'COMMON.ADD' | translate | async }}
-        </button>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.DESCRIPTION_EN' | translate | async }}</mat-label>
+        <textarea matInput formControlName="descriptionEn" rows="2"></textarea>
+      </mat-form-field>
+
+      <!-- الرسوم (Fees) -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.FEES' | translate | async }}</mat-label>
+        <input matInput type="number" formControlName="fees">
+      </mat-form-field>
+
+      <!-- مكان تقديم الخدمة (عربي / انجليزي) -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.PLACE_AR' | translate | async }}</mat-label>
+        <input matInput formControlName="placeAr">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.PLACE_EN' | translate | async }}</mat-label>
+        <input matInput formControlName="placeEn">
+      </mat-form-field>
+
+      <!-- الرابط (Link) -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'ADMIN_DEVICES.LINK' | translate | async }}</mat-label>
+        <input matInput formControlName="link">
+      </mat-form-field>
+
+      <!-- رفع الملف (PDF / Images) -->
+      <div class="file-upload-section">
+        <label>{{ 'ADMIN_DEVICES.UPLOAD_FILE' | translate | async }}</label>
+        <input type="file" accept="application/pdf,image/*" (change)="onServiceFileChange($event, i)">
       </div>
+
+      <!-- زر الحذف -->
+      <button mat-icon-button color="warn" type="button" (click)="removeService(i)" class="delete-btn">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- زر إضافة خدمة جديدة -->
+  <button mat-stroked-button type="button" (click)="addService()">
+    <mat-icon>add</mat-icon>
+    {{ 'COMMON.ADD' | translate | async }}
+  </button>
+</div>
 
     </form>
   </div>

@@ -77,7 +77,14 @@ export class CompanyCreateComponent {
     this.services.push(
       this.fb.group({
         serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
+        serviceEn: ['', Validators.required],
+        descriptionAr: [''],
+        descriptionEn: [''],
+        fees: [0],
+        placeAr: [''],
+        placeEn: [''],
+        link: [''],
+        file: ['']
       })
     );
   }

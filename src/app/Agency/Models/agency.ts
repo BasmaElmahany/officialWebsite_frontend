@@ -42,9 +42,17 @@ export interface AgencyActivity {
 }
 
 export interface AgencyService {
+  id: number;
+  agencyId: string;
   serviceAr: string;
   serviceEn: string;
-  file?: File;
+  descriptionAr: string;
+  descriptionEn: string;
+  fees: number;
+  placeAr: string;
+  placeEn: string;
+  link: string;
+  file: string | File; // يقبل الملف عند الرفع والـ string عند العرض
 }
 
 export interface ApiResponse<T> {

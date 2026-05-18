@@ -43,12 +43,22 @@ export interface DirectorateRead {
 export interface DirectorateActivity {
   activityAr: string;
   activityEn: string;
+  
 }
 
 export interface DirectorateService {
+    id: number;
   serviceAr: string;
   serviceEn: string;
-  file?: File;
+  descriptionAr: string;
+  descriptionEn: string;
+  fees: number;
+  placeAr: string;
+  placeEn: string;
+  link: string;
+  file: string;
+  companyId: string;
+  
 }
 
 export interface ApiResponse<T> {

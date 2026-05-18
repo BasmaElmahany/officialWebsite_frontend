@@ -72,14 +72,22 @@ export class CreateComponent {
   /* =====================================================
      SERVICES
   ===================================================== */
-  addService(): void {
-    this.services.push(
-      this.fb.group({
-        serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
-      })
-    );
-  }
+addService() {
+  const group = this.fb.group({
+    id: [0],
+    serviceAr: [''],
+    serviceEn: [''],
+    descriptionAr: [''],
+    descriptionEn: [''],
+    fees: [0],
+    placeAr: [''],
+    placeEn: [''],
+    link: [''],
+    file: [''],
+    companyId: ['']
+  });
+  this.services.push(group);
+}
 
   removeService(index: number): void {
     this.services.removeAt(index);
@@ -154,9 +162,15 @@ export class CreateComponent {
     this.services.controls.forEach((ctrl, i) => {
       const { serviceAr, serviceEn } = ctrl.value;
 
-      if (serviceAr && serviceEn) {
+     if (serviceAr && serviceEn) {
         formData.append(`Services[${i}].ServiceAr`, serviceAr);
         formData.append(`Services[${i}].ServiceEn`, serviceEn);
+        formData.append(`Services[${i}].DescriptionAr`, ctrl.value.descriptionAr);
+        formData.append(`Services[${i}].DescriptionEn`, ctrl.value.descriptionEn);
+        formData.append(`Services[${i}].Fees`, ctrl.value.fees);
+        formData.append(`Services[${i}].PlaceAr`, ctrl.value.placeAr);
+        formData.append(`Services[${i}].PlaceEn`, ctrl.value.placeEn);
+        formData.append(`Services[${i}].Link`, ctrl.value.link);
 
         if (this.serviceFiles[i]) {
           formData.append(`Services[${i}].File`, this.serviceFiles[i]);

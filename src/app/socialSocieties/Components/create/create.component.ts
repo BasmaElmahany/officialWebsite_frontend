@@ -72,14 +72,23 @@ export class CreateComponent {
   /* =====================================================
      SERVICES
   ===================================================== */
-  addService(): void {
-    this.services.push(
-      this.fb.group({
-        serviceAr: ['', Validators.required],
-        serviceEn: ['', Validators.required]
-      })
-    );
-  }
+// تأكدي إن دالة إضافة الخدمة فيها كل الحقول دي
+addService() {
+  const group = this.fb.group({
+    id: [0],
+    societyId: [''], // أو الـ ID الحالي
+    serviceAr: [''],
+    serviceEn: [''],
+    descriptionAr: [''],
+    descriptionEn: [''],
+    fees: [0],
+    placeAr: [''],
+    placeEn: [''],
+    link: [''],
+    file: ['']
+  });
+  this.services.push(group);
+}
 
   removeService(index: number): void {
     this.services.removeAt(index);
@@ -157,6 +166,13 @@ export class CreateComponent {
       if (serviceAr && serviceEn) {
         formData.append(`Services[${i}].ServiceAr`, serviceAr);
         formData.append(`Services[${i}].ServiceEn`, serviceEn);
+        formData.append(`Services[${i}].DescriptionAr`, ctrl.value.descriptionAr);
+        formData.append(`Services[${i}].DescriptionEn`, ctrl.value.descriptionEn);
+        formData.append(`Services[${i}].Fees`, ctrl.value.fees);
+        formData.append(`Services[${i}].PlaceAr`, ctrl.value.placeAr);
+        formData.append(`Services[${i}].PlaceEn`, ctrl.value.placeEn);
+        formData.append(`Services[${i}].Link`, ctrl.value.link);
+
 
         if (this.serviceFiles[i]) {
           formData.append(`Services[${i}].File`, this.serviceFiles[i]);

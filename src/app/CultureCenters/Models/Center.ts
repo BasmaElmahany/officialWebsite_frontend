@@ -46,9 +46,17 @@ export interface CultureCenterActivity {
 }
 
 export interface CultureCenterService {
+  id: number;
   serviceAr: string;
   serviceEn: string;
-  file?: File;
+  descriptionAr: string;
+  descriptionEn: string;
+  fees: number;
+  placeAr: string;
+  placeEn: string;
+  link: string;
+  file: string;
+  centerId: string;
 }
 
 export interface ApiResponse<T> {
